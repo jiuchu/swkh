@@ -520,7 +520,7 @@ const CONFIG = {
   title: '十万狂花入梦来',
   mediaId: 1533748,                 // 灯塔专业版 mediaId
   typeCode: '2',                    // ⚠ 灯塔把本剧归在「网剧」档（mediaTypeId 2），传 '1' 那一期榜里没有它
-  doubanId: '',                     // 豆瓣条目号：还没查到，留空则不查、卡片自动退场
+  doubanId: '36977822',   // 豆瓣条目号（11-15 他给的链接）。这个条目此刻 rating.count=0，卡片会写「暂无评分」，那不是链路坏了
   premiereDate: '2026-11-15',       // 首播日，七麦那张「首播前基准」按这条切
   anchorDate: '2026-11-12',         // 定档日，下载量统计窗口的左端
   /* 热度这一路改用 heat.971014.xyz 的公开接口（剧云录迟迟没给本剧建档）。
@@ -672,7 +672,7 @@ async function loadDengta() {
   /* 播放量交给 liveLoop() 连续轮询，这里只保证首屏有数 */
   await applyDengtaLive();
   mark('灯塔', true);
-  renderKPI(); renderHotChart(); renderRankChart(); renderHonor(); renderDengtaTag();
+  renderKPI(); renderHotChart(); renderRankChart(); renderHonor(); renderDengtaTag(); renderWork();
   recordLive();
 }
 
@@ -898,7 +898,7 @@ async function loadHeatAll() {
     updatedAt: j.updatedAt || ''
   };
   if (S.jfx.cur == null && !S.heat.today.rec.length) throw new Error('热度分时还没有点');
-  renderLiveChart(); renderKPI(); renderUnlock(); renderMarch(); renderCalendar();
+  renderLiveChart(); renderKPI(); renderUnlock(); renderMarch(); renderCalendar(); renderWork();
   mark('热度分时', true);
 }
 
