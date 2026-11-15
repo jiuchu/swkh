@@ -5,8 +5,8 @@
  "asof": "2026-11-16",
  "latest": {
   "date": "2026-11-16",
-  "hm": "07:00",
-  "iso": "2026-11-16 07:00 +08",
+  "hm": "07:30",
+  "iso": "2026-11-16 07:30 +08",
   "weekRank": 3,
   "weekValue": 3597.74,
   "yearRank": null,
@@ -16,12 +16,12 @@
   {
    "rank": 1,
    "title": "谷雨",
-   "value": 4125.1
+   "value": 4125.66
   },
   {
    "rank": 2,
    "title": "嫁金钗",
-   "value": 4023.72
+   "value": 4023.63
   },
   {
    "rank": 3,
@@ -31,17 +31,17 @@
   {
    "rank": 4,
    "title": "早春晴朗",
-   "value": 3589.04
+   "value": 3589.19
   },
   {
    "rank": 5,
    "title": "鉴定",
-   "value": 3584.44
+   "value": 3584.45
   },
   {
    "rank": 6,
    "title": "无可替代",
-   "value": 3581.4
+   "value": 3581.45
   },
   {
    "rank": 7,
@@ -51,7 +51,7 @@
   {
    "rank": 8,
    "title": "九门",
-   "value": 3577.73
+   "value": 3577.78
   },
   {
    "rank": 9,
@@ -61,22 +61,22 @@
   {
    "rank": 10,
    "title": "一瓯春",
-   "value": 3568.79
+   "value": 3568.8
   },
   {
    "rank": 11,
    "title": "翘楚",
-   "value": 3566.37
+   "value": 3566.39
   },
   {
    "rank": 12,
    "title": "藏海传",
-   "value": 3565.68
+   "value": 3565.7
   },
   {
    "rank": 13,
    "title": "月鳞绮纪",
-   "value": 3564.5
+   "value": 3564.51
   },
   {
    "rank": 14,
@@ -86,7 +86,7 @@
   {
    "rank": 15,
    "title": "悬案",
-   "value": 3563.74
+   "value": 3563.75
   },
   {
    "rank": 16,
@@ -96,7 +96,7 @@
   {
    "rank": 17,
    "title": "偷偷藏不住",
-   "value": 3550.14
+   "value": 3550.23
   },
   {
    "rank": 18,
@@ -106,19 +106,19 @@
   {
    "rank": 19,
    "title": "以法之名",
-   "value": 3547.69
+   "value": 3547.71
   },
   {
    "rank": 20,
    "title": "雨霖铃",
-   "value": 3543.9
+   "value": 3543.96
   }
  ],
  "topYear": [
   {
    "rank": 1,
    "title": "嫁金钗",
-   "value": 5188.22
+   "value": 5188.25
   },
   {
    "rank": 2,
@@ -163,7 +163,7 @@
   {
    "rank": 10,
    "title": "谷雨",
-   "value": 3152.8
+   "value": 3153.24
   },
   {
    "rank": 11,
@@ -173,7 +173,7 @@
   {
    "rank": 12,
    "title": "悬案",
-   "value": 3052.08
+   "value": 3052.09
   },
   {
    "rank": 13,
@@ -183,7 +183,7 @@
   {
    "rank": 14,
    "title": "无可替代",
-   "value": 2995.4
+   "value": 2995.41
   },
   {
    "rank": 15,
@@ -488,9 +488,17 @@
    "weekValue": 3597.74,
    "yearRank": null,
    "yearValue": null
+  },
+  {
+   "date": "2026-11-16",
+   "hm": "07:30",
+   "weekRank": 3,
+   "weekValue": 3597.74,
+   "yearRank": null,
+   "yearValue": null
   }
  ],
  "fetchedAt": "2026-11-15T17:30:26.482Z",
- "lastRun": "2026-11-15T23:00:25.956Z",
+ "lastRun": "2026-11-15T23:30:26.967Z",
  "count": 20
 }
