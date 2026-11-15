@@ -1,0 +1,102 @@
+{
+ "ok": true,
+ "show": "十万狂花入梦来",
+ "showId": "adcf514e1f7b412a91e3",
+ "videoId": "XNjU5MDUwOTcyMA==",
+ "subtitle": "不问仙人妖魔情深皆痴狂",
+ "episodeLast": 4,
+ "episodeTotal": 30,
+ "releaseTime": "2026-11-15 12:00:00",
+ "packageType": [
+  "svip_ahead"
+ ],
+ "completed": false,
+ "note": "更新时间可能发生临时调整，请以实际播出为准",
+ "rows": [
+  {
+   "day": "11月15日",
+   "week": "周日",
+   "svip": "1-5集",
+   "vip": "1-4集",
+   "svipFrom": 1,
+   "svipTo": 5,
+   "vipFrom": 1,
+   "vipTo": 4,
+   "current": true,
+   "iso": "2026-11-15"
+  },
+  {
+   "day": "11月16日",
+   "week": "周一",
+   "svip": "6-7集",
+   "vip": "5-6集",
+   "svipFrom": 6,
+   "svipTo": 7,
+   "vipFrom": 5,
+   "vipTo": 6,
+   "current": false,
+   "iso": "2026-11-16"
+  },
+  {
+   "day": "11月17日",
+   "week": "周二",
+   "svip": "8-9集",
+   "vip": "7-8集",
+   "svipFrom": 8,
+   "svipTo": 9,
+   "vipFrom": 7,
+   "vipTo": 8,
+   "current": false,
+   "iso": "2026-11-17"
+  },
+  {
+   "day": "11月18日",
+   "week": "周三",
+   "svip": "10-11集",
+   "vip": "9-10集",
+   "svipFrom": 10,
+   "svipTo": 11,
+   "vipFrom": 9,
+   "vipTo": 10,
+   "current": false,
+   "iso": "2026-11-18"
+  },
+  {
+   "day": "11月19日",
+   "week": "周四",
+   "svip": "12-13集",
+   "vip": "11-12集",
+   "svipFrom": 12,
+   "svipTo": 13,
+   "vipFrom": 11,
+   "vipTo": 12,
+   "current": false,
+   "iso": "2026-11-19"
+  },
+  {
+   "day": "11月20日",
+   "week": "周五",
+   "svip": "14-15集",
+   "vip": "13-14集",
+   "svipFrom": 14,
+   "svipTo": 15,
+   "vipFrom": 13,
+   "vipTo": 14,
+   "current": false,
+   "iso": "2026-11-20"
+  },
+  {
+   "day": "11月21日",
+   "week": "周六",
+   "svip": "16-17集",
+   "vip": "15-16集",
+   "svipFrom": 16,
+   "svipTo": 17,
+   "vipFrom": 15,
+   "vipTo": 16,
+   "current": false,
+   "iso": "2026-11-21"
+  }
+ ],
+ "lastRun": "2026-11-15T13:24:35.623Z"
+}

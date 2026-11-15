@@ -1,0 +1,2158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="《十万狂花入梦来》数据看板：优酷实时热度与逐日曲线、优酷剧集热度榜、灯塔正片播放量与市占、百度指数、优酷畅销榜">
+<title>十万狂花入梦来 · 数据看板</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>:root{
+  --ink:#05060b;
+  --ink-2:#0a0c15;
+  --glass:rgba(255,255,255,.045);
+  --glass-hi:rgba(255,255,255,.09);
+  --line:rgba(255,255,255,.09);
+  --txt:#f4f6fc;
+  --dim:#adb6cd;
+  --dimmer:#8e97b0;
+  --gold:#ffc861;
+  --ember:#ff5f43;
+  --iqiyi:#00d98a;
+  --tencent:#4f9dff;
+  --ok:#3ddc97;
+  --warn:#ffb020;
+  --bad:#ff5c5c;
+  --r:18px;
+  --shadow:0 18px 50px -18px rgba(0,0,0,.85);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--ink);color:var(--txt);
+  font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",system-ui,-apple-system,"Segoe UI",sans-serif;
+  min-height:100vh;overflow-x:hidden;line-height:1.5;
+}
+.serif{font-family:"Songti SC","STSong","SimSun","Noto Serif SC",serif}
+
+/* ---------- backdrop ---------- */
+.bg{position:fixed;inset:0;z-index:-2;background:
+  radial-gradient(1100px 620px at 12% -8%,rgba(255,95,67,.20),transparent 62%),
+  radial-gradient(900px 560px at 88% 4%,rgba(255,200,97,.14),transparent 60%),
+  radial-gradient(1000px 700px at 50% 108%,rgba(79,157,255,.13),transparent 65%),
+  linear-gradient(180deg,var(--ink) 0%,var(--ink-2) 60%,var(--ink) 100%);}
+.stars{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5}
+.stars i{position:absolute;width:2px;height:2px;border-radius:50%;background:#fff;
+  box-shadow:0 0 6px rgba(255,255,255,.8);animation:tw 4s ease-in-out infinite}
+@keyframes tw{0%,100%{opacity:.12;transform:scale(.6)}50%{opacity:.85;transform:scale(1.25)}}
+.ember{position:fixed;bottom:-40px;border-radius:50%;pointer-events:none;z-index:-1;
+  background:radial-gradient(circle,rgba(255,150,80,.55),transparent 70%);
+  animation:rise linear infinite;filter:blur(1px)}
+@keyframes rise{0%{transform:translateY(0) translateX(0);opacity:0}
+  10%{opacity:.8}90%{opacity:.15}100%{transform:translateY(-105vh) translateX(60px);opacity:0}}
+
+.wrap{max-width:1320px;margin:0 auto;padding:26px 20px 60px}
+
+/* ---------- hero ---------- */
+.hero{position:relative;display:flex;gap:30px;align-items:flex-end;flex-wrap:wrap;
+  padding:34px 34px 30px;margin-bottom:26px;border-radius:24px;
+  background:linear-gradient(135deg,rgba(255,95,67,.13),rgba(255,200,97,.06) 45%,rgba(255,255,255,.02));
+  border:1px solid var(--line);box-shadow:var(--shadow);overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;
+  background:repeating-linear-gradient(115deg,transparent 0 22px,rgba(255,255,255,.018) 22px 44px);pointer-events:none}
+.hero::after{content:"";position:absolute;left:0;right:0;top:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--ember),var(--gold),transparent)}
+.poster-box{position:relative;flex:0 0 auto}
+.poster{width:172px;height:242px;object-fit:cover;border-radius:14px;display:block;
+  border:1px solid rgba(255,200,97,.35);box-shadow:0 22px 45px -14px rgba(0,0,0,.9);
+  background:#111;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.poster:hover{transform:translateY(-6px) scale(1.02)}
+.poster-badge{position:absolute;top:-9px;right:-9px;padding:5px 11px;border-radius:999px;
+  background:linear-gradient(135deg,var(--ember),#ff8a3c);font-size:.72rem;font-weight:700;
+  letter-spacing:.5px;box-shadow:0 6px 18px -4px rgba(255,95,67,.7)}
+.hero-main{flex:1 1 420px;min-width:300px;position:relative;z-index:1}
+.hero-kicker{font-size:.78rem;letter-spacing:.32em;color:var(--gold);text-transform:uppercase;margin-bottom:10px}
+h1{font-size:clamp(2.3rem,5.4vw,3.6rem);font-weight:800;letter-spacing:.06em;line-height:1.12;
+  background:linear-gradient(120deg,#fff 15%,var(--gold) 55%,var(--ember) 95%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 4px}
+.chip{padding:5px 12px;border-radius:999px;font-size:.8rem;color:#dfe4f2;
+  background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(8px)}
+.chip b{color:var(--gold);font-weight:600}
+.byline{margin-top:14px;font-size:.86rem;color:var(--dim)}
+.byline a{color:var(--gold);text-decoration:none;border-bottom:1px dashed rgba(255,200,97,.4)}
+
+/* ---------- march progress ---------- */
+.march{flex:1 1 100%;margin-top:8px;position:relative;z-index:1}
+.march-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:9px}
+.march-label{font-size:.82rem;color:var(--dim);letter-spacing:.16em}
+.march-label b{color:var(--txt);font-weight:600;letter-spacing:0}
+.countdown{font-variant-numeric:tabular-nums;font-size:.9rem;color:var(--gold);font-weight:600}
+.march-sub{margin-top:9px;font-size:.75rem;line-height:1.6;color:var(--dim)}
+.track{position:relative;height:9px;border-radius:99px;background:rgba(255,255,255,.07);overflow:visible}
+.track-fill{position:absolute;inset:0 auto 0 0;border-radius:99px;width:0;
+  background:linear-gradient(90deg,var(--ember),var(--gold));
+  transition:width 1.1s cubic-bezier(.2,.9,.25,1);box-shadow:0 0 18px rgba(255,150,60,.55)}
+.track-head{position:absolute;top:50%;left:0;width:15px;height:15px;margin:-7.5px 0 0 -7.5px;border-radius:50%;
+  background:#fff;box-shadow:0 0 0 3px rgba(255,200,97,.35),0 0 18px 4px rgba(255,180,80,.7);
+  transition:left 1.1s cubic-bezier(.2,.9,.25,1)}
+.track-head::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:1px solid rgba(255,200,97,.5);
+  animation:ping 2.2s ease-out infinite}
+@keyframes ping{0%{transform:scale(.7);opacity:.9}100%{transform:scale(2);opacity:0}}
+.mile{position:absolute;top:50%;width:7px;height:7px;margin:-3.5px 0 0 -3.5px;border-radius:50%;
+  background:rgba(255,255,255,.28);transition:background .4s,box-shadow .4s}
+.mile.hit{background:var(--gold);box-shadow:0 0 10px var(--gold)}
+
+/* ---------- KPI ---------- */
+.sec-title{display:flex;align-items:center;gap:11px;margin:34px 0 16px;font-size:1.02rem;
+  letter-spacing:.2em;color:var(--dim);font-weight:600}
+.sec-title::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
+.sec-title span{color:var(--txt)}
+.src-tag{display:inline-flex;align-items:center;gap:6px;font-size:.68rem;letter-spacing:.06em;
+  padding:4px 10px;border-radius:999px;font-weight:600;white-space:nowrap}
+.src-tag i{width:6px;height:6px;border-radius:50%;background:currentColor;flex:none}
+.src-tag.live{color:#5ff0b5;background:rgba(60,220,150,.1);border:1px solid rgba(60,220,150,.32)}
+.src-tag.live i{animation:blip 1.6s ease-in-out infinite}
+.src-tag.lag{color:#ffbe6a;background:rgba(255,176,32,.09);border:1px solid rgba(255,176,32,.28)}
+@keyframes blip{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(95,240,181,.6)}50%{opacity:.55;box-shadow:0 0 0 5px rgba(95,240,181,0)}}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(232px,1fr));gap:16px}
+.card{position:relative;padding:20px 20px 18px;border-radius:var(--r);
+  background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(14px);
+  box-shadow:var(--shadow);overflow:hidden;transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .35s,background .35s;
+  opacity:0;transform:translateY(16px)}
+.card.in{opacity:1;transform:none}
+.card:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.2);background:var(--glass-hi)}
+.card::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:var(--c,var(--gold));opacity:.85}
+.card::after{content:"";position:absolute;top:-60%;right:-30%;width:150px;height:150px;border-radius:50%;
+  background:radial-gradient(circle,var(--c,var(--gold)),transparent 68%);opacity:.11;pointer-events:none;
+  transition:opacity .4s}
+.card:hover::after{opacity:.24}
+.c-head{display:flex;align-items:center;gap:9px;margin-bottom:12px}
+.c-ico{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;flex:0 0 auto;
+  background:color-mix(in srgb,var(--c,var(--gold)) 18%,transparent);
+  border:1px solid color-mix(in srgb,var(--c,var(--gold)) 34%,transparent)}
+.c-ico svg{width:16px;height:16px;fill:var(--c,var(--gold))}
+.c-name{font-size:.83rem;color:var(--dim);letter-spacing:.05em}
+.c-val{font-size:2.15rem;font-weight:800;letter-spacing:-.5px;line-height:1.1;
+  font-variant-numeric:tabular-nums;color:var(--txt);display:flex;align-items:baseline;gap:5px}
+.c-val .u{font-size:.85rem;font-weight:500;color:var(--dim);letter-spacing:0}
+.c-sub{margin-top:9px;font-size:.78rem;color:var(--dimmer);display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+/* 数据滞后提示用灯塔那个琥珀，别用红——红在这页面上是"涨" */
+.c-sub .warn,.p-note .warn{color:#ffbe6a}
+.delta{font-weight:700;font-variant-numeric:tabular-nums;padding:2px 7px;border-radius:6px;font-size:.75rem}
+/* 国内习惯：红涨绿跌（和他看的股市一致）。别按欧美那套反回来。 */
+.delta.up{color:#ff9d9d;background:rgba(255,92,92,.13)}
+.delta.down{color:#79f2c0;background:rgba(61,220,151,.13)}
+.delta.flat{color:var(--dim);background:rgba(255,255,255,.06)}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--dimmer);display:inline-block}
+.dot.live{background:var(--ok);box-shadow:0 0 0 0 rgba(61,220,151,.6);animation:bp 1.9s infinite}
+@keyframes bp{0%{box-shadow:0 0 0 0 rgba(61,220,151,.55)}70%{box-shadow:0 0 0 7px rgba(61,220,151,0)}100%{box-shadow:0 0 0 0 rgba(61,220,151,0)}}
+
+/* ---------- panels ---------- */
+.grid2{display:grid;grid-template-columns:1.55fr 1fr;gap:16px}
+.grid2 .wide{grid-column:1 / -1}
+@media(max-width:1024px){.grid2{grid-template-columns:1fr}}
+.panel{padding:22px;border-radius:var(--r);background:var(--glass);border:1px solid var(--line);
+  backdrop-filter:blur(14px);box-shadow:var(--shadow)}
+.p-head{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:6px}
+.p-title{font-size:1.02rem;font-weight:700;letter-spacing:.04em;display:flex;align-items:center;gap:9px}
+.p-title i{width:4px;height:16px;border-radius:2px;background:linear-gradient(180deg,var(--gold),var(--ember))}
+.p-note{font-size:.8rem;color:var(--dimmer)}
+.sub-label{margin:18px 0 8px;font-size:.78rem;letter-spacing:.22em;color:var(--gold);
+  display:flex;align-items:center;gap:9px}
+.sub-label::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,rgba(255,200,97,.4),transparent)}
+.intro-text{font-size:.92rem;line-height:1.95;color:#dbe1f0;text-align:justify;white-space:pre-line}
+.tabs{display:flex;gap:6px;background:rgba(255,255,255,.05);padding:4px;border-radius:11px;border:1px solid var(--line)}
+.tab{padding:5px 13px;border-radius:8px;font-size:.79rem;color:var(--dim);cursor:pointer;
+  border:none;background:transparent;font-family:inherit;transition:.25s;white-space:nowrap}
+.tab:hover{color:var(--txt)}
+.tab.on{background:linear-gradient(135deg,rgba(255,200,97,.9),rgba(255,150,60,.85));color:#241505;font-weight:700}
+.chart-box{position:relative;height:326px;margin-top:12px}
+.chart-box.short{height:262px}
+.empty{position:absolute;inset:0;display:grid;place-items:center;color:var(--dimmer);font-size:.86rem;text-align:center;padding:20px}
+
+/* ---------- lists ---------- */
+.honor{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.honor-item{display:flex;gap:11px;align-items:flex-start;padding:12px 14px;border-radius:12px;
+  background:rgba(255,255,255,.04);border:1px solid var(--line);border-left:3px solid var(--gold);transition:.3s}
+.honor-item:hover{background:rgba(255,200,97,.09);transform:translateX(3px)}
+.honor-item .hg{font-size:1.05rem;line-height:1.3}
+.honor-item .tx{font-size:.87rem;color:#dbe1f0}
+.honor-item .dt{font-size:.72rem;color:var(--dimmer);margin-top:3px}
+.rank-card{position:relative;overflow:hidden;padding:16px 18px;border-radius:14px;
+  background:linear-gradient(135deg,#ffe9b8 0%,#ffc861 46%,#ff9f43 100%);
+  color:#2a1a04;box-shadow:0 10px 30px -12px rgba(255,180,80,.5)}
+.rank-card::after{content:'';position:absolute;top:-60%;left:-30%;width:55%;height:220%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);
+  transform:rotate(18deg);animation:sheen 5.5s ease-in-out infinite}
+@keyframes sheen{0%,72%{left:-40%}100%{left:130%}}
+.rc-name{font-size:.82rem;font-weight:700;letter-spacing:.04em;line-height:1.4;opacity:.86}
+.rc-no{font-size:1.05rem;font-weight:700;letter-spacing:.06em;margin-top:2px}
+.rc-no b{font-size:2.3rem;font-weight:900;letter-spacing:-1px;margin-left:6px;
+  font-family:'Times New Roman',serif;font-style:italic;line-height:1}
+.rc-tip{font-size:.7rem;opacity:.66;margin-top:7px;letter-spacing:.03em}
+.rows{margin-top:12px;display:flex;flex-direction:column}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:11px 2px;
+  border-bottom:1px dashed rgba(255,255,255,.07);font-size:.86rem}
+.row:last-child{border-bottom:none}
+.row .k{color:var(--dim)}
+.row .v{font-weight:700;font-variant-numeric:tabular-nums;color:var(--txt)}
+
+/* ---------- 追剧日历 ----------
+   类名一律带 cal- 前缀：全局 .bar / .st 这类短名已经被上面几块样式占了，
+   复用会把别的板块连坐着改。 */
+.cal-strip{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 2px}
+.cal-ep{flex:0 0 auto;min-width:42px;padding:7px 7px 6px;border-radius:9px;text-align:center;
+  border:1px solid var(--line);background:var(--glass)}
+.cal-ep b{display:block;font-size:.95rem;font-weight:700;line-height:1.15;color:#7f8aa0;
+  font-variant-numeric:tabular-nums}
+.cal-ep i{display:block;font-style:normal;font-size:.62rem;letter-spacing:.03em;margin-top:3px;color:#6b7488}
+.cal-ep.free{border-color:rgba(255,255,255,.24);background:rgba(255,255,255,.07)}
+.cal-ep.free b{color:var(--txt)}
+.cal-ep.vip{border-color:rgba(255,200,97,.42);background:rgba(255,200,97,.10)}
+.cal-ep.vip b{color:var(--gold)} .cal-ep.vip i{color:var(--gold)}
+.cal-ep.svip{border-color:rgba(46,168,255,.48);background:rgba(46,168,255,.12)}
+.cal-ep.svip b{color:var(--youku)} .cal-ep.svip i{color:var(--youku)}
+.cal-ep.next{border-color:rgba(255,95,67,.5);border-style:dashed}
+.cal-ep.next i{color:var(--ember)}
+.cal-tbl{width:100%;border-collapse:collapse;margin-top:14px;font-size:.85rem}
+.cal-tbl th,.cal-tbl td{padding:9px 10px;text-align:left;border-bottom:1px solid var(--line);
+  font-variant-numeric:tabular-nums}
+.cal-tbl th{color:var(--dim);font-weight:600;font-size:.72rem;letter-spacing:.14em}
+.cal-tbl td{color:var(--txt);font-weight:600}
+.cal-tbl td.svip{color:var(--youku)} .cal-tbl td.vip{color:var(--gold)}
+.cal-tbl td.dow{color:var(--dim);font-weight:500}
+.cal-tbl tr.now td{background:linear-gradient(90deg,rgba(255,150,60,.15),transparent 78%)}
+.cal-tag{display:inline-block;margin-left:7px;padding:1px 7px;border-radius:999px;font-size:.62rem;
+  letter-spacing:.06em;color:var(--ember);border:1px solid rgba(255,95,67,.45);vertical-align:2px}
+.cal-note{margin-top:10px;font-size:.74rem;line-height:1.65;color:var(--dim)}
+.cal-warn{margin-top:10px;padding:9px 12px;border-radius:12px;font-size:.78rem;line-height:1.6;
+  border:1px solid rgba(255,176,32,.45);background:rgba(255,176,32,.08);color:var(--warn)}
+.bar{height:5px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden;margin-top:5px;width:100%}
+.bar>i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--c,var(--gold)),color-mix(in srgb,var(--c,var(--gold)) 45%,#fff));
+  width:0;transition:width .9s cubic-bezier(.2,.9,.25,1)}
+.plat-row{padding:12px 0;border-bottom:1px dashed rgba(255,255,255,.07)}
+.plat-row:last-child{border-bottom:none}
+.plat-head{display:flex;justify-content:space-between;align-items:baseline;font-size:.86rem}
+.plat-head b{font-weight:700;font-variant-numeric:tabular-nums}
+
+/* ---------- status ---------- */
+.status{margin-top:16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(178px,1fr));gap:10px}
+.st{padding:11px 13px;border-radius:12px;background:rgba(255,255,255,.035);border:1px solid var(--line);font-size:.78rem}
+.st .n{display:flex;align-items:center;gap:7px;color:#d7dcea;margin-bottom:5px;font-weight:600}
+.st .m{color:var(--dimmer);font-variant-numeric:tabular-nums}
+.st.ok{border-left:3px solid var(--ok)}
+.st.bad{border-left:3px solid var(--bad)}
+.st.idle{border-left:3px solid var(--dimmer)}
+.st.wait{border-left:3px solid var(--warn)}
+
+/* ---------- toolbar / footer ---------- */
+.toolbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:26px 0 4px;justify-content:center}
+.btn{padding:11px 24px;border-radius:999px;border:1px solid rgba(255,200,97,.4);cursor:pointer;
+  font-family:inherit;font-size:.87rem;font-weight:600;letter-spacing:.05em;transition:.3s;
+  background:linear-gradient(135deg,rgba(255,95,67,.22),rgba(255,200,97,.15));color:var(--txt)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 26px -10px rgba(255,140,60,.6);border-color:var(--gold)}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+.btn.ghost{background:transparent;border-color:var(--line);color:var(--dim)}
+.btn.ghost:hover{color:var(--txt);border-color:rgba(255,255,255,.28);box-shadow:none}
+.spin{display:inline-block;width:13px;height:13px;border:2px solid rgba(255,255,255,.28);
+  border-top-color:var(--gold);border-radius:50%;animation:sp .7s linear infinite;vertical-align:-2px}
+@keyframes sp{to{transform:rotate(360deg)}}
+.stamp{text-align:center;font-size:.78rem;color:var(--dimmer);margin-top:10px;font-variant-numeric:tabular-nums}
+footer{margin-top:44px;padding-top:22px;border-top:1px solid var(--line);
+  text-align:center;font-size:.77rem;color:var(--dimmer);line-height:2}
+footer b{color:var(--dim);font-weight:600}
+footer a{display:inline-block;color:#1b1204;font-weight:700;text-decoration:none;letter-spacing:.02em;
+  padding:3px 12px;border-radius:999px;background:linear-gradient(135deg,var(--gold),var(--ember));
+  box-shadow:0 3px 14px rgba(255,150,40,.32)}
+footer a:hover{filter:brightness(1.14);transform:translateY(-1px)}
+footer a:active{transform:translateY(0)}
+.notice{margin-top:14px;padding:12px 15px;border-radius:12px;font-size:.8rem;line-height:1.7;
+  background:rgba(255,176,32,.09);border:1px solid rgba(255,176,32,.28);color:#ffd79a;display:none}
+.notice.show{display:block}
+
+/* ---------- 打赏 ---------- */
+.donate-fab{position:fixed;right:18px;bottom:20px;z-index:60;display:flex;align-items:center;gap:7px;
+  padding:12px 20px;border-radius:999px;text-decoration:none;font-size:.85rem;font-weight:700;
+  letter-spacing:.04em;color:#2a1a04;font-family:inherit;
+  background:linear-gradient(135deg,#ffe9b8,#ffc861 55%,#ff9f43);
+  box-shadow:0 14px 34px -12px rgba(255,170,70,.75),0 0 0 1px rgba(255,220,150,.35) inset;
+  transition:transform .3s,box-shadow .3s;animation:bpulse 2.8s ease-in-out infinite}
+.donate-fab:hover{transform:translateY(-3px) scale(1.04);animation-play-state:paused}
+.donate-fab .df-ico{font-size:1.05rem;line-height:1}
+@keyframes bpulse{0%,100%{box-shadow:0 14px 34px -12px rgba(255,170,70,.75),0 0 0 0 rgba(255,200,97,.5)}
+  55%{box-shadow:0 14px 34px -12px rgba(255,170,70,.75),0 0 0 14px rgba(255,200,97,0)}}
+.modal{position:fixed;inset:0;z-index:80;display:none;align-items:center;justify-content:center;
+  padding:22px;background:rgba(3,4,9,.78);backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px)}
+.modal.open{display:flex;animation:fadein .25s ease}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+.modal-card{position:relative;max-width:340px;width:100%;padding:26px 24px;border-radius:20px;text-align:center;
+  background:linear-gradient(160deg,#151b2e,#0d1120);border:1px solid rgba(255,200,97,.3);
+  box-shadow:0 30px 70px -20px rgba(0,0,0,.85)}
+.modal-title{font-size:1.15rem;font-weight:800;color:var(--gold);letter-spacing:.06em}
+.modal-img{display:block;width:100%;max-width:250px;margin:16px auto 6px;border-radius:14px;
+  background:#fff;box-shadow:0 8px 24px -10px rgba(0,0,0,.7)}
+.modal-tip{font-size:.76rem;color:var(--dim);line-height:1.7;margin-bottom:16px}
+.modal-x{position:absolute;top:10px;right:14px;width:28px;height:28px;border:none;border-radius:50%;
+  background:rgba(255,255,255,.07);color:var(--dim);font-size:1rem;cursor:pointer;line-height:1}
+.modal-x:hover{background:rgba(255,95,67,.28);color:#fff}
+@media(max-width:640px){
+  .wrap{padding:16px 12px 40px}
+  .hero{padding:20px 16px;gap:16px;align-items:flex-start;border-radius:20px}
+  .poster{width:104px;height:148px;border-radius:10px}
+  .poster-badge{top:-7px;right:-7px;font-size:.64rem;padding:4px 8px}
+  .hero-main{flex:1 1 180px;min-width:0}
+  h1{font-size:clamp(1.7rem,8vw,2.3rem);letter-spacing:.03em}
+  .hero-kicker{font-size:.66rem;letter-spacing:.22em}
+  .chips{gap:6px;margin:12px 0 2px}
+  .chip{font-size:.72rem;padding:4px 9px}
+  .byline{font-size:.78rem;margin-top:10px}
+  .kpi{grid-template-columns:repeat(2,1fr);gap:10px}
+  .card{padding:14px 13px}
+  .c-val{font-size:1.42rem}
+  .c-val .u{font-size:.72rem}
+  .c-name{font-size:.75rem}
+  .c-sub{font-size:.7rem;gap:6px;margin-top:7px}
+  .c-ico svg{width:15px;height:15px}
+  .delta{font-size:.66rem;padding:2px 6px}
+  .panel{padding:16px 14px}
+  .p-title{font-size:.95rem}
+  .chart-box{height:236px}.chart-box.short{height:212px}
+  .tab{padding:4px 10px;font-size:.74rem}
+  .row{font-size:.8rem;gap:8px}
+  .intro-text{font-size:.86rem;line-height:1.85}
+  .sec-title{font-size:.9rem;margin:26px 0 14px}
+  .src-tag{font-size:.6rem;padding:3px 8px}
+  .btn{font-size:.82rem;padding:9px 16px}
+  footer{font-size:.72rem;padding-bottom:62px}
+  .rc-name{font-size:.76rem}
+  .rc-no b{font-size:1.9rem}
+  .donate-fab{right:12px;bottom:12px;padding:10px 15px;font-size:.78rem}
+  .modal-card{padding:22px 18px}
+}
+/* 本剧专属：优酷蓝 + 灯塔给的条目主色 #4E3D2D 一路走金棕 */
+:root{--youku:#2ea8ff;--youku-soft:rgba(46,168,255,.16)}
+.hero::before{background:
+  radial-gradient(560px 240px at 8% 0%,rgba(255,200,97,.14),transparent 70%),
+  radial-gradient(520px 240px at 92% 10%,rgba(46,168,255,.12),transparent 70%)}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="stars" id="stars"></div>
+
+<div class="wrap">
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero">
+    <div class="poster-box">
+      <img class="poster" id="poster" alt="《十万狂花入梦来》海报"
+           src="https://gw.alicdn.com/tfscom/i1/O1CN015YoRbEPbhZJ1wqmG_!!6000000003835-0-alipicbeacon.jpg">
+      <div class="poster-badge" id="rankBadge">优酷 · 独播</div>
+    </div>
+
+    <div class="hero-main">
+      <div class="hero-kicker serif">BLOSSOM IN DARKNESS · 2026</div>
+      <h1 class="serif">十万狂花入梦来</h1>
+      <div class="chips" id="chips">
+        <span class="chip">爱情 / 古装 / 奇幻</span>
+        <span class="chip">全 <b>30</b> 集</span>
+        <span class="chip">优酷 独播</span>
+        <span class="chip">2026.11.15 首播</span>
+      </div>
+      <div class="byline">
+        导演 钟青 ｜ 主演 孙珍妮、李宏毅 ｜ 作者
+        <a href="https://weibo.com/u/2136166244" target="_blank" rel="noopener">九处</a>
+      </div>
+    </div>
+
+    <div class="march">
+      <div class="march-top">
+        <div class="march-label">入梦进度 · <b id="marchText">读取中…</b></div>
+        <div class="countdown" id="countdown">--:--:--</div>
+      </div>
+      <div class="track" id="track">
+        <div class="track-fill" id="trackFill"></div>
+        <div class="track-head" id="trackHead"></div>
+      </div>
+      <div class="march-sub" id="marchSub"></div>
+    </div>
+  </section>
+
+  <div class="notice" id="notice"></div>
+
+  <!-- ===================== KPI ===================== -->
+  <div class="sec-title"><span>核心指标</span><span class="src-tag" id="dengtaTag"></span></div>
+  <div class="kpi" id="kpi"></div>
+
+  <!-- ===================== CHARTS ===================== -->
+  <div class="sec-title"><span>热度</span></div>
+  <div class="grid2">
+    <div class="panel">
+      <div class="p-head">
+        <div class="p-title"><i></i>优酷热度逐日</div>
+        <div class="p-note">柱：当日平均 · 线：当日最高 / 最低</div>
+      </div>
+      <div class="chart-box"><canvas id="hotChart"></canvas>
+        <div class="empty" id="hotEmpty">等待灯塔数据…</div></div>
+      <div class="p-note" id="hotNote"></div>
+    </div>
+
+    <div class="panel">
+      <div class="p-head"><div class="p-title"><i></i>优酷剧集热度榜</div>
+        <div class="p-note" id="rankNote">灯塔 · 优酷热度排名</div></div>
+      <div class="chart-box"><canvas id="rankChart"></canvas>
+        <div class="empty" id="rankEmpty">等待榜单数据…</div></div>
+    </div>
+
+    <div class="panel wide">
+      <div class="p-head"><div class="p-title"><i></i>今日热度分时</div>
+        <div class="p-note" id="liveNote">上游约 10 分钟一拍 · 实线今日 / 虚线昨日</div></div>
+      <div class="chart-box short"><canvas id="liveChart"></canvas>
+        <div class="empty" id="liveEmpty">分时曲线采集中…</div></div>
+    </div>
+
+    <div class="panel wide">
+      <div class="p-head"><div class="p-title"><i></i>正片播放量 · 分时</div>
+        <div class="p-note" id="vvHourNote">灯塔全网口径 · 每半小时自动重采</div></div>
+      <div class="chart-box short"><canvas id="vvHourChart"></canvas>
+        <div class="empty" id="vvHourEmpty">分时档案建立中…</div></div>
+      <div class="rows" id="vvHourRows"></div>
+    </div>
+
+    <div class="panel wide">
+      <div class="p-head"><div class="p-title"><i></i>国民搜索热度逐日</div>
+        <div class="p-note" id="baiduNote"></div></div>
+      <div class="chart-box short"><canvas id="baiduChart"></canvas>
+        <div class="empty" id="baiduEmpty">暂无数据</div></div>
+      <div class="rows" id="baiduRows"></div>
+    </div>
+
+    <div class="panel wide">
+      <div class="p-head"><div class="p-title"><i></i>优酷 7 日畅销榜</div>
+        <div class="p-note" id="bbNote">拉新口径 · 每半小时自动重采</div></div>
+      <div class="chart-box short"><canvas id="bbChart"></canvas>
+        <div class="empty" id="bbEmpty">暂无数据</div></div>
+      <div class="rows" id="bbRows"></div>
+      <div class="p-note" id="bbRule"></div>
+    </div>
+
+    <div class="panel wide">
+      <div class="p-head"><div class="p-title"><i></i>优酷年度畅销榜</div>
+        <div class="p-note" id="bbYearNote">按过去 365 天会员开通热度排序</div></div>
+      <div class="chart-box"><canvas id="bbYearChart"></canvas>
+        <div class="empty" id="bbYearEmpty">年度榜单明细采集中…</div></div>
+      <div class="p-note" id="bbYearRule"></div>
+    </div>
+
+    <div class="panel wide">
+      <div class="p-head"><div class="p-title"><i></i>优酷 App 下载量估算</div>
+        <div class="p-note" id="qmNote">第三方预估 · 人工快照</div></div>
+      <div class="chart-box short"><canvas id="qmChart"></canvas>
+        <div class="empty" id="qmEmpty">暂无数据</div></div>
+      <div class="rows" id="qmRows"></div>
+      <div class="p-note" id="qmRule"></div>
+    </div>
+  </div>
+
+  <!-- ===================== SECONDARY ===================== -->
+  <div class="sec-title"><span>口碑 · 排期 · 里程碑</span></div>
+  <div class="grid2">
+    <div class="panel">
+      <div class="p-head"><div class="p-title"><i></i>里程碑与排名</div>
+        <div class="p-note" id="honorNote">自动判定 + 灯塔榜单</div></div>
+      <div class="honor" id="honor"><div class="p-note">加载中…</div></div>
+    </div>
+    <div class="panel">
+      <div class="p-head"><div class="p-title"><i></i>优酷更新与解锁</div>
+        <div class="p-note" id="kyNote">排期读取中</div></div>
+      <div id="kyBody"><div class="p-note" style="padding:18px 0">
+        本剧优酷全网独播、不上星，所以没有电视收视率这一路。<br>
+        这一格只报平台侧的三件事：官方更新规则原文、会员能看到第几集、下一档什么时候放。</div></div>
+      <div class="rows" id="kyRows"></div>
+    </div>
+    <div class="panel wide">
+      <div class="p-head"><div class="p-title"><i></i>追剧日历</div>
+        <div class="p-note" id="calNote">排期读取中</div></div>
+      <div class="cal-strip" id="calStrip"></div>
+      <div id="calTable"><div class="p-note" style="padding:18px 0">
+        这一格排的是「哪天放到第几集」，两档分开列：SVIP 恒比 VIP 多一集，
+        所以同一个更新日能看到两行不同的数。</div></div>
+      <div class="cal-note" id="calFoot"></div>
+    </div>
+    <div class="panel wide">
+      <div class="p-head"><div class="p-title"><i></i>作品信息与剧情简介</div>
+        <div class="p-note">来自灯塔条目</div></div>
+      <div class="rows" id="workRows"></div>
+      <div class="sub-label">剧情简介</div>
+      <div class="intro-text" id="workIntro">加载中…</div>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <button class="btn" id="refreshBtn">刷新全部数据</button>
+  </div>
+  <div class="stamp" id="stamp">尚未加载</div>
+
+  <footer>
+    <div>全部为公开数据 · 指标口径以原始来源为准 · 数值可能有分钟级延迟</div>
+    <div>© 2026 九处 · 十万狂花入梦来数据看板 · <a id="donateLink" href="https://pic.sl.al/gdrive/pic/2025-11-26/fileid_1aPF614Jn4683MxgdV3UiuvN5lKyCLsdE_%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20251125182103_66_269.jpg" target="_blank" rel="noopener">请作者喝杯咖啡 ☕</a></div>
+  </footer>
+</div>
+
+<a class="donate-fab" id="donateBtn" href="https://pic.sl.al/gdrive/pic/2025-11-26/fileid_1aPF614Jn4683MxgdV3UiuvN5lKyCLsdE_%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20251125182103_66_269.jpg" target="_blank" rel="noopener">
+  <span class="df-ico">🧧</span><span>打赏作者</span>
+</a>
+
+<div class="modal" id="donateModal">
+  <div class="modal-card">
+    <button class="modal-x" id="donateClose" aria-label="关闭">×</button>
+    <div class="modal-title serif">感谢支持</div>
+    <img class="modal-img" id="donateImg" alt="微信赞赏码">
+    <div class="modal-tip">扫码赞赏 · 看板会持续更新<br>长按图片也可保存二维码</div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   CONFIG —— 换剧只改这里
+   ============================================================ */
+const CONFIG = {
+  title: '十万狂花入梦来',
+  mediaId: 1533748,                 // 灯塔专业版 mediaId
+  typeCode: '2',                    // ⚠ 灯塔把本剧归在「网剧」档（mediaTypeId 2），传 '1' 那一期榜里没有它
+  doubanId: '',                     // 豆瓣条目号：还没查到，留空则不查、卡片自动退场
+  premiereDate: '2026-11-15',       // 首播日，七麦那张「首播前基准」按这条切
+  anchorDate: '2026-11-12',         // 定档日，下载量统计窗口的左端
+  /* 热度这一路改用「剧风向」的公开接口（剧云录迟迟没给本剧建档）。
+     它是匿名可读、ACAO:* 的第三方站，浏览器直连即可，不过代理、不占 Cloudflare 额度；
+     代价是采集跑在别人自己的机器上 —— 所以这里固定 10 分钟一轮、只读一份 24h 窗口，
+     并且不做秒级快档：它上游本来 10~11 分钟才落一个点，敲得更勤也不会更早拿到数。 */
+  jfx: { base: 'https://heat.971014.xyz', id: 'd_74dc19d2f2ed0dd6' },
+  progressLabel: '入梦进度',         // 借剧名里「入梦」两个字，和嫁金钗借「逆天改命」是同一手法
+  /* 走 .top 不走 .asia：那个域名没开自动续费，2026-11-29 自然过期，
+     而这部剧的看板要跑到 12 月收官，两条都实测通（/__v 同一枚 Worker）。 */
+  mtop: 'https://proxy.jiuchu.top/mtop',
+  proxies: [
+    u => 'https://proxy.jiuchu.top/proxy?url=' + encodeURIComponent(u),
+    u => 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(u),
+    u => 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u)
+  ],
+  /* live/idle 是一对：北京 liveWindow 内按 live 秒级轮，窗口外自动降到 idle。
+     Cloudflare 免费额度 10 万请求/天是整个账号共享的，两个面板加所有轮询都算在里面。
+     本剧只有中午 12:00 那一档放量（不上星 ⇒ 没有晚上电视带动的第二段陡升），
+     所以秒级窗口只开 12–15 点，其余时段 20 秒。dengta 是日榜（10 分钟足够）。 */
+  refresh: { dengta: 600e3, live: 4e3, idle: 20e3, ssr: 10 * 60e3, heat: 600e3, baidu: 300e3, bb: 300e3, vvh: 300e3, qm: 1800e3, douban: 1800e3, cal: 1800e3 },
+  liveWindow: [12, 15],             // 优酷 12:00 放量前后两小时才值得按秒级敲灯塔
+  /* 灯塔 SSR 的 playTime 与优酷真实放量：本剧首播即 12:00（playRule 原文「11月15日12:00上线」），
+     首日和之后每天同一个钟点，所以 ykFirstTime 留 null = 跟着 ykPlayTime 走。
+     置 null 就退回采信灯塔 playTime 字段。 */
+  ykPlayTime: '12:00',
+  ykFirstTime: null,
+  donate: 'https://pic.sl.al/gdrive/pic/2025-11-26/fileid_1aPF614Jn4683MxgdV3UiuvN5lKyCLsdE_%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20251125182103_66_269.jpg'
+};
+
+/* 口径提醒（11-15 首播当天实测，别凭这段旧注释下结论，要加卡片先重打一次 selector）：
+   selector 已回「正片播放 VV（DAY/HOUR）」+「平台热度 / 优酷」两个 tab；
+   vv.detail.list 当日 ALL 23.6 万、youku 61.2 万 —— 独播剧首日全网口径还在追单平台，和嫁金钗首日同一个形状，
+   卡片统一用 ALL（灯塔自己页面那张「灯塔全网正片播放」标题卡也是 ALL）。
+   dateType=HOUR 当天回 dataPresent:false（一格都没有），所以「正片播放量 · 分时」这格要靠 Actions
+   自己攒档案，首日就是空的，不是链路坏了。 */
+
+/* ============================================================
+   代理层
+   ============================================================ */
+let proxyIdx = 0;
+async function pfetch(url, { timeout = 14000 } = {}) {
+  const errs = [];
+  for (let n = 0; n < CONFIG.proxies.length; n++) {
+    const i = (proxyIdx + n) % CONFIG.proxies.length;
+    const ctl = new AbortController();
+    const t = setTimeout(() => ctl.abort(), timeout);
+    try {
+      const r = await fetch(CONFIG.proxies[i](url), { signal: ctl.signal, cache: 'no-store' });
+      clearTimeout(t);
+      if (!r.ok) { errs.push('HTTP ' + r.status); continue; }
+      const body = await r.text();
+      proxyIdx = i;
+      return body;
+    } catch (e) { clearTimeout(t); errs.push(e.name === 'AbortError' ? 'timeout' : String(e.message).slice(0, 30)); }
+  }
+  throw new Error(errs.join(' / ') || 'all proxies failed');
+}
+const pjson = async (u) => JSON.parse(await pfetch(u));
+
+async function mtop(api, dataObj, ver = '1.0', timeout = 12000) {
+  if (!CONFIG.mtop) throw new Error('mtop 未配置');
+  const u = CONFIG.mtop + '?api=' + encodeURIComponent(api) + '&v=' + ver +
+            '&data=' + encodeURIComponent(JSON.stringify(dataObj));
+  const ctl = new AbortController();
+  const t = setTimeout(() => ctl.abort(), timeout);
+  let r;
+  try { r = await fetch(u, { signal: ctl.signal, cache: 'no-store' }); }
+  finally { clearTimeout(t); }
+  if (!r.ok) throw new Error('HTTP ' + r.status);
+  const j = await r.json();
+  if (j.error) throw new Error(j.error);
+  return j;
+}
+
+function extractAssign(html, marker) {
+  const at = html.indexOf(marker);
+  if (at < 0) return null;
+  const start = html.indexOf('{', at);
+  if (start < 0) return null;
+  let d = 0, inStr = false, esc = false;
+  for (let p = start; p < html.length; p++) {
+    const c = html[p];
+    if (inStr) { if (esc) esc = false; else if (c === '\\') esc = true; else if (c === '"') inStr = false; continue; }
+    if (c === '"') inStr = true;
+    else if (c === '{') d++;
+    else if (c === '}') { d--; if (d === 0) return html.slice(start, p + 1); }
+  }
+  return null;
+}
+
+function findKey(node, key, depth = 0) {
+  if (!node || typeof node !== 'object' || depth > 8) return null;
+  if (Object.prototype.hasOwnProperty.call(node, key)) return node[key];
+  for (const k in node) {
+    const r = findKey(node[k], key, depth + 1);
+    if (r) return r;
+  }
+  return null;
+}
+
+/* ============================================================
+   状态
+   ============================================================ */
+const S = {
+  meta: null, hotDaily: [], ssrHot: null, rankRows: [], rankRow: null,
+  jfx: {}, heat: {}, douban: null, ykRule: '',
+  play: null, ssrPlay: null, vvRows: [], dengtaLive: false, liveAt: 0, liveErr: ''
+};
+const src = {};
+function mark(name, ok, msg) { src[name] = { ok, msg: msg || '', at: ok ? Date.now() : (src[name]?.at || 0) }; }
+
+/* ============================================================
+   灯塔
+   ============================================================ */
+function ymd(d) {
+  const p = n => String(n).padStart(2, '0');
+  return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate());
+}
+const ymdC = d => ymd(d).replace(/-/g, '');
+
+/* 逐日热度 + 优酷日榜：两个 mtop 一起，120 秒一轮 */
+async function loadDengta() {
+  const j = await mtop('mtop.alipictures.gravitywave.media.hot.newdetail',
+    { mediaId: CONFIG.mediaId, platform: 'youku', dateType: 'DAY' });
+  const rows = (((j.data || {}).dataList || [])[0] || {}).mediaVVHotDetailVOList || [];
+  if (!rows.length) throw new Error('热度逐日返回空');
+  S.hotDaily = rows.map(r => {
+    const g = k => { const x = (r.vvCntList || []).find(v => v.hotKey === k); return x ? +x.hotValue : null; };
+    return { date: String(r.showDate), avg: g('当日平均'), max: g('当日最高'), min: g('当日最低') };
+  }).reverse();                       // 灯塔回的是新→旧，图上要按时间正着走
+
+  const rk = await mtop('mtop.alipictures.gravitywave.media.rank.list',
+    { configCode: '1', typeCode: CONFIG.typeCode, platformCode: 'youku', showDate: ymdC(new Date()),
+      dateType: '0', marketShareType: 1, isLoop: 'false' }, '3.0');
+  const list = ((((rk.data || {}).data || {}).rankMap) || {}).rankList || [];
+  if (list.length) {
+    S.rankRows = list;
+    S.rankRow = list.find(x => String(x.mediaId) === String(CONFIG.mediaId)) || null;
+    S.rankAt = list[0].modifiedTime || '';
+  }
+  /* 更新规则原文只有签名接口给（SSR 只给"更新至N集"这个数）。挂了不影响进度主轴，
+     只是「优酷更新与解锁」那一格少一行官方原文、下一档只能退回按每日时点猜。 */
+  try {
+    const pr = await mtop('mtop.alipictures.gravitywave.media.platfom.playrule.list', { mediaId: CONFIG.mediaId });
+    const r0 = ((((pr || {}).data || {}).dataList) || [])[0] || {};
+    if (r0.playRule && r0.playRule !== S.ykRule) { S.ykRule = r0.playRule; renderMarch(); renderCalendar(); }
+  } catch (e) {}
+  /* 播放量交给 liveLoop() 连续轮询，这里只保证首屏有数 */
+  await applyDengtaLive();
+  mark('灯塔', true);
+  renderKPI(); renderHotChart(); renderRankChart(); renderHonor(); renderDengtaTag();
+  recordLive();
+}
+
+/* 灯塔的 vv.detail.list 是秒级在涨的（实测 35 秒涨 2.8 万），所以播放量这五个卡不能跟着
+   2 分钟一轮的 loadDengta 走 —— 那样数字看着就是"冻住"。单独抽出来给 liveLoop 连续调。
+   platform 必须显式写 ALL：同一分钟传 youku 回 698.3 万、传 ALL 回 387.3 万，而灯塔自己页面
+   那张「灯塔全网正片播放」标题卡用的是 ALL 口径 —— 卡片要跟页面对得上。 */
+async function applyDengtaLive() {
+  try {
+    const vv = await mtop('mtop.alipictures.gravitywave.media.vv.detail.list',
+      { mediaId: CONFIG.mediaId, platform: 'ALL', dateType: 'DAY' });
+    const rows = (((vv || {}).data || {}).dataList || [])
+      .filter(r => /^\d{8}$/.test(String(r.showDate)));
+    if (!rows.length) throw new Error('逐日返回空');
+    S.vvRows = rows.sort((a, b) => String(a.showDate) < String(b.showDate) ? 1 : -1);
+    applyVv(S.vvRows[0]);
+    S.dengtaLive = true; S.liveAt = Date.now(); S.liveErr = '';
+  } catch (e) {
+    S.dengtaLive = false; S.liveErr = String(e.message).slice(0, 30);
+  }
+  renderKPI(); renderDengtaTag();
+  return S.dengtaLive;
+}
+
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+/* 北京时的小数小时。窗口判断不碰本地 getHours()，浏览器换时区也不会跑偏。 */
+function bjHours(t = Date.now()) {
+  const d = new Date(t + 8 * 3600e3);
+  return d.getUTCHours() + d.getUTCMinutes() / 60;
+}
+const inLiveWindow = (t = Date.now()) =>
+  bjHours(t) >= CONFIG.liveWindow[0] && bjHours(t) < CONFIG.liveWindow[1];
+
+/* 请求落地 → 歇 dwell → 再发，永远只有一个在飞；失败按 3 倍退避到最长 30 秒。
+   本剧只有中午 12:00 放量那一段值得按秒级敲灯塔（liveWindow 12–15 点），其余时段降到 idle=20 秒。
+   秒级窗口只管播放量那一串卡；热度曲线是剧风向 10 分钟一拍的，不在这里跑。
+   20 秒是配额算出来的：Cloudflare 免费档 10 万请求/天是整个账号共享的，
+   本剧不上星 ⇒ 没有晚上那段电视带动的陡升，不必为了它把全天都开满。 */
+async function liveLoop() {
+  let dwell = CONFIG.refresh.live;
+  for (;;) {
+    if (document.hidden) { await sleep(1000); continue; }
+    const ok = await applyDengtaLive();
+    stamp();
+    if (!ok)                              dwell = Math.min(30e3, dwell * 3);
+    else if (!inLiveWindow())             dwell = CONFIG.refresh.idle;
+    else                                  dwell = document.hasFocus() ? CONFIG.refresh.live : 6e3;
+    await sleep(dwell);
+  }
+}
+
+/* 逐日行只给"当日"这一格的原始整数，灯塔的 vvCntWithUnit 精度只有 0.1 万。
+   万位自己算，别抄 withUnit —— 抄了数字会 6 秒才动一次，看着像坏了。 */
+function applyVv(r) {
+  if (!r || r.vvCnt == null) return;
+  const p = S.play || (S.play = {});
+  p.todayRaw = r.vvCnt;
+  if (r.totalVv != null) p.totalVv = r.totalVv;
+  if (r.marketShare) p.share = String(r.marketShare).replace('%', '');
+  if (r.avgEpVvWithUnit && r.avgEpVvWithUnit.value) {
+    p.epAvg = r.avgEpVvWithUnit.value; p.epAvgTo = '实时（含未更新集）';
+  }
+  p.liveAt = Date.now();
+}
+
+/* 五个播放量卡片有两个来源：签名接口（2 分钟一轮）和 SSR 快照（10 分钟一轮、源站还缓存 5 分钟）。
+   逐字段取新的那个，SSR 只补签名接口没给的（历史最高市占、集均）。 */
+function playVal(k) {
+  const a = S.play && S.play[k], b = S.ssrPlay && S.ssrPlay[k];
+  return a != null ? a : (b != null ? b : null);
+}
+
+/* 播放量五张卡里只有「今日实时播放量」值得 3 秒一跳（他 10-17 点的名）。
+   累计和集均是存量，一小时才挪几十万，跟着秒级重绘只是数字一直滚。
+   取数还是同一趟 mtop，省不出请求 —— 这里锁的是卡片读数，最多 60 秒换一次。
+   市占是瞬时量、要能对上灯塔 App 的当下读数，所以不进这个快照。
+   totalVv 一到位就立刻打快照，别让首屏干等 60 秒。 */
+const SLOW_VV = 60e3;
+let slowVv = { at: 0, v: null };
+function slowVals() {
+  const v = { totalVv: playVal('totalVv'),
+              todayRaw: playVal('todayRaw'), epAvg: playVal('epAvg'), epAvgTo: playVal('epAvgTo') };
+  if (Date.now() - slowVv.at >= SLOW_VV || (v.totalVv && !slowVv.v?.totalVv)) slowVv = { at: Date.now(), v };
+  return slowVv.v;
+}
+
+/* SSR 只当兜底：整张 HTML 被灯塔自己的 CDN 缓存 300 秒，它给的 nowValue 最多滞后 5 分钟。
+   好处是顺手把海报、集数、上映日这些基础信息一起带回来，10 分钟拉一次就够。 */
+let ssrAt = 0;
+async function loadSsr(force = false) {
+  if (!force && S.ssrHot && Date.now() - ssrAt < CONFIG.refresh.ssr) return;
+  const url = 'https://dengtapro.taopiaopiao.com/movie-detail.html?hideTitlebar=true&transparentStatusBar=true&mediaId=' + CONFIG.mediaId;
+  const html = await pfetch(url, { timeout: 16000 });
+  const raw = extractAssign(html, 'window.__MONAI__INITIAL_DATA__');
+  if (!raw) throw new Error('SSR state not found');
+  const state = JSON.parse(raw);
+  const m = ((state['@@valtio_ssr'] || {})['movie-detail-model'] || {}).state || {};
+  const comps = {};
+  (m.layersData || []).forEach(l => (l.sections || []).forEach(s => { comps[s.componentId] = s.item?.data; }));
+  if (comps.beacon_media_baseinfo) S.meta = comps.beacon_media_baseinfo;
+  const y = (comps.beacon_media_hot_and_vvcnt_summary || {}).youku;
+  if (y && y.nowValue) S.ssrHot = { now: +y.nowValue, max: y.maxValue ? +y.maxValue : null, maxDate: y.maxValueDate || '' };
+  /* 这块在开播前是 dataPresent:false（灯塔把播放量整块关了），所以现在没数不代表以后一直没数 */
+  const pl = comps.beacon_media_play_count_summary_v1 || {};
+  /* 灯塔在累计过亿那一刻把展示单位从「万」切成「亿」，valueUnit.value 变成 "1.08" 这种字符串，
+     而卡片上的「万」字是写死的 —— 于是显示成 1.08 万。这里一律不抄它的展示串，只读 .value 自己除以 1e4。
+     市占那两个字段反过来：它的 .value 是嵌套对象 {value:"0.2277"}，只有 valueUnit.value 是能用的百分数。 */
+  const toWan = x => { const v = +x?.value; return v ? (v / 1e4).toFixed(2) : null; };
+  if (pl.todayTotalPlayVvCnt) S.ssrPlay = {
+    todayRaw: pl.todayTotalPlayVvCnt?.nowValueWithUnit?.value || null,
+    totalVv:  pl.todayTotalPlayVvCnt?.totalValueWithUnit?.value || null,
+    share:    pl.todayTotalMarketShare?.nowValueWithUnit?.valueUnit?.value || null,
+    shareMax: pl.todayTotalMarketShare?.maxValueWithUnit?.valueUnit?.value || null,
+    epAvg:    toWan(pl.episodeAveragePlay?.nowValueWithUnit),
+    epAvgTo:  pl.episodeAveragePlay?.fixedDateStr || null
+  };
+  ssrAt = Date.now();
+  renderMeta(); renderKPI(); renderDengtaTag();
+  mark('灯塔SSR', true);
+}
+
+function renderDengtaTag() {
+  const el = document.getElementById('dengtaTag');
+  if (!el) return;
+  const hms = t => t ? new Date(t).toLocaleTimeString('zh-CN', { hour12: false }) : '';
+  if (S.dengtaLive) {
+    el.className = 'src-tag live';
+    el.title = '播放量连续轮询 · 取数于 ' + hms(S.liveAt) +
+               (S.rankAt ? ' · 榜单更新于 ' + S.rankAt.slice(11, 16) : '');
+    el.innerHTML = '<i></i>灯塔实时接口 · ' + esc(hms(S.liveAt));
+  } else if (S.rankAt || S.ssrHot) {
+    el.className = 'src-tag lag';
+    el.title = '实时接口暂时没取到（' + (S.liveErr || '未知原因') + '），退回灯塔页面快照 · 源站缓存 300 秒';
+    el.innerHTML = '<i></i>灯塔快照 · 延迟约 5 分钟';
+  } else el.innerHTML = '';
+}
+
+/* 热度现值：剧风向（第三方采集端，10 分钟一个点）优先，其次灯塔实时接口，最后 SSR */
+function heatNow() {
+  const a = [S.jfx.cur, S.rankRow?.cnt, S.ssrHot?.now, dayRow(0)?.max];
+  for (const v of a) if (v != null && +v > 0) return +v;
+  return null;
+}
+function dayRow(off) {
+  const key = ymdC(new Date(Date.now() - off * 864e5));
+  return S.hotDaily.find(x => x.date === key) || null;
+}
+/* 灯塔的"当日最高"是它自己按分钟聚合的，会比优酷页面上的实时热度慢一两格；
+   取几个源里最大的那个，否则峰值永远被灯塔钉死在昨天的读数上。 */
+function dayPeak(off) {
+  const row = dayRow(off);
+  let p = row ? (row.max || 0) : 0;
+  const rec = off === 0 ? (S.heat.today?.rec || []) : (S.heat.yest?.rec || []);
+  rec.forEach(r => { if (r.v > p) p = r.v; });
+  if (off === 0) {
+    if (S.jfx.cur != null && S.jfx.cur > p) p = S.jfx.cur;
+    if (S.ssrHot?.max > p && (S.ssrHot.maxDate || '').replace(/\./g, '-') === ymd(new Date())) p = S.ssrHot.max;
+    const loc = liveLocal()[ymd(new Date())] || [];
+    loc.forEach(r => { if (r.v > p) p = r.v; });
+  }
+  return p || null;
+}
+
+/* ============================================================
+   剧风向 —— 分时热度
+   一条 24h 窗口的请求，回包里 series[].points[] 是 UTC 时间戳，按北京日历切成今日/昨日两段。
+   它上游 10~11 分钟才落一个点，所以这里只发一次、不做秒级快档，直连不走代理。
+   ============================================================ */
+function bjClock(iso) {
+  const t = Date.parse(iso);
+  if (isNaN(t)) return null;
+  const d = new Date(t + 8 * 3600e3);
+  const p = n => String(n).padStart(2, '0');
+  return { day: d.getUTCFullYear() + '-' + p(d.getUTCMonth() + 1) + '-' + p(d.getUTCDate()),
+           hhmm: p(d.getUTCHours()) + ':' + p(d.getUTCMinutes()) };
+}
+const pickPl = (arr, pl) => { const a = Array.isArray(arr) ? arr : []; return a.find(x => !x || !x.platform || x.platform === pl) || a[0] || null; };
+
+async function loadHeatAll() {
+  const u = CONFIG.jfx.base + '/api/dramas/' + CONFIG.jfx.id + '?window=24h';
+  const r = await fetch(u, { cache: 'no-store' });
+  if (!r.ok) throw new Error('HTTP ' + r.status);
+  const j = await r.json().catch(() => null);
+  if (!j || !j.series) throw new Error('回包里没有 series');
+  const pl = j.primaryPlatform || 'youku';
+  const s = (j.series || []).find(x => x.platform === pl) || (j.series || [])[0] || {};
+  const byDay = {};
+  (s.points || []).forEach(pt => {
+    if (pt == null || pt.v == null) return;
+    const c = bjClock(pt.t); if (!c) return;
+    (byDay[c.day] = byDay[c.day] || []).push({ hhmm: c.hhmm, v: +pt.v, at: pt.t });
+  });
+  Object.values(byDay).forEach(a => a.sort((x, y) => x.hhmm < y.hhmm ? -1 : 1));
+  const yd = new Date(); yd.setDate(yd.getDate() - 1);
+  const today = ymd(new Date()), yest = ymd(yd);
+  S.heat.today = { day: today, rec: byDay[today] || [] };
+  S.heat.yest = { day: yest, rec: byDay[yest] || [] };
+  S.heat.window = byDay;
+
+  const cp = pickPl(j.crossPlatform, pl) || {};
+  const car = pickPl(j.careerByPlatform, pl) || {};
+  const acc = pickPl(j.access, pl) || {};
+  const cmp = pickPl(j.dayComparison, pl) || {};
+  const st = pickPl(j.statsByPlatform, pl) || j.stats || {};
+  const last = (S.heat.today.rec.slice(-1)[0]) || null;
+  S.jfx = {
+    cur: cp.heat != null ? +cp.heat : (last ? last.v : null),
+    curAt: (cmp.current && cmp.current.at) || (last && last.at) || j.dataTo || '',
+    max: car.maxHeat != null ? +car.maxHeat : (st.max != null ? +st.max : null),
+    maxAt: car.maxHeatAt || '',
+    firstDayHeat: car.firstDayHeat != null ? +car.firstDayHeat : null,
+    avgHeat: car.avgHeat != null ? +car.avgHeat : (st.mean != null ? +st.mean : null),
+    dayCount: car.dayCount != null ? +car.dayCount : null,
+    threshold: car.threshold != null ? +car.threshold : null,
+    tenKAt: car.tenKAt || null,
+    percentile: cp.percentile != null ? +cp.percentile : null,
+    change1h: cp.change1h != null ? +cp.change1h : null,
+    change24h: cp.change24h != null ? +cp.change24h : null,
+    yestPeak: cmp.previous && cmp.previous.heat != null ? +cmp.previous.heat : null,
+    freeMax: acc.freeMax, vipMax: acc.vipMax, total: acc.total,
+    lifecycle: j.lifecycle || null, info: j.info || null,
+    updatedAt: j.updatedAt || ''
+  };
+  if (S.jfx.cur == null && !S.heat.today.rec.length) throw new Error('剧风向这条还没有点');
+  renderLiveChart(); renderKPI(); renderUnlock(); renderMarch(); renderCalendar();
+  mark('剧风向', true);
+}
+
+/* 剧风向断供时，本页自己按灯塔的节拍攒分时（存在 localStorage，只在这台浏览器里）。 */
+const LIVE_KEY = 'shwh_heat_live_v1';
+function liveLocal() { try { return JSON.parse(localStorage.getItem(LIVE_KEY) || '{}'); } catch (e) { return {}; } }
+function recordLive() {
+  const v = heatNow();
+  if (v == null) return;
+  const o = liveLocal();
+  const day = ymd(new Date());
+  const arr = o[day] = o[day] || [];
+  const hhmm = pad2(new Date().getHours()) + ':' + pad2(new Date().getMinutes());
+  if (!arr.length || arr[arr.length - 1].v !== v) arr.push({ hhmm, v });
+  if (arr.length > 400) arr.splice(0, arr.length - 400);
+  Object.keys(o).forEach(k => { if (Date.parse(k) < Date.now() - 8 * 864e5) delete o[k]; });
+  try { localStorage.setItem(LIVE_KEY, JSON.stringify(o)); } catch (e) {}
+}
+function liveSeries(dayOffset) {
+  const remote = S.heat[dayOffset === 0 ? 'today' : 'yest'];
+  if (remote && remote.rec.length) return { rec: remote.rec };
+  const d = new Date(); d.setDate(d.getDate() - dayOffset);
+  return { rec: liveLocal()[ymd(d)] || [] };
+}
+
+/* ============================================================
+   豆瓣（JSONP，浏览器天然带 Referer，不需要代理）
+   ============================================================ */
+let dbBusy = false;
+function loadDouban() {
+  if (!CONFIG.doubanId) { mark('豆瓣', false, '条目号未接入'); return Promise.resolve(false); }
+  if (dbBusy) return Promise.resolve(true);
+  dbBusy = true;
+  return new Promise((resolve) => {
+    const cb = '__db' + Date.now();
+    const s = document.createElement('script');
+    const done = (v) => { dbBusy = false; clearTimeout(timer); try { delete window[cb]; } catch (e) {} s.remove(); resolve(v); };
+    window[cb] = (d) => {
+      const hot = (d.realtime_hot_honor_infos || [])[0] || {};
+      S.douban = { score: d.rating?.value || 0, count: d.rating?.count || 0,
+                   stars: d.rating?.star_count || 0, title: d.title,
+                   noRate: d.null_rating_reason || '', cmt: d.comment_count || 0,
+                   review: d.review_count || 0, dbRank: hot.rank || null,
+                   rankTitle: hot.title || '', hotScore: hot.score || null,
+                   cover: d.cover_url || '', intro: d.intro || '',
+                   directors: (d.directors || []).map(x => x.name),
+                   actors: (d.actors || []).map(x => x.name), genres: d.genres || [],
+                   pubdate: (d.pubdate || [])[0] || '', epCount: d.episodes_count || 0,
+                   durations: (d.durations || [])[0] || '' };
+      renderKPI(); renderWork(); renderHonor(); mark('豆瓣', true); done(true);
+    };
+    s.onerror = () => { mark('豆瓣', false, 'JSONP 失败'); done(false); };
+    const timer = setTimeout(() => { if (S.douban) { mark('豆瓣', true); } else { mark('豆瓣', false, '超时'); } done(false); }, 20000);
+    s.src = 'https://m.douban.com/rexxar/api/v2/tv/' + CONFIG.doubanId +
+            '?ck=jq_a&for_mobile=1&callback=' + cb;
+    document.head.appendChild(s);
+  });
+}
+
+/* ============================================================
+   优酷更新与解锁 —— 官方规则原文 + 各档会员能看到第几集
+   这一路只有两个真源：灯塔的 playRule 原文（更新节奏）和剧风向 access 里那三个数
+   （免费/VIP 各解锁到第几集，它自己去优酷页面上数的）。取不到就写取不到，不猜。
+   ============================================================ */
+function renderUnlock() {
+  const box = document.getElementById('kyBody'), rows = document.getElementById('kyRows');
+  const note = document.getElementById('kyNote');
+  if (!box || !rows) return;
+  const yk = ykState(Date.now());
+  const acc = S.jfx || {};
+  const out = [];
+  if (yk.at) out.push(row('每日放量', esc(yk.at) + '（优酷）'));
+  out.push(row('已更新至', yk.n != null ? '<b>' + yk.n + '</b> / ' + yk.total + ' 集'
+                                        : (yk.ended ? '已完结 · 全 ' + yk.total + ' 集' : '--')));
+  if (acc.vipMax != null) {
+    /* 官方规则里 VIP 首更 4 集、SVIP 每个更新日多看 1 集，而灯塔页面和这一路都给 5 ——
+       所以「会员」那一档报的是含 SVIP 的数，不写清就成了假账。 */
+    const svip = /SVIP/.test(S.ykRule || '');
+    out.push(row('解锁进度', '免费至第 ' + (acc.freeMax != null ? acc.freeMax : '-') + ' 集 · 会员至第 ' +
+      acc.vipMax + ' 集' + (svip ? '（会员那档含 SVIP）' : '') +
+      (acc.total ? ' / 全 ' + acc.total + ' 集' : '')));
+  }
+  if (yk.next) {
+    const s = new Date(yk.next.at + 8 * 3600e3).toISOString();
+    out.push(row('下一档', s.slice(5, 10).replace('-', '.') + ' ' + s.slice(11, 16) +
+      ' 更至第 ' + yk.next.cum + ' 集'));
+  }
+  const cal = ykCalendar(ykPlayAt() ? ykPlayAt().hh : NaN, ykPlayAt() ? ykPlayAt().mm : 0);
+  if (cal.length) {
+    const z = cal[cal.length - 1];
+    const day = new Date(z.at + 8 * 3600e3).toISOString().slice(0, 10).replace(/-/g, '.');
+    out.push(row(z.cum >= yk.total ? '按规则收官' : '官方规则排至', day + ' · 累计 ' + z.cum + ' 集'));
+  }
+  if (acc.lifecycle && acc.lifecycle.label) out.push(row('平台生命周期', esc(acc.lifecycle.label) +
+    (acc.lifecycle.since ? ' · 自 ' + new Date(Date.parse(acc.lifecycle.since) + 8 * 3600e3)
+      .toISOString().slice(5, 10).replace('-', '.') : '')));
+  if (S.ykRule) {
+    box.innerHTML = '<div class="p-note" style="padding:2px 0 10px;line-height:1.7">' +
+      esc(S.ykRule) + '</div>';
+  } else {
+    box.innerHTML = '<div class="p-note" style="padding:2px 0 10px">官方更新规则原文暂未取到（灯塔那个字段是空的）。' +
+      '下面几行只报读得到的数。</div>';
+  }
+  rows.innerHTML = out.join('');
+  if (note) note.textContent = (S.ykRule ? '灯塔更新规则 ｜ ' : '') +
+    (acc.vipMax != null ? '解锁进度 · 剧风向' : '解锁进度未取到');
+}
+
+/* ============================================================
+   追剧日历 —— 优酷自己那张「追剧日历」表里的排期，落到 calendar.json。
+   取不到（首拍前 / 上游改了结构）就退回按官方更新规则推算的那份，并在页面上写明是推算。
+   ============================================================ */
+const CAL = { has: false, rows: [], total: 0, at: '', note: '', subtitle: '', completed: false };
+
+async function loadCalendar() {
+  try {
+    const r = await fetch('./calendar.json?t=' + Date.now(), { cache: 'no-store' });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const j = await r.json();
+    if (!Array.isArray(j.rows) || !j.rows.length) throw new Error('empty');
+    Object.assign(CAL, {
+      has: true, rows: j.rows, total: j.episodeTotal || 0,
+      subtitle: j.subtitle || '', note: j.note || '', completed: !!j.completed,
+      at: j.lastRun ? new Date(Date.parse(j.lastRun) + 8 * 3600e3).toISOString().slice(5, 16).replace('T', ' ').replace('-', '.') : '',
+    });
+    mark('追剧日历', true);
+  } catch (e) {
+    /* 缺文件是上线前的正常状态，和正片分时那格同样处理：不进页顶那条报错，
+       格子退回按更新规则推算的排期，并在角上写明是推算。 */
+    CAL.has = false;
+  }
+  renderCalendar();
+}
+
+/* 北京时间那一天的 ISO 日期，官方每一格都自带 iso，推算那格要现算 */
+const calToday = () => new Date(Date.now() + 8 * 3600e3).toISOString().slice(0, 10);
+const CAL_DOW = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+
+function renderCalendar() {
+  const strip = document.getElementById('calStrip'), tbl = document.getElementById('calTable'),
+        foot = document.getElementById('calFoot'), note = document.getElementById('calNote');
+  if (!strip || !tbl || !foot) return;
+  const acc = S.jfx || {};
+  const freeMax = acc.freeMax != null ? acc.freeMax : null;
+
+  if (!CAL.has) {
+    const p = ykPlayAt(), f = ykFirstAt();
+    const proj = ykCalendar(p ? p.hh : NaN, p ? p.mm : 0, f ? f.hh : NaN, f ? f.mm : 0);
+    if (!proj.length) {
+      if (note) note.textContent = '排期读取中';
+      strip.innerHTML = '';
+      /* 两样都还没到（剧风向先回、灯塔那路后回）时别写"读不到"：
+         这一句和面板初始那格一模一样，闪一下看不出来。 */
+      tbl.innerHTML = '<div class="p-note" style="padding:18px 0">' +
+        '这一格排的是「哪天放到第几集」，两档分开列：SVIP 恒比 VIP 多一集，' +
+        '所以同一个更新日能看到两行不同的数。</div>';
+      foot.innerHTML = '';
+      return;
+    }
+    if (note) note.textContent = '按官方更新规则推算';
+    strip.innerHTML = '';
+    tbl.innerHTML = '<table class="cal-tbl"><thead><tr><th>日期</th><th>星期</th><th>更至（SVIP）</th></tr></thead><tbody>' +
+      proj.map(x => {
+        const d = new Date(x.at + 8 * 3600e3), iso = d.toISOString().slice(0, 10);
+        return '<tr' + (iso === calToday() ? ' class="now"' : '') + '>' +
+          '<td>' + pad2(d.getUTCMonth() + 1) + '.' + pad2(d.getUTCDate()) + '</td>' +
+          '<td class="dow">' + CAL_DOW[d.getUTCDay()] + '</td>' +
+          '<td class="svip">第 ' + x.cum + ' 集</td></tr>';
+      }).join('') + '</tbody></table>';
+    foot.innerHTML = '这一格是照官方更新规则原文排的，不是优酷 App 里那张日历。上线后取到真排期会自动换成真的。';
+    return;
+  }
+
+  /* ---- 集数条 ---- */
+  const today = calToday();
+  /* 官方每一格只写「这天放第几集到第几集」，「现在看到第几集」要自己落到今天那一格上。
+     过零点之后上游那个 current 标记可能还停在昨天，所以先按日期找，找不到才认标记。 */
+  const cur = CAL.rows.filter(r => r.iso <= today).pop() ||
+              CAL.rows.filter(r => r.current).pop() || null;
+  const svipTo = cur ? cur.svipTo : null, vipTo = cur ? cur.vipTo : null;
+  const next = CAL.rows.find(r => r.iso > today);
+  const boxes = [];
+  for (let i = 1; i <= (CAL.total || svipTo || 30); i++) {
+    let cls = '', lab = '待更';
+    if (freeMax != null && i <= freeMax) { cls = ' free'; lab = '免费'; }
+    else if (svipTo != null && i <= svipTo) { cls = i <= (vipTo || 0) ? ' vip' : ' svip'; lab = i <= (vipTo || 0) ? 'VIP' : 'SVIP'; }
+    else if (next && i >= next.svipFrom && i <= next.svipTo) { cls = ' next'; lab = '下一档'; }
+    boxes.push('<div class="cal-ep' + cls + '"><b>' + i + '</b><i>' + lab + '</i></div>');
+  }
+  strip.innerHTML = boxes.join('');
+
+  /* ---- 排期表 ---- */
+  tbl.innerHTML = '<table class="cal-tbl"><thead><tr><th>日期</th><th>星期</th><th>SVIP</th><th>VIP</th></tr></thead><tbody>' +
+    CAL.rows.map(r => {
+      const isNow = r === cur;
+      return '<tr' + (isNow ? ' class="now"' : '') + '>' +
+        '<td>' + esc(r.day) + (isNow ? '<span class="cal-tag">今天</span>' : '') + '</td>' +
+        '<td class="dow">' + esc(r.week) + '</td>' +
+        '<td class="svip">' + esc(r.svip) + '</td>' +
+        '<td class="vip">' + esc(r.vip) + '</td></tr>';
+    }).join('') + '</tbody></table>';
+
+  /* ---- 对账：拿推算的 SVIP 累计比官方今天那一格的 SVIP 到第几集 ---- */
+  const p = ykPlayAt(), f = ykFirstAt();
+  const proj = ykCalendar(p ? p.hh : NaN, p ? p.mm : 0, f ? f.hh : NaN, f ? f.mm : 0);
+  const mine = proj.find(x => new Date(x.at + 8 * 3600e3).toISOString().slice(0, 10) === today);
+  let warn = '';
+  if (mine && cur && Number.isFinite(svipTo) && mine.cum !== svipTo) {
+    warn = '<div class="cal-warn">规则推出来的和平台上不一样：按更新规则今天该到第 ' + mine.cum +
+      ' 集，优酷日历上写的是第 ' + svipTo + ' 集。这一格以平台日历为准。</div>';
+  }
+  const tail = [];
+  tail.push('全 ' + CAL.total + ' 集 · 现在 SVIP 看到第 ' + (svipTo ?? '-') +
+    ' 集、VIP 看到第 ' + (vipTo ?? '-') + ' 集' +
+    (freeMax != null ? '、免费看到第 ' + freeMax + ' 集' : ''));
+  tail.push('排期读取 · ' + (CAL.at || '--'));
+  if (CAL.note) tail.push(esc(CAL.note));
+  foot.innerHTML = tail.join('<br>') + warn;
+  if (note) note.textContent = '优酷排期 · ' + CAL.rows[0].day + '—' + CAL.rows[CAL.rows.length - 1].day +
+    ' 共 ' + CAL.rows.length + ' 天';
+}
+
+function renderWork() {
+  const d = S.douban, m = S.meta || {}, nf = S.jfx.info || {};
+  if (!d && !m.mediaName && !nf.synopsis) return;
+  const rows = [];
+  rows.push(row('片名', esc(d?.title || m.mediaName || CONFIG.title) +
+    (nf.alias ? '（' + esc(nf.alias) + '）' : '')));
+  const genres = d?.genres?.length ? d.genres : (Array.isArray(m.type) ? m.type : []);
+  if (genres.length) rows.push(row('类型', esc(genres.join(' / '))));
+  const dir = d?.directors?.length ? d.directors : (nf.director ? [nf.director] : []);
+  if (dir.length) rows.push(row('导演', esc(dir.join('、'))));
+  const act = d?.actors?.length ? d.actors : (nf.cast || []);
+  if (act.length) rows.push(row('主演', esc(act.slice(0, 4).map(a => String(a).trim()).join('、')) +
+    (act.length > 4 ? ' 等 ' + act.length + ' 人' : '')));
+  rows.push(row('集数', (d?.epCount || m.episodeCnt || '-') + ' 集' +
+    (m.duration ? ' · 单集约 ' + m.duration + ' 分钟' : '')));
+  if (m.openDay || d?.pubdate) rows.push(row('首播', esc(d?.pubdate || m.openDay)));
+  rows.push(row('播出平台', (m.platforms || ['优酷']).join(' / ') + ' 独播 · 不上星'));
+  if (d) rows.push(row('豆瓣口碑', (d.dbRank ? '热门电视实时榜第 ' + d.dbRank + ' 名' : '暂无评分') +
+    (d.cmt ? ' · 短评 ' + fmt(d.cmt) : '')));
+  document.getElementById('workRows').innerHTML = rows.join('');
+  const intro = d?.intro ? tidyCjk(d.intro) : (nf.synopsis ? tidyCjk(nf.synopsis) : '');
+  document.getElementById('workIntro').textContent = intro || '简介暂未取到。';
+}
+
+/* ============================================================
+   渲染
+   ============================================================ */
+const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const row = (k, v) => '<div class="row"><span class="k">' + k + '</span><span class="v">' + v + '</span></div>';
+const fmt = n => n == null ? '--' : Number(n).toLocaleString('zh-CN');
+const wan = n => n == null ? '--' : (n >= 1e8 ? (n / 1e8).toFixed(2) + ' 亿' : (n / 1e4).toFixed(1) + ' 万');
+/* KPI 大数字用的播放量：吃原始整数自己除，过亿换「亿」。单位必须跟数字一起返回，
+   因为卡片上那个「万」字原来是写死的，灯塔自己在过亿那刻切展示串（见 loadSsr 注释），
+   我们只读 .value，所以切换得在这里做。
+   返回字符串而不是数字：renderKPI 靠小数位决定补几个 0，Number("1.00") 会把尾零吃掉，
+   刚过亿那一刻就显示成 "1 亿"。 */
+const vvCard = raw => { const v = +raw;
+  return v ? (v >= 1e8 ? { v: (v / 1e8).toFixed(2), u: '亿' }
+                       : { v: (v / 1e4).toFixed(2), u: '万' })
+           : { v: null, u: '' }; };
+const tidyCjk = s => (s || '').replace(/([一-龥])[ \u3000]+(?=[一-龥])/g, '$1');
+function pad2(n) { return String(n).padStart(2, '0'); }
+
+const CARDS = [
+  { k: 'youkuHot',  name: '优酷实时热度',   c: 'var(--youku)', ico: 'M12 2a10 10 0 100 20 10 10 0 000-20zm0 4a6 6 0 110 12 6 6 0 010-12z' },
+  { k: 'todayVv',   name: '今日实时播放量', c: 'var(--gold)',  ico: 'M3 17l5-6 4 4 5-7 4 5V3H3v14z' },
+  { k: 'totalVv',   name: '累计正片播放量', c: 'var(--gold)',  ico: 'M4 4h16v4H4V4zm0 6h16v10H4V10z' },
+  { k: 'share',     name: '实时播放市占',   c: 'var(--ember)', ico: 'M12 2a10 10 0 100 20 10 10 0 000-20zm1 5v6l5 3-.8 1.3L11 13V7h2z' },
+  { k: 'epAvg',     name: '集均播放量',     c: 'var(--ember)', ico: 'M4 20V8h4v12H4zm6 0V4h4v16h-4zm6 0v-8h4v8h-4z' },
+  { k: 'yestVv',    name: '昨日全天播放',   c: 'var(--gold)',  ico: 'M5 3h14v4a7 7 0 01-14 0V3zm2 12h10v3H7v-3z' },
+  { k: 'pkHour',    name: '峰值小时',       c: 'var(--youku)', ico: 'M13 2L4 14h6l-1 8 9-12h-6l1-8z' },
+  { k: 'pkShare',   name: '最高市占',       c: 'var(--gold)',  ico: 'M7.5 4a3.5 3.5 0 100 7 3.5 3.5 0 000-7zm9 9a3.5 3.5 0 100 7 3.5 3.5 0 000-7zM5.6 19.4L18.4 4.6l1.2.9L6.8 20.3z' },
+  { k: 'baiduIdx',  name: '百度指数·最新',  c: '#ffbe6a',      ico: 'M15.5 14h-.79l-.28-.27A6.47 6.47 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z' },
+  { k: 'bbWeek',    name: '七日拉新榜',     c: '#7ee0c0',      ico: 'M5 3h14v4a7 7 0 01-14 0V3zm2 12h10v3H7v-3z' },
+  { k: 'bbYear',    name: '年度拉新榜',     c: 'var(--gold)',  ico: 'M12 2l2.6 6.3H21l-5.2 4.1 1.9 6.6L12 15.3 6.3 19l1.9-6.6L3 8.3h6.4z' },
+  { k: 'douban',    name: '豆瓣评分',       c: '#5fd4a3',      ico: 'M4 4h16v4H4V4zm0 6h16v10H4V10z' }
+];
+
+function cardVals() {
+  const now = heatNow();
+  const yPeak = dayPeak(1);
+  const base = S.jfx.max != null ? S.jfx.max : (S.ssrHot?.max || null);
+  const baseAt = S.jfx.maxAt || (S.ssrHot?.maxDate || '');
+  const hotAt = S.jfx.curAt ? (bjClock(S.jfx.curAt)?.hhmm || '') : (S.rankAt ? S.rankAt.slice(11, 16) : '');
+  const sv = slowVals();
+  return {
+    youkuHot: { v: now, d: yPeak && now ? now - yPeak : null, dl: '对昨日峰值',
+                sub: (hotAt ? '采样于 ' + hotAt : '热度读取中') +
+                     (base ? ' · 历史最高 ' + fmt(base) + (baseAt ? ' · ' + String(baseAt).slice(0, 10) : '') : '') },
+    todayVv:  (() => { const c = vvCard(playVal('todayRaw'));
+                return { v: c.v, u: c.u,
+                         sub: playVal('todayRaw') ? '原始 ' + fmt(playVal('todayRaw')) : '播放量接口读取中' }; })(),
+    totalVv:  (() => {
+      const t = sv.totalVv, raw = sv.todayRaw;
+      if (!t) return { v: null, sub: '播放量接口读取中' };
+      const c = vvCard(t);
+      /* 开播首日累计就等于当日数，两个卡片数字一样是正常的，写出来免得看着像 BUG */
+      return { v: c.v, u: c.u, sub: '原始 ' + fmt(t) + (raw && t === raw ? ' · 开播首日与今日同量' : '') };
+    })(),
+    share:    { v: playVal('share'), u: playVal('share') ? '%' : '',
+                sub: playVal('shareMax') ? '历史最高 ' + playVal('shareMax') + '%' : '市占数据读取中' },
+    epAvg:    { v: sv.epAvg, u: sv.epAvg ? '万' : '',
+                sub: sv.epAvg ? (sv.epAvgTo || '') : '灯塔暂未给出集均' },
+    yestVv:   (() => {
+      const key = ymd(new Date(Date.now() - 864e5)).replace(/-/g, '');
+      const y = S.vvRows.find(x => String(x.showDate) === key);
+      return y ? { v: +(y.vvCnt / 1e4).toFixed(1), u: '万', sub: '当日累计 ' + wan(y.totalVv) }
+               : { v: null, sub: '昨日还没有本剧的逐日记录' };
+    })(),
+    /* 峰值小时 / 最高市占：读的是下面那条分时曲线同一天（判据在 vvhDay()）。
+       数字用「万」和「%」，小时段放进 sub —— 卡片位只放一个数，放两个就都看不清了。 */
+    pkHour:   (() => { const d = vvhDay();
+                 const p = d.bars.slice().sort((a, b) => b.vvCnt - a.vvCnt)[0];
+                 return p ? { v: +(p.vvCnt / 1e4).toFixed(1), u: '万',
+                              sub: p.hh + (p.derived ? ' · 次日倒推' : '') + ' · ' + (d.isToday ? '今日' : '前一日') + '全网正片' }
+                          : { v: null, sub: VVH.has ? '这一天还没有分时格子' : '分时档案建立中' }; })(),
+    pkShare:  (() => { const d = vvhDay();
+                 const p = d.bars.filter(h => h.share != null).sort((a, b) => b.share - a.share)[0];
+                 return p ? { v: p.share, u: '%', sub: p.hh + ' 那一格 · ' + (d.isToday ? '今日最高' : '前一日最高') }
+                          : { v: null, sub: '灯塔没给分时格子里的市占' }; })(),
+    bbWeek:   bbCardVal('week', '过去 7 天会员开通热度'),
+    bbYear:   bbCardVal('year', '过去 365 天会员开通热度'),
+    douban:   { v: S.douban ? (S.douban.count >= 5 && S.douban.score ? S.douban.score.toFixed(1) : (S.douban.noRate || '暂无评分')) : null,
+                sub: S.douban ? '短评 ' + fmt(S.douban.cmt) + ' · 长评 ' + fmt(S.douban.review)
+                             : (CONFIG.doubanId ? '豆瓣读取中' : '豆瓣条目号还没接上') },
+    baiduIdx: (() => {
+      const rw = BAIDU_INDEX.rows;
+      if (!rw.length) return { v: null, sub: BAIDU_INDEX.note || '暂无数据' };
+      const last = rw[rw.length - 1], prev = rw.length > 1 ? rw[rw.length - 2] : null;
+      return { v: last[1], d: prev ? last[1] - prev[1] : null, dl: prev ? '日环比' : null,
+               sub: '自动重采 · 截至 ' + BAIDU_INDEX.asof + baiduStamp() };
+    })()
+  };
+}
+
+function renderKPI() {
+  const host = document.getElementById('kpi');
+  const vals = cardVals();
+  if (!host.children.length) {
+    host.innerHTML = CARDS.map(c => `
+      <div class="card" style="--c:${c.c}">
+        <div class="c-head">
+          <div class="c-ico"><svg viewBox="0 0 24 24"><path d="${c.ico}"/></svg></div>
+          <div class="c-name">${c.name}</div>
+        </div>
+        <div class="c-val" data-v="${c.k}">--</div>
+        <div class="c-sub" data-s="${c.k}"></div>
+      </div>`).join('');
+    requestAnimationFrame(() => [...host.children].forEach((el, i) =>
+      setTimeout(() => el.classList.add('in'), i * 55)));
+  }
+  CARDS.forEach(c => {
+    const d = vals[c.k] || {};
+    const el = host.querySelector(`[data-v="${c.k}"]`);
+    const se = host.querySelector(`[data-s="${c.k}"]`);
+    const num = typeof d.v === 'number' ? d.v : (d.v && /^[\d.]+$/.test(String(d.v)) ? Number(d.v) : null);
+    if (num != null) {
+      const s = String(d.v), dec = d.dec != null ? d.dec : (/^\d+\.\d+$/.test(s) ? s.split('.')[1].length : 0);
+      animateNum(el, num, d.u, dec);
+    }
+    else el.innerHTML = (d.v == null ? '--' : esc(d.v)) + (d.u ? `<span class="u">${d.u}</span>` : '');
+    let sub = '';
+    if (d.d != null && !isNaN(d.d)) {
+      const cls = d.d > 0 ? 'up' : d.d < 0 ? 'down' : 'flat';
+      const ar = d.d > 0 ? '▲' : d.d < 0 ? '▼' : '—';
+      /* dp = 保留几位小数（畅销榜的增量用），不给就还是原来的取整 + 千分位 */
+      const n = d.dp ? Math.abs(d.d).toFixed(d.dp) : fmt(Math.round(Math.abs(d.d)));
+      sub += `<span class="delta ${cls}">${ar} ${n}${d.du || ''}</span>`;
+      if (d.dl) sub += `<span>${esc(d.dl)}</span>`;
+    }
+    if (d.sub) sub += `<span${d.warn ? ' class="warn"' : ''}>${esc(d.sub)}</span>`;
+    se.innerHTML = sub;
+  });
+}
+
+function animateNum(el, target, unit, dec = 0) {
+  const paint = v => (dec > 0 ? v.toFixed(dec) : Math.round(v).toLocaleString('zh-CN')) +
+                     (unit ? `<span class="u">${unit}</span>` : '');
+  if (document.hidden) { el.innerHTML = paint(target); el.dataset.cur = target; return; }
+  const from = Number((el.dataset.cur || 0));
+  const t0 = performance.now(), dur = 320;
+  if (el._raf) cancelAnimationFrame(el._raf);
+  const step = (t) => {
+    const k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3);
+    el.innerHTML = paint(from + (target - from) * e);
+    if (k < 1) el._raf = requestAnimationFrame(step); else { el.dataset.cur = target; clearTimeout(el._to); }
+  };
+  el._raf = requestAnimationFrame(step);
+  clearTimeout(el._to);
+  el._to = setTimeout(() => {
+    if (Number(el.dataset.cur) !== target) {
+      cancelAnimationFrame(el._raf); el.innerHTML = paint(target); el.dataset.cur = target;
+    }
+  }, dur + 400);
+}
+
+function renderMeta() {
+  const m = S.meta || {};
+  if (!m.mediaName) return;
+  if (m.poster) document.getElementById('poster').src = m.poster;
+  const chips = [];
+  if (m.type?.length) chips.push(m.type.join(' / '));
+  if (m.episodeCnt) chips.push(`全 <b>${m.episodeCnt}</b> 集`);
+  if (m.platforms?.length) chips.push(m.platforms.join(' · ') + ' 独播');
+  /* 「首播那一次」和「每天更新的时点」是两件事，所以拆成两张 chip：
+     合成一张会让人分不清哪句是历史、哪句是现在的节奏。 */
+  const f = ykFirstAt(), p = ykPlayAt();
+  if (m.openDay) chips.push(`首播 <b>${m.openDay}${f ? ' ' + f.text : ''}</b> 上线`);
+  /* 收官之后这一句就成了假的 —— 它说的是「以后每天还更」，而灯塔自己已经改口写「已完结」。 */
+  if (p && !ykEnded()) chips.push(`优酷 <b>每日 ${p.text}</b> 更新`);
+  if (m.duration) chips.push(`单集 <b>${m.duration}</b> 分钟`);
+  document.getElementById('chips').innerHTML = chips.map(c => `<span class="chip">${c}</span>`).join('');
+  renderMarch();
+}
+
+/* ============================================================
+   排播主轴 —— 本剧优酷独播、不上星，所以没有央视节目单这一路，
+   「已更到第几集」只以灯塔的 updateEpisode + 官方 playRule 原文为准。
+   ============================================================ */
+const bjMidnight = t => Math.floor((t + 8 * 3600e3) / 864e5) * 864e5 - 8 * 3600e3;
+
+/* 进度文案（纯算，不碰 DOM，方便单独验） */
+const bjHM = t => new Date(t + 8 * 3600e3).toISOString().slice(11, 16);
+
+/* ---------- 优酷更新进度 ----------
+   本剧只有优酷一家，进度就一条轴：灯塔的 updateEpisode 给已播集数，playRule 原文给节奏。
+   首更 4 集（SVIP 多看 1 集 ⇒ 页面写「更新至5集」），11 月 16 日起每天 12:00 更 2 集。 */
+
+/* 生效的每日放量时刻。CONFIG.ykPlayTime 是页面上那句「11月15日12:00上线」的口径，
+   置 null 就退回采信灯塔 SSR 的 playTime 字段（本剧两者同为 12:00）。 */
+function ykPlayAt() {
+  const hm = String(CONFIG.ykPlayTime || (S.meta || {}).playTime || '')
+               .match(/(\d{1,2}):(\d{2})/);
+  return hm ? { hh: +hm[1], mm: +hm[2], text: hm[1] + ':' + hm[2] } : null;
+}
+/* 首播那一天的时刻，只影响日历第一格和「首播 …上线」那张 chip */
+function ykFirstAt() {
+  const hm = String(CONFIG.ykFirstTime || '').match(/(\d{1,2}):(\d{2})/);
+  return hm ? { hh: +hm[1], mm: +hm[2], text: hm[1] + ':' + hm[2] } : ykPlayAt();
+}
+
+/* 从官方更新规则原文推「哪天几点更、更完累计几集」。SVIP 是"提前多看 N 集"，
+   也就是恒等于 VIP 累计 + N，不是每天都多更 N 集。解析不出来就回空数组，
+   倒计时退回央视排播，绝不拿猜出来的日期去倒数。
+   fhh/fmm 是首播日那一次的时点，缺省跟每日时点一致。 */
+function ykCalendar(hh, mm, fhh, fmm) {
+  const text = S.ykRule, m = S.meta || {};
+  const open = String(m.openDay || '').match(/(\d{4})\.(\d{1,2})\.(\d{1,2})/);
+  if (!text || !open || !Number.isFinite(hh)) return [];
+  const extra = +((text.match(/提前多看\s*(\d+)\s*集/) || [])[1] || 0);
+  const first = +((text.match(/首更\s*(\d+)\s*集/) || [])[1] || 0);
+  const per   = +((text.match(/每天更新\s*(\d+)\s*集/) || [])[1] || 0);
+  const bjAt = (y, mo, d, H, M) => Date.parse(y + '-' + pad2(mo) + '-' + pad2(d) +
+                              'T' + pad2(H == null ? hh : H) + ':' + pad2(M == null ? mm : M) + ':00+08:00');
+  const day1 = Number.isFinite(fhh) ? { h: fhh, m: fmm } : { h: hh, m: mm };
+  const out = [{ at: bjAt(+open[1], +open[2], +open[3], day1.h, day1.m), cum: first + extra }];
+  const rng = text.match(/(\d{1,2})月(\d{1,2})日至(?:(\d{1,2})月)?(\d{1,2})日/);
+  if (rng && per) {
+    let y = +open[1];
+    const mo = +rng[1], d = +rng[2], eMo = +(rng[3] || rng[1]), eD = +rng[4];
+    if (mo < +open[2]) y++;                                  // 跨年档期
+    let cur = Date.parse(y + '-' + pad2(mo) + '-' + pad2(d) + 'T00:00:00+08:00');
+    const last = Date.parse(y + '-' + pad2(eMo) + '-' + pad2(eD) + 'T00:00:00+08:00');
+    if (cur > out[0].at) {
+      let cum = out[0].cum;
+      while (cur <= last) {
+        cum += per;
+        const dd = new Date(cur + 8 * 3600e3);
+        out.push({ at: bjAt(dd.getUTCFullYear(), dd.getUTCMonth() + 1, dd.getUTCDate()), cum });
+        cur += 864e5;
+      }
+    }
+  }
+  return out;
+}
+
+/* 灯塔在收官那一拍把 updateEpisode 从「更新至 N/M 集」换成「已完结」，带数字的两种形状都不认了
+   （11-03 实测嫁金钗：updateEpisode=已完结、episodeCnt=30，同一发 playrule 也从长句缩成「30集全」）。
+   两处要认，抽一个。 */
+function ykEnded() { return String((S.meta || {}).updateEpisode || '').trim() === '已完结'; }
+
+function ykState(now) {
+  const m = S.meta || {};
+  const upd = String(m.updateEpisode || '');
+  const a = upd.match(/更新至\s*(\d+)\s*\/\s*(\d+)\s*集/) || upd.match(/更新至\s*(\d+)\s*集/);
+  const ended = ykEnded();
+  const p = ykPlayAt(), f = ykFirstAt();
+  const cal = ykCalendar(p ? p.hh : NaN, p ? p.mm : 0, f ? f.hh : NaN, f ? f.mm : 0);
+  const done = cal.filter(x => x.at <= now);
+  let total = m.episodeCnt || 30;
+  if (a && a[2]) total = +a[2];
+  let n = a ? +a[1] : (ended ? total : null);
+  if (n == null && done.length) n = done[done.length - 1].cum;
+  return { n, total, ended, at: p ? p.text : null,
+           /* 收官之后日历里那些「以后还更」的格子不再作数，倒计时不许再往它们身上指。 */
+           next: ended ? null : (cal.find(x => x.at > now) || null),
+           last: done.length ? done[done.length - 1] : null };
+}
+
+/* 下一档那一行只认 playRule 推出来的日历。日历排完而集数没到 total，说的是「平台还没公布」，
+   不是「完结」—— 本剧的规则原文只写到 11 月 21 日（累计 19 集），全剧 30 集，中间必然还有一段。 */
+function ykNextLine(yk, dayLabel) {
+  if (yk.ended) return '全 ' + yk.total + ' 集已放出';
+  if (yk.next) return `${dayLabel(yk.next.at)} ${bjHM(yk.next.at)} 更至第 ${yk.next.cum} 集`;
+  const cal = ykCalendar(ykPlayAt() ? ykPlayAt().hh : NaN, ykPlayAt() ? ykPlayAt().mm : 0);
+  if (cal.length) return `官方规则只排到 ${new Date(cal[cal.length - 1].at + 8 * 3600e3).toISOString().slice(5, 10).replace('-', '.')}（累计 ${cal[cal.length - 1].cum} 集），之后未公布`;
+  return '更新日历读取中…';
+}
+
+function marchView(now) {
+  const yk = ykState(now);
+  const total = yk.total;
+  const dayLabel = t => {
+    const d0 = bjMidnight(now);
+    if (t < d0 + 864e5) return '今天';
+    if (t < d0 + 2 * 864e5) return '明天';
+    return new Date(t + 8 * 3600e3).toISOString().slice(5, 10).replace('-', '.');
+  };
+  const n = yk.n == null ? 0 : yk.n;
+  let txt;
+  if (n) txt = `优酷已更 ${n}/${total} 集`;
+  else if (yk.next) txt = `${dayLabel(yk.next.at)} ${bjHM(yk.next.at)} 上线 · 0/${total} 集`;
+  else txt = '更新进度读取中…';
+  const sub = [];
+  if (yk.at) sub.push('优酷每日 <b>' + esc(yk.at) + '</b> 更新');
+  sub.push(esc(ykNextLine(yk, dayLabel)));
+  return { n, total, txt, sub: sub.join(' ｜ ') };
+}
+
+function renderMarch() {
+  const { n, total, txt, sub } = marchView(Date.now());
+  document.getElementById('marchText').textContent = txt;
+  const s = document.getElementById('marchSub');
+  if (s) s.innerHTML = sub;
+  const pct = Math.max(2, Math.min(100, n / total * 100));
+  document.getElementById('trackFill').style.width = pct + '%';
+  document.getElementById('trackHead').style.left = pct + '%';
+  const tr = document.getElementById('track');
+  tr.querySelectorAll('.mile').forEach(el => el.remove());
+  [10, 25, 50, 75, 100].forEach(p => {
+    const d = document.createElement('div');
+    d.className = 'mile' + (pct >= p ? ' hit' : '');
+    d.style.left = p + '%'; d.title = p + '% · 第 ' + Math.round(total * p / 100) + ' 集';
+    tr.appendChild(d);
+  });
+}
+
+function renderHonor() {
+  const host = document.getElementById('honor');
+  const items = [];
+  const allPeak = Math.max(0, ...S.hotDaily.map(x => x.max || 0), S.jfx.max || 0, dayPeak(0) || 0);
+  const badge = document.getElementById('rankBadge');
+  if (badge) badge.textContent = S.rankRow
+    ? '优酷热度榜 TOP' + (S.rankRow.mediaRank + 1)
+    : '优酷 · 独播';
+  if (allPeak) {
+    const marks = [[12000, '优酷热度破 1.2 万'], [10000, '优酷热度破 1 万'], [8000, '优酷热度破 8000'],
+                   [6000, '优酷热度破 6000'], [5000, '优酷热度破 5000'], [3000, '优酷热度破 3000']];
+    const hit = marks.find(m => allPeak >= m[0]);
+    if (hit) items.push({ g: '🏮', t: hit[1], d: '当前峰值 ' + fmt(allPeak) });
+  }
+  /* 里程碑那条用的是剧风向自己给的门槛（threshold=10000），不是我们编的档位。 */
+  if (S.jfx.threshold && S.jfx.cur) {
+    items.push({ g: '🎯', t: '热度破 ' + fmt(S.jfx.threshold) + ' 里程碑',
+                 d: S.jfx.tenKAt ? '已于 ' + S.jfx.tenKAt + ' 达成'
+                                 : '当前 ' + fmt(S.jfx.cur) + ' · 还差 ' + fmt(S.jfx.threshold - S.jfx.cur) });
+  }
+  if (S.rankRow) {
+    const no = S.rankRow.mediaRank + 1;
+    items.push({ g: '📊', t: '优酷剧集热度榜第 ' + no + ' 名',
+                 d: '实时热度 ' + fmt(S.rankRow.cnt) + ' · ' + (S.rankRow.openDayStr || '') });
+  }
+  if (S.douban?.dbRank) items.push({ g: '🌟', t: '豆瓣' + (S.douban.rankTitle || '热门电视') + '实时榜第 ' + S.douban.dbRank + ' 名',
+                 d: '热度值 ' + fmt(S.douban.hotScore) });
+
+  const r = S.rankRow;
+  const rankHtml = r ? `<div class="rank-card">
+      <div class="rc-name">优酷热度排名<span>· ${esc((S.meta || {}).mediaTypeName || '剧集')}</span></div>
+      <div class="rc-no">TOP<b>${r.mediaRank + 1}</b></div>
+      <div class="rc-tip">灯塔专业版 · ${esc(S.rankAt || '当日榜单')}</div>
+    </div>` : '';
+
+  const list = items.length ? items.map(i =>
+    `<div class="honor-item"><div class="hg">${i.g}</div><div><div class="tx">${esc(i.t)}</div>${i.d ? `<div class="dt">${esc(i.d)}</div>` : ''}</div></div>`
+  ).join('') : (rankHtml ? '' : '<div class="p-note">暂无里程碑记录</div>');
+  host.innerHTML = rankHtml + list;
+}
+
+/* ============================================================
+   图表
+   ============================================================ */
+let hotChart, rankChart, liveChart, baiduChart, bbChart, bbYearChart, qmChart, vvHourChart;
+const C_YOUKU = '#2ea8ff', C_GOLD = '#ffc861', C_DIM = '#8e97b0';
+
+const baseOpts = () => ({
+  responsive: true, maintainAspectRatio: false,
+  interaction: { mode: 'index', intersect: false },
+  plugins: { legend: { labels: { color: '#c7cede', boxWidth: 10, boxHeight: 10, font: { size: 11 } } },
+             tooltip: { backgroundColor: 'rgba(8,10,18,.92)', borderColor: 'rgba(255,255,255,.14)', borderWidth: 1 } },
+  scales: {
+    x: { ticks: { color: C_DIM, font: { size: 10 }, maxRotation: 0, autoSkipPadding: 14 },
+         grid: { color: 'rgba(255,255,255,.05)' } },
+    y: { ticks: { color: C_DIM, font: { size: 10 } }, grid: { color: 'rgba(255,255,255,.06)' }, beginAtZero: false }
+  }
+});
+
+function renderHotChart() {
+  const cv = document.getElementById('hotChart');
+  const rows = S.hotDaily.slice(-24);
+  document.getElementById('hotEmpty').style.display = rows.length ? 'none' : 'grid';
+  if (!rows.length) return;
+  const labels = rows.map(r => r.date.slice(4, 6) + '/' + r.date.slice(6, 8));
+  const ds = [
+    { type: 'bar', label: '当日平均', data: rows.map(r => r.avg),
+      backgroundColor: 'rgba(255,200,97,.42)', borderColor: C_GOLD, borderWidth: 1, borderRadius: 4, order: 3 },
+    { type: 'line', label: '当日最高', data: rows.map(r => r.max),
+      borderColor: C_YOUKU, backgroundColor: C_YOUKU, borderWidth: 2, pointRadius: 2, tension: .3, order: 1 },
+    { type: 'line', label: '当日最低', data: rows.map(r => r.min),
+      borderColor: C_DIM, backgroundColor: C_DIM, borderWidth: 1.5, borderDash: [5, 4], pointRadius: 0, tension: .3, order: 2 }
+  ];
+  if (hotChart) { hotChart.data.labels = labels; hotChart.data.datasets = ds; hotChart.update('none'); }
+  else {
+    const o = baseOpts();
+    o.scales.y.title = { display: true, text: '优酷热度', color: C_DIM, font: { size: 10 } };
+    hotChart = new Chart(cv, { data: { labels, datasets: ds }, options: o });
+  }
+  const t = dayRow(0), y = dayRow(1), pk = dayPeak(0), yp = dayPeak(1);
+  document.getElementById('hotNote').innerHTML = t
+    ? `${t.date.slice(4, 6)}/${t.date.slice(6, 8)} 平均 <b style="color:var(--gold)">${fmt(t.avg)}</b> · 峰值 ${fmt(pk)}` +
+      (yp ? ` · 昨日峰值 ${fmt(yp)}（${pk > yp ? '<span class="warn">仍在爬</span>' : '已回落'}）` : '')
+    : '';
+}
+
+function renderRankChart() {
+  const cv = document.getElementById('rankChart');
+  const rows = S.rankRows.slice(0, 10);
+  document.getElementById('rankEmpty').style.display = rows.length ? 'none' : 'grid';
+  if (!rows.length) return;
+  const labels = rows.map(x => x.mediaName);
+  const data = rows.map(x => +x.cnt);
+  const mine = rows.map(x => String(x.mediaId) === String(CONFIG.mediaId));
+  const bg = rows.map((x, i) => mine[i] ? C_GOLD : (i === 0 ? 'rgba(46,168,255,.85)' : 'rgba(46,168,255,.34)'));
+  const ds = [{ label: '实时热度', data, backgroundColor: bg, borderRadius: 5, barThickness: 15 }];
+  const o = {
+    indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false },
+      tooltip: { backgroundColor: 'rgba(8,10,18,.92)', callbacks: {
+        label: c => '热度 ' + fmt(c.raw) + ' · ' + (rows[c.dataIndex].openDayStr || '') } } },
+    scales: {
+      x: { ticks: { color: C_DIM, font: { size: 10 } }, grid: { color: 'rgba(255,255,255,.06)' } },
+      y: { ticks: { color: rows.map((x, i) => mine[i] ? C_GOLD : '#c7cede'), font: { size: 11 } },
+           grid: { display: false } }
+    }
+  };
+  if (rankChart) { rankChart.data.labels = labels; rankChart.data.datasets = ds; rankChart.options = o; rankChart.update('none'); }
+  else rankChart = new Chart(cv, { type: 'bar', data: { labels, datasets: ds }, options: o });
+  document.getElementById('rankNote').innerHTML = '灯塔 · 优酷热度排名' +
+    (S.rankAt ? ' · 更新于 ' + esc(S.rankAt.slice(11, 16)) : '');
+}
+
+const toMin = s => { const [a, b] = String(s).split(':'); return (+a) * 60 + (+b); };
+function renderLiveChart() {
+  const cv = document.getElementById('liveChart');
+  const today = liveSeries(0), yest = liveSeries(1);
+  document.getElementById('liveEmpty').style.display = today.rec.length ? 'none' : 'grid';
+  document.getElementById('liveNote').innerHTML = today.rec.length
+    ? `上游约 10 分钟一点 · 今日 ${today.rec.length} 点` + (yest.rec.length ? ' / 昨日 ' + yest.rec.length + ' 点' : '')
+    : '剧风向这条还没回点；在此之前由本页按灯塔节拍自采（仅存于本机浏览器）';
+  if (!today.rec.length) return;
+  const labels = [];
+  for (let m = 0; m < 24 * 60; m += 5) labels.push(pad2((m / 60) | 0) + ':' + pad2(m % 60));
+  const bucket = rec => {
+    const out = new Array(labels.length).fill(null);
+    rec.forEach(r => { const i = Math.round(toMin(r.hhmm) / 5); if (i >= 0 && i < out.length) out[i] = r.v; });
+    return out;
+  };
+  const ds = [{ label: '今日', data: bucket(today.rec), borderColor: C_YOUKU, backgroundColor: 'rgba(46,168,255,.12)',
+    borderWidth: 2, pointRadius: 0, tension: .25, fill: true, spanGaps: true }];
+  if (yest.rec.length) ds.push({ label: '昨日', data: bucket(yest.rec), borderColor: C_DIM, borderWidth: 1.4,
+    borderDash: [5, 4], pointRadius: 0, tension: .25, fill: false, spanGaps: true });
+  const o = baseOpts();
+  o.scales.x.ticks.callback = (v, i) => i % 12 === 0 ? labels[i] : '';
+  o.scales.y.title = { display: true, text: '优酷热度', color: C_DIM, font: { size: 10 } };
+  if (liveChart) { liveChart.data.labels = labels; liveChart.data.datasets = ds; liveChart.options = o; liveChart.update('none'); }
+  else liveChart = new Chart(cv, { type: 'line', data: { labels, datasets: ds }, options: o });
+}
+
+/* ============================================================
+   正片播放量 · 分时（灯塔全网口径）
+   ============================================================ */
+/* 别和上面那格「今日热度分时」混：那格是优酷平台热度、本页在浏览器里自己攒的；
+   这格是灯塔的「正片播放量」按小时切开，platform 用 ALL（全网），
+   跟优酷单平台那套数不是一回事。
+
+   数据只有一个来源：vv-hourly.json，每半小时攒一格，本页 5 分钟读一次。
+   ⚠ 这里刻意不画"当前这一小时"。原本打算用 liveLoop 已经在轮的当日累计减去
+      各小时之和倒推出来，10-20 18:24 一测就废了：Σ(0点-17点) = 5,120.1 万，
+      同一分钟的当日累计只有 5,030.3 万 —— 灯塔这两套行本身对不上（逐日那行慢一截），
+      做减法得到负数，硬画就是假数。所以最后一格永远是"上一个完整小时"，
+      文案里写清楚。同理，当日累计那两张卡在上方的 KPI 里看，别拿这格的各格之和去对。 */
+const VVH = { days: {}, asof: '', at: '', has: false };
+/* 灯塔的 showDate 是北京日的 YYYYMMDD。海外访客按浏览器本地时区取"今天"会错一天，
+   所以这里一律走 UTC+8，不碰 getFullYear/getMonth。 */
+const bjYmd = (t = Date.now()) => new Date(t + 8 * 3600e3).toISOString().slice(0, 10).replace(/-/g, '');
+function vvHoursOf(key) {
+  return ((((VVH.days || {})[key] || {}).hours) || []).slice().sort((a, b) => a.from - b.from);
+}
+/* 顶部那两张卡片和下面那条曲线必须读同一天，所以"取哪天"只写在这一个地方：
+   今天有格就今天；刚过零点、0点-1点 那一格还没攒进来时退回昨天。 */
+function vvhDay() {
+  const kT = bjYmd(), kY = bjYmd(Date.now() - 864e5);
+  let key = kT, prevKey = kY, bars = vvHoursOf(key);
+  if (!bars.length) { key = kY; prevKey = bjYmd(Date.now() - 2 * 864e5); bars = vvHoursOf(key); }
+  return { key, prevKey, bars, line: vvHoursOf(prevKey),
+           isToday: key === kT, yestShown: key === kT && prevKey === kY };
+}
+async function loadVvHourly() {
+  try {
+    const r = await fetch('./vv-hourly.json?t=' + Date.now(), { cache: 'no-store' });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const j = await r.json();
+    if (!j.days || !Object.keys(j.days).length) throw new Error('empty');
+    VVH.days = j.days; VVH.asof = String(j.asof || ''); VVH.has = true;
+    VVH.at = j.lastRun || j.fetchedAt || '';
+  } catch (e) {
+    /* 文件还没有 ≠ 链路坏了：第一天跑通之前必然缺。所以不进 src 表、
+       不在页顶那条报错里点名，只在格子自己那行写"档案建立中"。 */
+    VVH.has = false;
+  }
+  renderVvHour();
+  /* 分时那两个数现在是顶部卡片了，而开机时 renderKPI() 跑在这份 json 到之前，
+     不补这一发，卡片要等到下一轮 refreshAll 才有数（百度和畅销榜那两条也是这么补的）。 */
+  renderKPI();
+}
+function renderVvHour() {
+  const cv = document.getElementById('vvHourChart');
+  const em = document.getElementById('vvHourEmpty');
+  const noteEl = document.getElementById('vvHourNote');
+  const rowsEl = document.getElementById('vvHourRows');
+  if (!cv) return;
+  const md = k => k.slice(4, 6) + '/' + k.slice(6, 8);
+  /* 零点过后到 0点-1点 那一格被攒进来之前，"今天"还是一格都没有。
+     那时候退回画刚结束的那一天，别让整条曲线凭空消失。判据在 vvhDay() 里，
+     顶部那两张卡片读的是同一个。 */
+  const D = vvhDay();
+  const key = D.key, prevKey = D.prevKey, bars = D.bars, line = D.line;
+  if (!bars.length) {
+    em.style.display = 'grid'; rowsEl.innerHTML = '';
+    noteEl.textContent = '灯塔全网口径 · 分时档案建立中';
+    if (vvHourChart) { vvHourChart.destroy(); vvHourChart = null; }
+    return;
+  }
+  em.style.display = 'none';
+  const labels = []; for (let i = 0; i < 24; i++) labels.push(i + '点');
+  const w = h => +(h.vvCnt / 1e4).toFixed(1);      // 万次一位小数，和卡片同精度
+  const vb = new Array(24).fill(null), vl = new Array(24).fill(null),
+        vs = new Array(24).fill(null), kb = new Array(24).fill(''), kl = new Array(24).fill('');
+  bars.forEach(h => { vb[h.from] = w(h); vs[h.from] = h.share; kb[h.from] = h.derived ? 'd' : ''; });
+  line.forEach(h => { vl[h.from] = w(h); kl[h.from] = h.derived ? 'd' : ''; });
+  const bl = D.isToday ? '今日' : md(key);
+  const ll = D.yestShown ? '昨日' : md(prevKey);
+  const kMark = k => k === 'd' ? '（次日倒推）' : '';
+  /* 三组都靠 datasetIndex 排：Chart.js 按 index 先后绘制，柱子在下、两条线在上，
+     图例也跟着是 今日 / 昨日 / 市占率。原来给它们写过 order 1/2/3，
+     结果图例被倒过来排成 市占率 在最前，而 plugins.legend.sort 在这个版本里不生效。 */
+  const ds = [{ type: 'bar', label: bl, data: vb,
+      backgroundColor: vb.map((v, i) => kb[i] === 'd' ? 'rgba(46,168,255,.30)' : 'rgba(46,168,255,.78)'),
+      borderColor: vb.map((v, i) => kb[i] === 'd' ? 'rgba(46,168,255,.55)' : C_YOUKU),
+      borderWidth: 1, borderRadius: 3, yAxisID: 'y' }];
+  if (vl.some(v => v != null))
+    ds.push({ type: 'line', label: ll, data: vl, borderColor: C_DIM, borderWidth: 1.4,
+      borderDash: [5, 4], pointRadius: 0, tension: .25, yAxisID: 'y', spanGaps: true });
+  if (vs.some(v => v != null))
+    ds.push({ type: 'line', label: '市占率', data: vs, borderColor: C_GOLD, backgroundColor: C_GOLD,
+      borderWidth: 1.6, pointRadius: 1.8, tension: .25, yAxisID: 'y1' });
+  const o = baseOpts();
+  o.scales.x.ticks.callback = (v, i) => i % 2 === 0 ? labels[i] : '';
+  /* 柱子必须有 0 起点：baseOpts 默认 beginAtZero:false，那是给折线图省空间的，
+     柱状用它等于把 36 万那格画得和 940 万一样高。 */
+  o.scales.y.beginAtZero = true;
+  o.scales.y.title = { display: true, text: '正片播放量（万次）', color: C_DIM, font: { size: 10 } };
+  o.scales.y1 = { position: 'right', beginAtZero: true,
+    ticks: { color: C_DIM, font: { size: 10 }, callback: v => v + '%' },
+    grid: { drawOnChartArea: false },
+    title: { display: true, text: '市占率（%）', color: C_DIM, font: { size: 10 } } };
+  o.plugins.tooltip.callbacks = { label: c => {
+    const isShare = c.dataset.label === '市占率';
+    const k = c.dataset.label === ll ? kl[c.dataIndex] : kb[c.dataIndex];
+    return c.dataset.label + ' ' + c.raw + (isShare ? '%' : ' 万' + kMark(k));
+  } };
+  if (vvHourChart) { vvHourChart.data.labels = labels; vvHourChart.data.datasets = ds; vvHourChart.options = o; vvHourChart.update('none'); }
+  else vvHourChart = new Chart(cv, { data: { labels, datasets: ds }, options: o });
+
+  const cur = Math.floor(bjHours());
+  const has23 = bars.some(h => h.from === 23);
+  const sumRaw = bars.reduce((a, h) => a + (+h.vvCnt || 0), 0);
+  /* 同时段对比只算双方都已闭合的那些格：拿今日 18 格去比昨日 24 格是自欺欺人。
+     两边都用 from < 当前钟点，所以窗口一字不差。 */
+  const upto = arr => arr.filter(h => h.from < cur).reduce((a, h) => a + (+h.vvCnt || 0), 0);
+  const yU = D.isToday ? upto(line) : 0;
+  const tU = upto(bars);
+  const diff = yU > 0 && line.length ? tU - yU : null;
+  noteEl.innerHTML = '灯塔全网正片播放量 · 每半小时自动重采' +
+    (VVH.has ? ' · 最后一次采集 ' + (bjStamp(VVH.at) || '--') : '') +
+    (D.isToday ? '' : ' · 今日分时未出，现为 ' + md(key)) +
+    (D.isToday ? ' · 最后一格是上一个完整小时' : '');
+  /* 峰值小时 / 最高市占 已升到顶部卡片，这里只留合计和同时段两行。 */
+  rowsEl.innerHTML =
+    row('分时合计', wan(sumRaw) + ' · 已闭合 ' + bars.length + ' / ' + (has23 ? 24 : 23) + ' 格') +
+    (diff == null ? '' : row('昨日同时段',
+      `<span class="delta ${diff > 0 ? 'up' : diff < 0 ? 'down' : 'flat'}">${diff > 0 ? '▲' : diff < 0 ? '▼' : '—'} ${(Math.abs(diff) / 1e4).toFixed(1)} 万</span>` +
+      `<span> · 两边都算到 ${pad2(cur)}:00 · 昨日 ${wan(yU)}</span>`));
+}
+
+/* ============================================================
+   百度指数
+   ============================================================ */
+const BAIDU_INDEX = { rows: [], asof: '', note: '', at: '' };
+const BAIDU_COL = '#ff8ab7';
+/* 采集器写进 json 的时间戳换成北京时间看的「月-日 时:分」。
+   取 lastRun（最后一次真去采）而不是 asof（百度侧最新那天），
+   是为了让访客分得清"百度还没出数"和"我们没在采"。 */
+function bjStamp(iso) {
+  const t = Date.parse(iso);
+  if (isNaN(t)) return '';
+  const b = new Date(t + 8 * 3600e3);
+  const p = n => String(n).padStart(2, '0');
+  return p(b.getUTCMonth() + 1) + '-' + p(b.getUTCDate()) + ' ' + p(b.getUTCHours()) + ':' + p(b.getUTCMinutes());
+}
+function baiduStamp() {
+  const s = bjStamp(BAIDU_INDEX.at);
+  return s ? ' · 最近采集 ' + s : '';
+}
+async function loadBaiduIndex() {
+  try {
+    const r = await fetch('./baidu-index.json?t=' + Date.now(), { cache: 'no-store' });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const j = await r.json();
+    if (!j.rows || !j.rows.length) throw new Error('empty');
+    BAIDU_INDEX.rows = j.rows; BAIDU_INDEX.asof = j.asof; BAIDU_INDEX.note = '';
+    BAIDU_INDEX.at = j.lastRun || j.fetchedAt || '';
+  } catch (e) {
+    BAIDU_INDEX.note = '暂无数据';
+  }
+  renderBaiduChart(); renderKPI();
+}
+function renderBaiduChart() {
+  const cv = document.getElementById('baiduChart');
+  const rows = BAIDU_INDEX.rows;
+  const em = document.getElementById('baiduEmpty');
+  if (em) em.style.display = rows.length ? 'none' : 'grid';
+  document.getElementById('baiduNote').innerHTML = rows.length
+    ? '搜索指数 · 云端每日自动重采，截至 ' + esc(BAIDU_INDEX.asof) +
+      '（官方每天 12~16 时更新）' + baiduStamp()
+    : '搜索指数 · 暂无数据';
+  document.getElementById('baiduRows').innerHTML = rows.length ? (() => {
+    const last = rows[rows.length - 1], prev = rows.length > 1 ? rows[rows.length - 2] : null;
+    const peak = Math.max(...rows.map(r => r[1]));
+    return row('最新搜索指数', '<b style="color:var(--gold)">' + fmt(last[1]) + '</b>') +
+      row('日环比', prev ? ((last[1] >= prev[1] ? '▲ ' : '▼ ') + fmt(Math.abs(last[1] - prev[1]))) : '--') +
+      row('窗口内峰值', fmt(peak)) +
+      row('有效天数', rows.length + ' 天');
+  })() : '';
+  if (!rows.length) { if (baiduChart) { baiduChart.destroy(); baiduChart = null; } return; }
+  const o = baseOpts();
+  o.scales.x.ticks.callback = (v, i) => i % Math.ceil(rows.length / 12) === 0 ? rows[i][0] : '';
+  o.plugins.legend.display = false;
+  const ds = [{ label: '搜索指数', data: rows.map(r => r[1]), borderColor: BAIDU_COL,
+    backgroundColor: 'rgba(255,138,183,.12)', borderWidth: 2, pointRadius: 0, tension: .3, fill: true }];
+  if (baiduChart) { baiduChart.data.labels = rows.map(r => r[0]); baiduChart.data.datasets = ds; baiduChart.options = o; baiduChart.update('none'); }
+  else baiduChart = new Chart(cv, { type: 'line', data: { labels: rows.map(r => r[0]), datasets: ds }, options: o });
+}
+
+/* ============================================================
+   优酷 7 日畅销榜（拉新口径）
+   ============================================================ */
+const BB = { latest: null, top: [], topYear: [], show: '', samples: [], at: '', note: '' };
+const BB_COL = '#7ee0c0';
+async function loadBillboard() {
+  try {
+    const r = await fetch('./billboard.json?t=' + Date.now(), { cache: 'no-store' });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const j = await r.json();
+    if (!j.latest || j.latest.weekValue == null) throw new Error('empty');
+    BB.latest = j.latest; BB.top = j.top || []; BB.samples = j.samples || [];
+    BB.topYear = j.topYear || []; BB.show = j.show || '';
+    BB.at = j.lastRun || j.fetchedAt || ''; BB.note = '';
+  } catch (e) {
+    BB.note = '暂无数据';
+  }
+  /* 两张 KPI 卡吃的是同一份 BB，所以这里也要重画 KPI —— 否则首屏 KPI 先出 '--'，
+     json 回来了卡片不动，得等下一次 renderKPI 才亮。 */
+  renderBillboard(); renderYearBar(); renderKPI();
+}
+function bbStamp() {
+  const s = bjStamp(BB.at);
+  return s ? ' · 最后一次采集 ' + s : '';
+}
+/* 两张 KPI 卡共用一个取值函数：which 只决定读 latest 里的哪一对字段。
+   药丸里放的是畅销度的增量，不是名次变化 —— 名次就是上面那个大字，它一动你自然看得见；
+   而 7 日榜首名和第 2 名差着 687 万，名次一整天都是 0，拿它当"较上一采样"等于没报信。
+   增量要留两位小数：半小时的涨通常只有几万元，取整就成 3 甚至 0 了。 */
+function bbCardVal(which, rule) {
+  const L = BB.latest;
+  if (!L) return { v: null, sub: BB.note || '暂无数据' };
+  const rank = which === 'week' ? L.weekRank : L.yearRank;
+  const val = which === 'week' ? L.weekValue : L.yearValue;
+  const p = BB.samples.length > 1 ? BB.samples[BB.samples.length - 2] : null;
+  const pv = p ? (which === 'week' ? p.weekValue : p.yearValue) : null;
+  const mv = (val == null || pv == null) ? null : +(val - pv).toFixed(2);
+  const hhmm = BB.at ? bjStamp(BB.at).slice(-5) : '';
+  return { v: rank, u: rank == null ? '' : '名',
+           d: mv, dp: 2, du: '万', dl: mv == null ? null : '较上一采样',
+           sub: (val == null ? '不在前 20' : '畅销度 ' + fmt(val) + '万') + ' · ' + rule +
+                (hhmm ? ' · ' + hhmm + ' 采样' : '') };
+}
+function renderBillboard() {
+  const em = document.getElementById('bbEmpty');
+  const note = document.getElementById('bbNote');
+  const rows = document.getElementById('bbRows');
+  const rule = document.getElementById('bbRule');
+  const L = BB.latest;
+  if (!L) {
+    if (em) em.style.display = 'grid';
+    if (note) note.textContent = '拉新口径 · 暂无数据';
+    if (rows) rows.innerHTML = '';
+    if (rule) rule.innerHTML = '';
+    if (bbChart) { bbChart.destroy(); bbChart = null; }
+    return;
+  }
+  if (em) em.style.display = 'none';
+  if (note) note.textContent = '拉新口径 · 云端每半小时重采' + bbStamp();
+  if (rule) rule.innerHTML = '口径：7 日畅销榜按<b>过去 7 天会员开通热度</b>排序（含会员云包场等），'
+    + '年度榜按过去 365 天。畅销度是平台内的<b>相对指数</b>，不是会员人数，只能横向比名次、不能换算成"拉了多少新"。';
+
+  /* 名次和畅销度两套量纲，只画畅销度；名次变化用文字给，别拿 y1 轴糊上去。 */
+  const S = BB.samples.slice(-72);
+  const delta = (a, b, unit) => {
+    if (a == null || b == null) return '';
+    const d = +(a - b).toFixed(2);
+    if (!d) return '<span class="delta flat">— 持平</span>';
+    const cls = d > 0 ? 'up' : 'down';
+    return `<span class="delta ${cls}">${d > 0 ? '▲' : '▼'} ${Math.abs(d)}${unit || ''}</span>`;
+  };
+  /* 涨跌一律对「上一采样点」，也就是上一格（半小时）—— 和上面两张 KPI 卡同一个基准。
+     原来这里对的是曲线窗口最老那一点（最多 72 格 ≈ 一天半），▲3.46 到底跟谁比没人看得出来。 */
+  const prev = S.length > 1 ? S[S.length - 2] : null;
+  /* 名次是反的：数字变小才是前进，喂给 delta 前先取负，让它落进"涨=红"。 */
+  const rankMove = (L.weekRank == null || !prev || prev.weekRank == null)
+    ? null : prev.weekRank - L.weekRank;
+  rows.innerHTML =
+    row('7 日榜名次', `<b style="color:var(--gold)">第 ${L.weekRank ?? '--'} 名</b>` +
+        (rankMove == null ? '' : delta(rankMove, 0, '位'))) +
+    row('畅销度', fmt(L.weekValue) + '<span class="u">万</span>' + delta(L.weekValue, prev && prev.weekValue)) +
+    row('年度畅销榜', L.yearRank ? `第 ${L.yearRank} 名 · ${fmt(L.yearValue)}万` : '本剧不在年度榜前 20') +
+    row('今日采样', (() => {
+      const today = BB.samples.filter(s => s.date === L.date).length;
+      return today + ' 条 · 截至 ' + esc(L.hm);
+    })());
+
+  const cv = document.getElementById('bbChart');
+  if (!S.length) { if (bbChart) { bbChart.destroy(); bbChart = null; } return; }
+  const o = baseOpts();
+  o.scales.x.ticks.callback = (v, i) => i % Math.ceil(S.length / 12) === 0 ? S[i].hm : '';
+  o.scales.y.title = { display: true, text: '畅销度（万）', color: C_DIM, font: { size: 10 } };
+  o.plugins.legend.display = false;
+  const ds = [{ label: '畅销度', data: S.map(s => s.weekValue), borderColor: BB_COL,
+    backgroundColor: 'rgba(126,224,192,.12)', borderWidth: 2, pointRadius: 0, tension: .2, fill: true, spanGaps: true }];
+  if (bbChart) { bbChart.data.labels = S.map(s => s.date.slice(5) + ' ' + s.hm); bbChart.data.datasets = ds; bbChart.options = o; bbChart.update('none'); }
+  else bbChart = new Chart(cv, { type: 'line', data: { labels: S.map(s => s.date.slice(5) + ' ' + s.hm), datasets: ds }, options: o });
+}
+
+/* 年度榜横条：和上面「优酷剧集热度榜」同一套画法 —— 本剧那条烫金，榜首那根最亮的蓝，
+   其余压暗，一眼看得出名次是挤在中间的。
+   只画前 12 条：20 根塞进这一格高度每根只剩几个像素，而年度榜前 20 名彼此只差几百，
+   压细了就成一片齐平的条子，反而看不出深浅。本剧名次始终写在下面那行字里，掉出 12 名也不会丢信息。 */
+function renderYearBar() {
+  const em = document.getElementById('bbYearEmpty');
+  const note = document.getElementById('bbYearNote');
+  const rule = document.getElementById('bbYearRule');
+  const rows = BB.topYear.slice(0, 12);
+  const L = BB.latest;
+  /* 右上角的时刻和 7 日那张同源同刻（bbStamp 读的是同一个 lastRun）：
+     两个榜是同一次采样一起落地的，各写各的只会让人以为年度榜更旧。
+     空态也照写 —— 明细没落地但 lastRun 在，那是"上游没给 topYear"，和"根本没在采"是两件事。 */
+  if (note) note.textContent = '按过去 365 天会员开通热度排序' + bbStamp();
+  if (!rows.length) {
+    if (em) { em.style.display = 'grid'; em.textContent = '年度榜单明细 · 等下一次采集落地'; }
+    if (rule) rule.innerHTML = '';
+    if (bbYearChart) { bbYearChart.destroy(); bbYearChart = null; }
+    return;
+  }
+  if (em) em.style.display = 'none';
+  const mine = rows.map(r => r.title === (BB.show || CONFIG.title));
+  const inRows = mine.some(Boolean);
+  if (rule) {
+    const gap = (L && L.yearValue != null) ? +(rows[0].value - L.yearValue).toFixed(2) : null;
+    rule.innerHTML = '口径同上：年度畅销度是过去 365 天的<b>相对指数</b>，不是会员人数，只能横向比深浅。'
+      + (L && L.yearValue != null
+        ? `本剧 <b style="color:var(--gold)">${fmt(L.yearValue)}万</b> 排第 ${L.yearRank} 名`
+          + (inRows ? '' : '（不在画出的前 12 条内）')
+          + (gap == null ? '' : gap > 0 ? ` · 距榜首 ${fmt(gap)}万` : ' · 就是榜首')
+          + '。'
+        : '');
+  }
+  const labels = rows.map(r => `${r.rank}. ${r.title}`);
+  const bg = rows.map((r, i) => mine[i] ? C_GOLD : (i === 0 ? 'rgba(46,168,255,.85)' : 'rgba(46,168,255,.34)'));
+  const ds = [{ label: '年度畅销度', data: rows.map(r => r.value), backgroundColor: bg, borderRadius: 5, barThickness: 15 }];
+  const o = {
+    indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false },
+      tooltip: { backgroundColor: 'rgba(8,10,18,.92)', callbacks: {
+        label: c => '畅销度 ' + fmt(c.raw) + '万' + (mine[c.dataIndex] ? ' · 本剧' : '') } } },
+    scales: {
+      x: { title: { display: true, text: '年度畅销度（万）', color: C_DIM, font: { size: 10 } },
+           ticks: { color: C_DIM, font: { size: 10 } }, grid: { color: 'rgba(255,255,255,.06)' } },
+      y: { ticks: { color: rows.map((r, i) => mine[i] ? C_GOLD : '#c7cede'), font: { size: 11 } },
+           grid: { display: false } }
+    }
+  };
+  if (bbYearChart) { bbYearChart.data.labels = labels; bbYearChart.data.datasets = ds; bbYearChart.options = o; bbYearChart.update('none'); }
+  else bbYearChart = new Chart(document.getElementById('bbYearChart'), { type: 'bar', data: { labels, datasets: ds }, options: o });
+}
+
+/* ============================================================
+   优酷 App 下载量估算（第三方预估 · 人工快照）
+   ============================================================ */
+const QM = { d: null, note: '' };
+/* 这一路读的是仓库根的 qimai.json，同源静态文件、不过代理、不占额度。
+   它不像别的格子会自己长：上游那个签名参数钉死了日期窗口，换一天就要一条新链接，
+   所以是"贴一条、更一次"。缺文件是还没贴过的正常状态，不进 src 表、不点页顶报错条。 */
+async function loadQimai() {
+  try {
+    const r = await fetch('./qimai.json?t=' + Date.now(), { cache: 'no-store' });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const j = await r.json();
+    if (!Array.isArray(j.list) || !j.list.length) throw new Error('empty');
+    QM.d = j; QM.note = '';
+  } catch (e) { QM.note = '暂无数据'; }
+  renderQimai();
+}
+function renderQimai() {
+  const em = document.getElementById('qmEmpty');
+  const note = document.getElementById('qmNote');
+  const rows = document.getElementById('qmRows');
+  const rule = document.getElementById('qmRule');
+  const d = QM.d;
+  if (!d) {
+    if (em) em.style.display = 'grid';
+    if (note) note.textContent = '第三方预估 · 人工快照';
+    if (rows) rows.innerHTML = '';
+    if (rule) rule.innerHTML = '';
+    if (qmChart) { qmChart.destroy(); qmChart = null; }
+    return;
+  }
+  if (em) em.style.display = 'none';
+  /* 这条线从定档那天开始算：定档之前几十天是优酷 App 自己的水位，不记在本剧账上。
+     整卡（曲线、合计、日均、单日最高）统一先切一刀，切完就不能再抄上游那三个
+     描述整窗的字段（sdate / sum / avg），否则印出来的是没切过的账。 */
+  const L = d.list.filter(x => x.date >= CONFIG.anchorDate);
+  if (!L.length) {
+    if (note) note.textContent = '贴的窗口整段在定档日之前 · 不计入本剧';
+    if (rows) rows.innerHTML = '';
+    if (rule) rule.innerHTML = '';
+    if (qmChart) { qmChart.destroy(); qmChart = null; }
+    return;
+  }
+  const cut = d.list[0].date < CONFIG.anchorDate;
+  const sum = L.reduce((a, x) => a + x.v, 0);
+  const avg = sum / L.length;
+  const pk = L.reduce((a, x) => (x.v > a.v ? x : a), L[0]);
+  if (note) note.textContent = (d.auto ? '云端自动重采' : '人工快照') + (d.at ? ' · 拉取于 ' + esc(String(d.at).slice(5)) : '') + (cut ? ' · 只计定档后' : '');
+  if (rows) {
+    /* 「开播前基准」只在窗口真的框到首播日之前时才算得出来；哪天贴的链接
+       只覆盖播出那几天，pre 就是空的，那半句直接不写 —— 不拿整窗日均冒充开播前水位。
+       切完定档之后，这一段就是「定档公告日到开播日」那几天。 */
+    const pre = L.filter(x => x.date < CONFIG.premiereDate);
+    const preAvg = pre.length ? pre.reduce((a, b) => a + b.v, 0) / pre.length : null;
+    const last7 = L.slice(-7).reduce((a, x) => a + x.v, 0);
+    /* 七麦当天那格回的是 0（还没结算），采集端已经把它剥出 list 存进 pending。
+       这里照实说"这一天尚在统计"，别让曲线在尾巴上假摔到零，也别让合计看着少一天。
+       同样只数定档日之后的，定档前那几天本来就不在本剧账上。 */
+    const pend = (Array.isArray(d.pending) ? d.pending : []).filter(x => String(x).slice(0, 10) >= CONFIG.anchorDate);
+    rows.innerHTML =
+      row('统计窗口', esc(L[0].date) + ' ~ ' + esc(L[L.length - 1].date) + ' · ' + L.length + ' 天' +
+        (cut ? `<span style="color:var(--dim);font-weight:400">（定档 ${esc(CONFIG.anchorDate.slice(5))} 起算 · 原始窗口 ${esc(d.sdate)}~${esc(d.edate)} 共 ${d.list.length} 天）</span>` : '') +
+        (pend.length ? `<span style="color:var(--dim);font-weight:400">（${esc(pend.map(x => String(x).slice(5)).join('、'))} 尚在统计）</span>` : '')) +
+      row('合计', fmt(sum) + ' 次 · ' + wan(sum)) +
+      /* 窗口本身就不到 7 天时「近 7 天」和「合计」是两行废话，只留合计。 */
+      (L.length > 7 ? row('近 7 天', wan(last7) + ' · 日均 ' + wan(last7 / 7)) : '') +
+      row('单日最高', `<b style="color:var(--gold)">${wan(pk.v)}</b> · ${esc(pk.date.slice(5))}` +
+        (preAvg ? ` · 是 ${esc(pre[0].date.slice(5))}~${esc(pre[pre.length - 1].date.slice(5))} 日均（${wan(preAvg)}）的 ${(pk.v / preAvg).toFixed(1)} 倍` : ''));
+  }
+  if (rule) rule.innerHTML = '口径：这是<b>第三方对 iOS 商店下载量的预估</b>，不是优酷官方数；'
+    + '统计的是<b>整个优酷 App</b>，本剧只是同期在播内容之一 —— 这条线的上涨<b>不能整条算成一部剧带来的</b>。';
+
+  const o = baseOpts();
+  o.scales.x.ticks.callback = (v, i) => i % Math.ceil(L.length / 10) === 0 ? L[i].date.slice(5) : '';
+  o.scales.y.ticks.callback = v => (v / 1e4) + '万';
+  o.scales.y.title = { display: true, text: '日下载量（次）', color: C_DIM, font: { size: 10 } };
+  const ds = [{ label: '日下载量', data: L.map(x => x.v), borderColor: C_YOUKU,
+    backgroundColor: 'rgba(46,168,255,.12)', borderWidth: 2, tension: .25, fill: true,
+    pointRadius: L.map(x => (x.v === pk.v ? 4 : 0)), pointBackgroundColor: C_GOLD, pointBorderColor: C_GOLD }];
+  if (L.length > 1) ds.push({ label: '窗口日均', data: L.map(() => avg), borderColor: 'rgba(255,200,97,.7)',
+    borderWidth: 1.2, borderDash: [5, 4], pointRadius: 0, fill: false });
+  o.plugins.tooltip.callbacks = { label: c => `${c.dataset.label} ${fmt(c.raw)} 次` };
+  const cv = document.getElementById('qmChart');
+  if (qmChart) { qmChart.data.labels = L.map(x => x.date); qmChart.data.datasets = ds; qmChart.options = o; qmChart.update('none'); }
+  else qmChart = new Chart(cv, { type: 'line', data: { labels: L.map(x => x.date), datasets: ds }, options: o });
+}
+
+/* ============================================================
+   调度
+   ============================================================ */
+const revealJobs = [];
+/* msOrFn 可以传函数：热度那路要按北京时段中途换档，固定周期做不到。
+   自己 reschedule 而不是 setInterval，否则改了周期也得等老间隔跑完才生效。 */
+function every(msOrFn, fn, runOnReveal = false) {
+  const per = () => (typeof msOrFn === 'function' ? msOrFn() : msOrFn);
+  let last = 0;
+  const tick = () => { last = Date.now(); fn(); };
+  const loop = () => setTimeout(() => { if (!document.hidden) tick(); loop(); }, per());
+  loop();
+  if (runOnReveal) revealJobs.push(() => { if (Date.now() - last >= per()) tick(); });
+}
+async function safe(name, fn) {
+  try { await fn(); return true; }
+  catch (e) { mark(name, false, String(e.message).slice(0, 46)); return false; }
+}
+async function refreshAll() {
+  const btn = document.getElementById('refreshBtn');
+  btn.disabled = true; btn.innerHTML = '<span class="spin"></span> 加载中';
+  await Promise.all([
+    safe('灯塔', loadDengta),
+    safe('灯塔SSR', () => loadSsr(true)),
+    safe('剧风向', loadHeatAll),
+    safe('豆瓣', loadDouban),
+    safe('畅销榜', loadBillboard),
+    safe('正片分时', loadVvHourly),
+    safe('下载量', loadQimai),
+    safe('追剧日历', loadCalendar)
+  ]);
+  stamp();
+  btn.disabled = false; btn.innerHTML = '刷新全部数据';
+  checkNotice();
+}
+function stamp() {
+  const t = new Date().toLocaleTimeString('zh-CN', { hour12: false });
+  document.getElementById('stamp').textContent = '最后更新 ' + t;
+}
+function checkNotice() {
+  const idle = { '豆瓣': ['条目号未接入'] };
+  const bad = Object.entries(src)
+    .filter(([, v]) => v && !v.ok)
+    .filter(([k, v]) => !(idle[k] && idle[k].some(t => (v.msg || '').includes(t))))
+    .map(([k]) => k);
+  const el = document.getElementById('notice');
+  if (!bad.length) { el.classList.remove('show'); return; }
+  el.innerHTML = '<b>' + bad.join('、') + '</b> 暂时没取到数据，稍后会自动重试。';
+  el.classList.add('show');
+}
+function tickCountdown() {
+  const now = Date.now();
+  const yk = ykState(now);
+  const dur = ms => {
+    if (ms < 0) ms = 0;
+    const d = Math.floor(ms / 864e5), h = Math.floor(ms % 864e5 / 36e5),
+          m = Math.floor(ms % 36e5 / 6e4), s = Math.floor(ms % 6e4 / 1000);
+    return `${d ? d + '天' : ''}${pad2(h)}:${pad2(m)}:${pad2(s)}`;
+  };
+  /* 日历是照 playRule 原文推的（首更4集 / 11月16日至11月21日每天更新2集 / SVIP提前多看1集），
+     所以倒数到的是 12:00 那一批（2 集），文案写「距优酷更新」不写「距下一集」。 */
+  const el = document.getElementById('marchText');
+  /* 「更新排期待公布」说的是日历算到头了、剧却还没放完；灯塔已经改口「已完结」的时候不能再印这句 ——
+     那一档没有排期可等。 */
+  if (el && yk.n) el.textContent = `优酷已更 ${yk.n}/${yk.total} 集` +
+    (yk.next ? ' · 距优酷更新 ' + dur(yk.next.at - now) : (yk.ended ? '' : ' · 更新排期待公布'));
+  const cd = document.getElementById('countdown');
+  if (yk.next) { cd.textContent = '距优酷更新 ' + dur(yk.next.at - now); return; }
+  cd.textContent = yk.ended ? '全 ' + yk.total + ' 集已放出' : (yk.n ? '更新排期待公布' : '--:--:--');
+}
+
+function decorate() {
+  const st = document.getElementById('stars');
+  for (let i = 0; i < 70; i++) { const d = document.createElement('i');
+    d.style.left = Math.random() * 100 + '%'; d.style.top = Math.random() * 100 + '%';
+    d.style.animationDelay = Math.random() * 4 + 's'; d.style.opacity = Math.random() * .6 + .2;
+    st.appendChild(d); }
+  for (let i = 0; i < 9; i++) { const e = document.createElement('div'); e.className = 'ember';
+    const sz = Math.random() * 90 + 40;
+    e.style.width = e.style.height = sz + 'px';
+    e.style.left = Math.random() * 100 + '%';
+    e.style.animationDuration = (Math.random() * 22 + 18) + 's';
+    e.style.animationDelay = (-Math.random() * 25) + 's';
+    document.body.appendChild(e); }
+}
+
+document.getElementById('refreshBtn').addEventListener('click', refreshAll);
+
+const dm = document.getElementById('donateModal');
+function donateOpen(e) {
+  if (e) e.preventDefault();
+  const img = document.getElementById('donateImg');
+  if (!img.src) img.src = CONFIG.donate;
+  dm.classList.add('open');
+}
+document.getElementById('donateBtn').addEventListener('click', donateOpen);
+document.getElementById('donateLink').addEventListener('click', donateOpen);
+document.getElementById('donateClose').addEventListener('click', () => dm.classList.remove('open'));
+dm.addEventListener('click', e => { if (e.target === dm) dm.classList.remove('open'); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') dm.classList.remove('open'); });
+
+(async function boot() {
+  decorate(); tickCountdown(); setInterval(tickCountdown, 1000);
+  renderKPI(); renderBaiduChart(); renderHonor();
+  loadBaiduIndex(); loadBillboard(); loadVvHourly(); loadQimai(); loadCalendar();
+  await refreshAll();
+  liveLoop();
+  every(CONFIG.refresh.dengta, () => safe('灯塔', loadDengta).then(stamp), true);
+  every(CONFIG.refresh.ssr,    () => safe('灯塔SSR', () => loadSsr()), true);
+  /* 剧风向固定 10 分钟一轮，没有快档：它上游本来 10~11 分钟才落一个点，敲得更勤也不会更早拿到。
+     这条直连不过代理，所以也不占 Cloudflare 额度。 */
+  every(CONFIG.refresh.heat,   () => safe('剧风向', loadHeatAll).then(stamp), true);
+  /* 豆瓣条目号还没接上：空着就不发这一路，省得每次刷新白挂一条 JSONP。 */
+  if (CONFIG.doubanId) every(CONFIG.refresh.douban, () => safe('豆瓣', loadDouban), true);
+  /* 百度指数原来只在 boot 时取一次，常开的标签页永远不会自己更新 —— 云端 12~16 点出了
+     新数也要人手动刷新才看得见。挂进注册表按 5 分钟一轮。
+     这条不占 Cloudflare 额度：`./baidu-index.json` 和面板同源，直接 fetch 不过代理。 */
+  every(CONFIG.refresh.baidu,  () => safe('百度指数', loadBaiduIndex), true);
+  /* 畅销榜和百度指数一样是同源静态 json，5 分钟看一次够用 —— 上游本来就半小时才动一格。 */
+  every(CONFIG.refresh.bb,     () => safe('畅销榜', loadBillboard), true);
+  /* 分时档案同源静态 json，和畅销榜一样的节拍（上游也是半小时一格）。
+     正片分时不挂 src 报错：文件缺是首日的正常状态，格子自己会写"档案建立中"。
+     这格不额外敲代理 —— 图完全由 json 驱动，读一次画一次。 */
+  every(CONFIG.refresh.vvh,    () => safe('正片分时', loadVvHourly), true);
+  /* 下载量那份一周才动一次（要人工贴新链接），30 分钟看一回足够，别和半小时那几格混节拍。 */
+  every(CONFIG.refresh.qm,     () => safe('下载量', loadQimai), true);
+  /* 追剧日历一天最多动一两回（优酷改排期才算变化），30 分钟看一次同源文件足够。
+     云端那边 5 分钟才采一次，页面再敲得勤也不会更早看到新排期。 */
+  every(CONFIG.refresh.cal,    () => safe('追剧日历', loadCalendar), true);
+  /* 回前台只让 revealJobs 按"各自周期到点没到点"补，不要再无脑全量。
+     原来这里挂了一句 `if (Date.now() - src['灯塔'].at > 90e3) refreshAll()`：
+     src['灯塔'].at 只有 600 秒一轮的 loadDengta 会写，所以切回来几乎必然判定"太老"，
+     于是 ①revealJobs 补过 ②refreshAll 又把六路原样重发一遍 —— 实测一次回前台 8~10 个请求。
+     ssr/douban 之前没注册进 revealJobs，才是那句兜底存在的原因；现在补齐了，就删掉它。
+     refreshAll() 只留给按钮和首屏。 */
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) return;
+    renderKPI();
+    revealJobs.forEach(j => j());
+  });
+})();
+</script>
+</body>
+</html>
