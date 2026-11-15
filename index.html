@@ -481,7 +481,7 @@ footer a:active{transform:translateY(0)}
     </div>
     <div class="panel wide">
       <div class="p-head"><div class="p-title"><i></i>作品信息与剧情简介</div>
-        <div class="p-note">来自灯塔条目</div></div>
+        <div class="p-note">来自豆瓣条目</div></div>
       <div class="rows" id="workRows"></div>
       <div class="sub-label">剧情简介</div>
       <div class="intro-text" id="workIntro">加载中…</div>
@@ -1125,8 +1125,7 @@ function renderWork() {
   const d = S.douban, m = S.meta || {}, nf = S.jfx.info || {};
   if (!d && !m.mediaName && !nf.synopsis) return;
   const rows = [];
-  rows.push(row('片名', esc(d?.title || m.mediaName || CONFIG.title) +
-    (nf.alias ? '（' + esc(nf.alias) + '）' : '')));
+  rows.push(row('片名', esc(d?.title || m.mediaName || CONFIG.title)));
   const genres = d?.genres?.length ? d.genres : (Array.isArray(m.type) ? m.type : []);
   if (genres.length) rows.push(row('类型', esc(genres.join(' / '))));
   const dir = d?.directors?.length ? d.directors : (nf.director ? [nf.director] : []);
@@ -1137,7 +1136,7 @@ function renderWork() {
   rows.push(row('集数', (d?.epCount || m.episodeCnt || '-') + ' 集' +
     (m.duration ? ' · 单集约 ' + m.duration + ' 分钟' : '')));
   if (m.openDay || d?.pubdate) rows.push(row('首播', esc(d?.pubdate || m.openDay)));
-  rows.push(row('播出平台', (m.platforms || ['优酷']).join(' / ') + ' 独播 · 不上星'));
+  rows.push(row('播出平台', (m.platforms || ['优酷']).join(' / ') + ' 独播'));
   if (d) rows.push(row('豆瓣口碑', (d.dbRank ? '热门电视实时榜第 ' + d.dbRank + ' 名' : '暂无评分') +
     (d.cmt ? ' · 短评 ' + fmt(d.cmt) : '')));
   document.getElementById('workRows').innerHTML = rows.join('');
