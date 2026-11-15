@@ -5,8 +5,8 @@
  "asof": "2026-11-16",
  "latest": {
   "date": "2026-11-16",
-  "hm": "06:30",
-  "iso": "2026-11-16 06:30 +08",
+  "hm": "07:00",
+  "iso": "2026-11-16 07:00 +08",
   "weekRank": 3,
   "weekValue": 3597.74,
   "yearRank": null,
@@ -16,12 +16,12 @@
   {
    "rank": 1,
    "title": "谷雨",
-   "value": 4124.66
+   "value": 4125.1
   },
   {
    "rank": 2,
    "title": "嫁金钗",
-   "value": 4023.79
+   "value": 4023.72
   },
   {
    "rank": 3,
@@ -31,7 +31,7 @@
   {
    "rank": 4,
    "title": "早春晴朗",
-   "value": 3588.92
+   "value": 3589.04
   },
   {
    "rank": 5,
@@ -41,7 +41,7 @@
   {
    "rank": 6,
    "title": "无可替代",
-   "value": 3581.39
+   "value": 3581.4
   },
   {
    "rank": 7,
@@ -51,12 +51,12 @@
   {
    "rank": 8,
    "title": "九门",
-   "value": 3577.71
+   "value": 3577.73
   },
   {
    "rank": 9,
    "title": "难哄",
-   "value": 3569.11
+   "value": 3569.12
   },
   {
    "rank": 10,
@@ -71,12 +71,12 @@
   {
    "rank": 12,
    "title": "藏海传",
-   "value": 3565.67
+   "value": 3565.68
   },
   {
    "rank": 13,
    "title": "月鳞绮纪",
-   "value": 3564.47
+   "value": 3564.5
   },
   {
    "rank": 14,
@@ -91,27 +91,27 @@
   {
    "rank": 16,
    "title": "此处通往繁星",
-   "value": 3561.4
+   "value": 3561.41
   },
   {
    "rank": 17,
    "title": "偷偷藏不住",
-   "value": 3550.13
+   "value": 3550.14
   },
   {
    "rank": 18,
    "title": "入青云",
-   "value": 3549.26
+   "value": 3549.27
   },
   {
    "rank": 19,
    "title": "以法之名",
-   "value": 3547.68
+   "value": 3547.69
   },
   {
    "rank": 20,
    "title": "雨霖铃",
-   "value": 3543.87
+   "value": 3543.9
   }
  ],
  "topYear": [
@@ -143,7 +143,7 @@
   {
    "rank": 6,
    "title": "月鳞绮纪",
-   "value": 4108.24
+   "value": 4108.25
   },
   {
    "rank": 7,
@@ -163,7 +163,7 @@
   {
    "rank": 10,
    "title": "谷雨",
-   "value": 3152.47
+   "value": 3152.8
   },
   {
    "rank": 11,
@@ -480,9 +480,17 @@
    "weekValue": 3597.74,
    "yearRank": null,
    "yearValue": null
+  },
+  {
+   "date": "2026-11-16",
+   "hm": "07:00",
+   "weekRank": 3,
+   "weekValue": 3597.74,
+   "yearRank": null,
+   "yearValue": null
   }
  ],
  "fetchedAt": "2026-11-15T17:30:26.482Z",
- "lastRun": "2026-11-15T22:30:26.271Z",
+ "lastRun": "2026-11-15T23:00:25.956Z",
  "count": 20
 }
