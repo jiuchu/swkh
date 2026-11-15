@@ -5,10 +5,10 @@
  "asof": "2026-11-16",
  "latest": {
   "date": "2026-11-16",
-  "hm": "00:30",
-  "iso": "2026-11-16 00:30 +08",
+  "hm": "01:00",
+  "iso": "2026-11-16 01:00 +08",
   "weekRank": 3,
-  "weekValue": 3597.02,
+  "weekValue": 3597.7,
   "yearRank": null,
   "yearValue": null
  },
@@ -16,119 +16,119 @@
   {
    "rank": 1,
    "title": "谷雨",
-   "value": 4156.87
+   "value": 4122.51
   },
   {
    "rank": 2,
    "title": "嫁金钗",
-   "value": 4048.06
+   "value": 4023.95
   },
   {
    "rank": 3,
    "title": "十万狂花入梦来",
-   "value": 3597.02
+   "value": 3597.7
   },
   {
    "rank": 4,
    "title": "早春晴朗",
-   "value": 3596.8
+   "value": 3587.61
   },
   {
    "rank": 5,
    "title": "鉴定",
-   "value": 3582.7
+   "value": 3584.38
   },
   {
    "rank": 6,
-   "title": "九门",
-   "value": 3580.71
+   "title": "无可替代",
+   "value": 3581.19
   },
   {
    "rank": 7,
-   "title": "无可替代",
-   "value": 3576.21
+   "title": "冬城猎凶",
+   "value": 3580.52
   },
   {
    "rank": 8,
-   "title": "冬城猎凶",
-   "value": 3574.76
+   "title": "九门",
+   "value": 3577.27
   },
   {
    "rank": 9,
    "title": "难哄",
-   "value": 3570.54
+   "value": 3569.04
   },
   {
    "rank": 10,
    "title": "一瓯春",
-   "value": 3570.29
+   "value": 3568.76
   },
   {
    "rank": 11,
    "title": "翘楚",
-   "value": 3568.4
+   "value": 3566.28
   },
   {
    "rank": 12,
    "title": "藏海传",
-   "value": 3568.08
+   "value": 3565.58
   },
   {
    "rank": 13,
-   "title": "悬案",
-   "value": 3567
+   "title": "月鳞绮纪",
+   "value": 3564.34
   },
   {
    "rank": 14,
-   "title": "月鳞绮纪",
-   "value": 3566.93
+   "title": "当我飞奔向你",
+   "value": 3563.98
   },
   {
    "rank": 15,
-   "title": "当我飞奔向你",
-   "value": 3566.69
+   "title": "悬案",
+   "value": 3563.53
   },
   {
    "rank": 16,
    "title": "此处通往繁星",
-   "value": 3565.93
+   "value": 3561.3
   },
   {
    "rank": 17,
    "title": "偷偷藏不住",
-   "value": 3556.51
+   "value": 3549.69
   },
   {
    "rank": 18,
-   "title": "以法之名",
-   "value": 3556.25
+   "title": "入青云",
+   "value": 3548.79
   },
   {
    "rank": 19,
-   "title": "入青云",
-   "value": 3556.2
+   "title": "以法之名",
+   "value": 3547.42
   },
   {
    "rank": 20,
    "title": "雨霖铃",
-   "value": 3552.05
+   "value": 3543.36
   }
  ],
  "topYear": [
   {
    "rank": 1,
    "title": "嫁金钗",
-   "value": 5187.72
+   "value": 5188.1
   },
   {
    "rank": 2,
    "title": "九门",
-   "value": 5164.45
+   "value": 5164.47
   },
   {
    "rank": 3,
    "title": "早春晴朗",
-   "value": 5149.33
+   "value": 5149.34
   },
   {
    "rank": 4,
@@ -143,27 +143,27 @@
   {
    "rank": 6,
    "title": "月鳞绮纪",
-   "value": 4108.14
+   "value": 4108.21
   },
   {
    "rank": 7,
    "title": "翘楚",
-   "value": 3658.83
+   "value": 3658.86
   },
   {
    "rank": 8,
    "title": "雨霖铃",
-   "value": 3419.73
+   "value": 3419.75
   },
   {
    "rank": 9,
    "title": "乡村爱情18",
-   "value": 3232.05
+   "value": 3232.06
   },
   {
    "rank": 10,
    "title": "谷雨",
-   "value": 3141.82
+   "value": 3146.9
   },
   {
    "rank": 11,
@@ -173,42 +173,42 @@
   {
    "rank": 12,
    "title": "悬案",
-   "value": 3052.02
+   "value": 3052.06
   },
   {
    "rank": 13,
    "title": "剥茧",
-   "value": 3036.59
+   "value": 3036.6
   },
   {
    "rank": 14,
    "title": "无可替代",
-   "value": 2995.21
+   "value": 2995.34
   },
   {
    "rank": 15,
    "title": "千香",
-   "value": 2962.57
+   "value": 2962.66
   },
   {
    "rank": 16,
    "title": "我的山与海",
-   "value": 2941.42
+   "value": 2941.46
   },
   {
    "rank": 17,
-   "title": "凤凰台上",
-   "value": 2920.04
+   "title": "正义女神",
+   "value": 2897.38
   },
   {
    "rank": 18,
-   "title": "正义女神",
-   "value": 2897.37
+   "title": "凤凰台上",
+   "value": 2891.08
   },
   {
    "rank": 19,
    "title": "入青云",
-   "value": 2871.21
+   "value": 2861.55
   },
   {
    "rank": 20,
@@ -376,9 +376,17 @@
    "weekValue": 3597.02,
    "yearRank": null,
    "yearValue": null
+  },
+  {
+   "date": "2026-11-16",
+   "hm": "01:00",
+   "weekRank": 3,
+   "weekValue": 3597.7,
+   "yearRank": null,
+   "yearValue": null
   }
  ],
- "fetchedAt": "2026-11-15T16:30:25.624Z",
- "lastRun": "2026-11-15T16:30:25.624Z",
+ "fetchedAt": "2026-11-15T17:00:24.559Z",
+ "lastRun": "2026-11-15T17:00:24.559Z",
  "count": 20
 }
