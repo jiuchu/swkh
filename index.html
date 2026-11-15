@@ -523,7 +523,7 @@ const CONFIG = {
   doubanId: '',                     // 豆瓣条目号：还没查到，留空则不查、卡片自动退场
   premiereDate: '2026-11-15',       // 首播日，七麦那张「首播前基准」按这条切
   anchorDate: '2026-11-12',         // 定档日，下载量统计窗口的左端
-  /* 热度这一路改用「剧风向」的公开接口（剧云录迟迟没给本剧建档）。
+  /* 热度这一路改用 heat.971014.xyz 的公开接口（剧云录迟迟没给本剧建档）。
      它是匿名可读、ACAO:* 的第三方站，浏览器直连即可，不过代理、不占 Cloudflare 额度；
      代价是采集跑在别人自己的机器上 —— 所以这里固定 10 分钟一轮、只读一份 24h 窗口，
      并且不做秒级快档：它上游本来 10~11 分钟才落一个点，敲得更勤也不会更早拿到数。 */
@@ -709,7 +709,7 @@ const inLiveWindow = (t = Date.now()) =>
 
 /* 请求落地 → 歇 dwell → 再发，永远只有一个在飞；失败按 3 倍退避到最长 30 秒。
    本剧只有中午 12:00 放量那一段值得按秒级敲灯塔（liveWindow 12–15 点），其余时段降到 idle=20 秒。
-   秒级窗口只管播放量那一串卡；热度曲线是剧风向 10 分钟一拍的，不在这里跑。
+   秒级窗口只管播放量那一串卡；热度曲线是上游 10 分钟一拍的，不在这里跑。
    20 秒是配额算出来的：Cloudflare 免费档 10 万请求/天是整个账号共享的，
    本剧不上星 ⇒ 没有晚上那段电视带动的陡升，不必为了它把全天都开满。 */
 async function liveLoop() {
@@ -811,7 +811,7 @@ function renderDengtaTag() {
   } else el.innerHTML = '';
 }
 
-/* 热度现值：剧风向（第三方采集端，10 分钟一个点）优先，其次灯塔实时接口，最后 SSR */
+/* 热度现值：第三方采集端（10 分钟一个点）优先，其次灯塔实时接口，最后 SSR */
 function heatNow() {
   const a = [S.jfx.cur, S.rankRow?.cnt, S.ssrHot?.now, dayRow(0)?.max];
   for (const v of a) if (v != null && +v > 0) return +v;
@@ -838,7 +838,7 @@ function dayPeak(off) {
 }
 
 /* ============================================================
-   剧风向 —— 分时热度
+   热度分时 —— 第三方采集端的分时热度
    一条 24h 窗口的请求，回包里 series[].points[] 是 UTC 时间戳，按北京日历切成今日/昨日两段。
    它上游 10~11 分钟才落一个点，所以这里只发一次、不做秒级快档，直连不走代理。
    ============================================================ */
@@ -897,12 +897,12 @@ async function loadHeatAll() {
     lifecycle: j.lifecycle || null, info: j.info || null,
     updatedAt: j.updatedAt || ''
   };
-  if (S.jfx.cur == null && !S.heat.today.rec.length) throw new Error('剧风向这条还没有点');
+  if (S.jfx.cur == null && !S.heat.today.rec.length) throw new Error('热度分时还没有点');
   renderLiveChart(); renderKPI(); renderUnlock(); renderMarch(); renderCalendar();
-  mark('剧风向', true);
+  mark('热度分时', true);
 }
 
-/* 剧风向断供时，本页自己按灯塔的节拍攒分时（存在 localStorage，只在这台浏览器里）。 */
+/* 热度上游断供时，本页自己按灯塔的节拍攒分时（存在 localStorage，只在这台浏览器里）。 */
 const LIVE_KEY = 'shwh_heat_live_v1';
 function liveLocal() { try { return JSON.parse(localStorage.getItem(LIVE_KEY) || '{}'); } catch (e) { return {}; } }
 function recordLive() {
@@ -960,7 +960,7 @@ function loadDouban() {
 
 /* ============================================================
    优酷更新与解锁 —— 官方规则原文 + 各档会员能看到第几集
-   这一路只有两个真源：灯塔的 playRule 原文（更新节奏）和剧风向 access 里那三个数
+   这一路只有两个真源：灯塔的 playRule 原文（更新节奏）和热度上游 access 里那三个数
    （免费/VIP 各解锁到第几集，它自己去优酷页面上数的）。取不到就写取不到，不猜。
    ============================================================ */
 function renderUnlock() {
@@ -1004,7 +1004,7 @@ function renderUnlock() {
   }
   rows.innerHTML = out.join('');
   if (note) note.textContent = (S.ykRule ? '灯塔更新规则 ｜ ' : '') +
-    (acc.vipMax != null ? '解锁进度 · 剧风向' : '解锁进度未取到');
+    (acc.vipMax != null ? '解锁进度' : '解锁进度未取到');
 }
 
 /* ============================================================
@@ -1050,7 +1050,7 @@ function renderCalendar() {
     if (!proj.length) {
       if (note) note.textContent = '排期读取中';
       strip.innerHTML = '';
-      /* 两样都还没到（剧风向先回、灯塔那路后回）时别写"读不到"：
+      /* 两样都还没到（热度那路先回、灯塔后回）时别写"读不到"：
          这一句和面板初始那格一模一样，闪一下看不出来。 */
       tbl.innerHTML = '<div class="p-note" style="padding:18px 0">' +
         '这一格排的是「哪天放到第几集」，两档分开列：SVIP 恒比 VIP 多一集，' +
@@ -1462,7 +1462,7 @@ function renderHonor() {
     const hit = marks.find(m => allPeak >= m[0]);
     if (hit) items.push({ g: '🏮', t: hit[1], d: '当前峰值 ' + fmt(allPeak) });
   }
-  /* 里程碑那条用的是剧风向自己给的门槛（threshold=10000），不是我们编的档位。 */
+  /* 里程碑那条用的是热度上游自己给的门槛（threshold=10000），不是我们编的档位。 */
   if (S.jfx.threshold && S.jfx.cur) {
     items.push({ g: '🎯', t: '热度破 ' + fmt(S.jfx.threshold) + ' 里程碑',
                  d: S.jfx.tenKAt ? '已于 ' + S.jfx.tenKAt + ' 达成'
@@ -1568,7 +1568,7 @@ function renderLiveChart() {
   document.getElementById('liveEmpty').style.display = today.rec.length ? 'none' : 'grid';
   document.getElementById('liveNote').innerHTML = today.rec.length
     ? `上游约 10 分钟一点 · 今日 ${today.rec.length} 点` + (yest.rec.length ? ' / 昨日 ' + yest.rec.length + ' 点' : '')
-    : '剧风向这条还没回点；在此之前由本页按灯塔节拍自采（仅存于本机浏览器）';
+    : '热度分时还没回点；在此之前由本页按灯塔节拍自采（仅存于本机浏览器）';
   if (!today.rec.length) return;
   const labels = [];
   for (let m = 0; m < 24 * 60; m += 5) labels.push(pad2((m / 60) | 0) + ':' + pad2(m % 60));
@@ -2036,7 +2036,7 @@ async function refreshAll() {
   await Promise.all([
     safe('灯塔', loadDengta),
     safe('灯塔SSR', () => loadSsr(true)),
-    safe('剧风向', loadHeatAll),
+    safe('热度分时', loadHeatAll),
     safe('豆瓣', loadDouban),
     safe('畅销榜', loadBillboard),
     safe('正片分时', loadVvHourly),
@@ -2121,9 +2121,9 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') dm.classList
   liveLoop();
   every(CONFIG.refresh.dengta, () => safe('灯塔', loadDengta).then(stamp), true);
   every(CONFIG.refresh.ssr,    () => safe('灯塔SSR', () => loadSsr()), true);
-  /* 剧风向固定 10 分钟一轮，没有快档：它上游本来 10~11 分钟才落一个点，敲得更勤也不会更早拿到。
+  /* 热度分时固定 10 分钟一轮，没有快档：它上游本来 10~11 分钟才落一个点，敲得更勤也不会更早拿到。
      这条直连不过代理，所以也不占 Cloudflare 额度。 */
-  every(CONFIG.refresh.heat,   () => safe('剧风向', loadHeatAll).then(stamp), true);
+  every(CONFIG.refresh.heat,   () => safe('热度分时', loadHeatAll).then(stamp), true);
   /* 豆瓣条目号还没接上：空着就不发这一路，省得每次刷新白挂一条 JSONP。 */
   if (CONFIG.doubanId) every(CONFIG.refresh.douban, () => safe('豆瓣', loadDouban), true);
   /* 百度指数原来只在 boot 时取一次，常开的标签页永远不会自己更新 —— 云端 12~16 点出了

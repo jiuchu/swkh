@@ -157,7 +157,12 @@ try {
     completed: !!(extra && extra.completed),
     note,
     rows,
-    lastRun: iso(now),
+    /* ⚠ 这里必须是 UTC 带 Z，和另外四份 json 同一个口径：
+       页面上的「排期读取」是 Date.parse(lastRun) 之后再加 8 小时，
+       工作流那道 5 小时闸门也是拿 Date.now() 减它。写成"北京数字+Z"的话，
+       页面会多报 8 小时，闸门算出来的间隔恒为负数 → 非数字 → 当成 9999 →
+       每半小时照采不误。iso() 那个 helper 是专门用来取北京日期的，别拿它当时刻用。 */
+    lastRun: now.toISOString(),
   };
 } catch (e) {
   console.error(`::error::追剧日历没取到：${e.message}`);
