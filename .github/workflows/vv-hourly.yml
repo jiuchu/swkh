@@ -1,0 +1,115 @@
+# 灯塔「正片播放 · 分时」采集 —— 十万狂花入梦来
+#
+# 这个接口只回"今天到此刻"的分时格子，昨天的拿不到（showDate / date / bizDate /
+# queryDate / dateRange 五个参数 2026-10-20 实测全部被忽略），所以历史必须靠这里
+# 一小时一小时攒出来 —— 少跑一天，那一天就永久只有日累计、没有分时。
+#
+# 前置（一次性）：
+#   1. Settings → Actions → General → Workflow permissions → Read and write
+#   2. 本文件放 .github/workflows/vv-hourly.yml，fetch_vv_hourly.mjs 放仓库根
+#   3. Worker 那条全天闹钟（*/30 * * * *）的 BILLBOARD_TARGETS 里加上本文件，
+#      它才会被敲门；不加就永远不自动跑，手点仍然可用。
+#
+# 节拍：跟着畅销榜那条全天闹钟走，但**一小时只真跑一拍** —— 判据是「要不要跑」
+# 里读 json 自己的 lastRun（距上次成功落地不足 45 分钟就不跑），不再读 Runner 的墙钟。
+# 原来那句 date -u +%M 小于 30 有个洞：它读的是步骤开始执行那一刻的钟，Cloudflare 的
+# cron 早到几秒，:30 那一拍就翻进小于 30 那侧漏跑一次（10-20 21:31 的红叉就是这么来的）。
+# 挡掉不心疼：每次真跑都是把当天已闭合的格子整份重读一遍，所以漏掉几个格子只是当天
+# 曲线晚一格长出来，当天午夜前只要成功一拍，那一天就有 0点-1点 … 22点-23点 共 23 格。
+# 反过来，上一轮要是没推上去，lastRun 就还停在那儿，下一拍 gap 仍然大于 45 → 照跑，
+# 等于自带一次补投。
+# ⚠ 23点-0点 那一格当天拿不到（过 0 点它算昨天，而接口只回今天），脚本改到**第二天**
+#    用当天终值倒推补上，标 derived。不能当天算：逐日那行比逐时慢一截，
+#    10-20 18:24 在《嫁金钗》上实测 Σ(0点-17点)=5,120.1 万 > 同一分钟的当日累计 5,030.3 万，
+#    当天做减法会得到负数。
+# 24 拍/天 = 最多 24 个 commit ≈ 每小时一次 Pages 重建，和百度指数那条一个量级。
+#
+# ⚠ 这条 schedule 是备份档、实际不会响（GitHub 给他账号投递定时事件早就停了）。
+#    分钟故意取 11/41，和主闹钟的 :00/:30、百度那条的格子都错开，
+#    免得同一分钟撞进 concurrency 组被 cancel-in-progress 自己掐掉。
+
+name: shwh-dengta-vv-hourly
+
+on:
+  schedule:
+    - cron: '11,41 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  # 这里没有读 run 历史的护栏（护栏看的是钟表分钟），所以不用像另外两条那样显式给 actions: read。
+
+concurrency:
+  group: shwh-dengta-vv-hourly
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      VVH_OUT: vv-hourly.json
+      VVH_KEEP: '30'
+      VVH_MEDIA: '1533748'   # 灯塔 mediaId，写死在 workflow 里，免得脚本默认值和这部剧对不上时静默采错剧
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # 默认只拉 1 层，push 被拒要 rebase 时不够用；这仓库就几个文件，全量便宜。
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # 手点永远放行 —— 不然他下午 14:45 点一下会被这道护栏吃掉，看起来像"点了没反应"。
+      - name: 要不要跑
+        id: need
+        run: |
+          if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ]; then
+            echo "skip=false" >> "$GITHUB_OUTPUT"; echo "手点，直接真跑"
+          else
+            # lastRun 是采集脚本写的、只有 push 成功才会前进，所以它同时是水位线。
+            # 文件还不存在（第一天）或读不出时间都算 9999 分钟 = 真跑。
+            gap=$(node -e 'try{const j=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8"));const t=Date.parse(j.lastRun||j.fetchedAt||"");console.log(isNaN(t)?9999:Math.floor((Date.now()-t)/6e4))}catch(e){console.log(9999)}' "$VVH_OUT")
+            case "$gap" in ""|*[!0-9]*) gap=9999;; esac
+            echo "距上次成功落地 $gap 分钟"
+            if [ "$gap" -lt 45 ]; then
+              echo "skip=true" >> "$GITHUB_OUTPUT"; echo "刚落地过，这一拍不重复攒，收工"
+            else
+              echo "skip=false" >> "$GITHUB_OUTPUT"; echo "超过 45 分钟没落地，真跑"
+            fi
+          fi
+
+      # 走 Worker 的 /mtop 签名代理：灯塔那套接口要 mtop h5 现签的 sign，
+      # 浏览器端也是走同一个口子，所以这里不配任何 secret。
+      - name: 抓取
+        if: steps.need.outputs.skip != 'true'
+        run: node fetch_vv_hourly.mjs
+
+      - name: 提交结果
+        if: steps.need.outputs.skip != 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          [ -f "$VVH_OUT" ] || { echo "::notice::没有产出文件，跳过提交（探测模式或抓取失败）"; exit 0; }
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$VVH_OUT"
+          git diff --cached --quiet && { echo "这一格和上一格完全相同，不提交"; exit 0; }
+          git commit -m "灯塔正片播放分时 $(TZ=Asia/Shanghai date '+%F %H:%M')"
+          # 同一个仓库三条工作流都在推 main（这条写的是 vv-hourly.json），实测两发落地只差 1~4 秒。
+          # pull --rebase 只挡得住"rebase 之前别人已经推完"那一半，挡不住 rebase 之后、
+          # push 之前那一秒：10-20 21:31 那次红叉就是这个 —— 日志里 rebase 报 up to date，
+          # 紧接着 push 撞上别人刚推的 25fb733，报 cannot lock ref。所以整段带随机退避重试。
+          # 这条丢一格不心疼：下一拍是把当天已闭合的格子整份重读一遍。
+          n=0
+          while [ "$n" -lt 4 ]; do
+            n=$((n+1))
+            if git pull --rebase origin "$GITHUB_REF_NAME" && git push; then
+              echo "第 $n 次尝试推上去了"; exit 0
+            fi
+            git rebase --abort 2>/dev/null || true
+            sleep $((RANDOM % 6 + 3))
+          done
+          echo "::error::四次都没挤进 main，这一轮不推（红叉留到真出事的时候才看）"
+          exit 1
