@@ -5,8 +5,8 @@
  "asof": "2026-11-17",
  "latest": {
   "date": "2026-11-17",
-  "hm": "04:30",
-  "iso": "2026-11-17 04:30 +08",
+  "hm": "05:00",
+  "iso": "2026-11-17 05:00 +08",
   "weekRank": 3,
   "weekValue": 3617.99,
   "yearRank": null,
@@ -16,12 +16,12 @@
   {
    "rank": 1,
    "title": "谷雨",
-   "value": 4117.18
+   "value": 4117.01
   },
   {
    "rank": 2,
    "title": "嫁金钗",
-   "value": 4010.28
+   "value": 4010.25
   },
   {
    "rank": 3,
@@ -31,7 +31,7 @@
   {
    "rank": 4,
    "title": "早春晴朗",
-   "value": 3584.96
+   "value": 3584.95
   },
   {
    "rank": 5,
@@ -51,7 +51,7 @@
   {
    "rank": 8,
    "title": "九门",
-   "value": 3576
+   "value": 3576.02
   },
   {
    "rank": 9,
@@ -76,7 +76,7 @@
   {
    "rank": 13,
    "title": "当我飞奔向你",
-   "value": 3564.97
+   "value": 3564.98
   },
   {
    "rank": 14,
@@ -86,27 +86,27 @@
   {
    "rank": 15,
    "title": "悬案",
-   "value": 3562.14
+   "value": 3562.15
   },
   {
    "rank": 16,
    "title": "此处通往繁星",
-   "value": 3558.9
+   "value": 3558.92
   },
   {
    "rank": 17,
    "title": "入青云",
-   "value": 3549.4
+   "value": 3549.44
   },
   {
    "rank": 18,
    "title": "偷偷藏不住",
-   "value": 3548.72
+   "value": 3548.74
   },
   {
    "rank": 19,
    "title": "以法之名",
-   "value": 3544.01
+   "value": 3544.03
   },
   {
    "rank": 20,
@@ -163,7 +163,7 @@
   {
    "rank": 10,
    "title": "谷雨",
-   "value": 3211.87
+   "value": 3212.12
   },
   {
    "rank": 11,
@@ -188,7 +188,7 @@
   {
    "rank": 15,
    "title": "千香",
-   "value": 2963.26
+   "value": 2963.27
   },
   {
    "rank": 16,
@@ -856,9 +856,17 @@
    "weekValue": 3617.99,
    "yearRank": null,
    "yearValue": null
+  },
+  {
+   "date": "2026-11-17",
+   "hm": "05:00",
+   "weekRank": 3,
+   "weekValue": 3617.99,
+   "yearRank": null,
+   "yearValue": null
   }
  ],
  "fetchedAt": "2026-11-16T15:30:34.052Z",
- "lastRun": "2026-11-16T20:30:26.140Z",
+ "lastRun": "2026-11-16T21:00:33.794Z",
  "count": 20
 }
