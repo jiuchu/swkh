@@ -5,8 +5,8 @@
  "asof": "2026-11-17",
  "latest": {
   "date": "2026-11-17",
-  "hm": "04:00",
-  "iso": "2026-11-17 04:00 +08",
+  "hm": "04:30",
+  "iso": "2026-11-17 04:30 +08",
   "weekRank": 3,
   "weekValue": 3617.99,
   "yearRank": null,
@@ -16,12 +16,12 @@
   {
    "rank": 1,
    "title": "谷雨",
-   "value": 4117.35
+   "value": 4117.18
   },
   {
    "rank": 2,
    "title": "嫁金钗",
-   "value": 4010.32
+   "value": 4010.28
   },
   {
    "rank": 3,
@@ -36,27 +36,27 @@
   {
    "rank": 5,
    "title": "冬城猎凶",
-   "value": 3579.99
+   "value": 3580
   },
   {
    "rank": 6,
-   "title": "鉴定",
+   "title": "无可替代",
    "value": 3576.54
   },
   {
    "rank": 7,
-   "title": "无可替代",
-   "value": 3576.52
+   "title": "鉴定",
+   "value": 3576.54
   },
   {
    "rank": 8,
    "title": "九门",
-   "value": 3575.98
+   "value": 3576
   },
   {
    "rank": 9,
    "title": "难哄",
-   "value": 3569.08
+   "value": 3569.09
   },
   {
    "rank": 10,
@@ -81,32 +81,32 @@
   {
    "rank": 14,
    "title": "月鳞绮纪",
-   "value": 3564.71
+   "value": 3564.73
   },
   {
    "rank": 15,
    "title": "悬案",
-   "value": 3562.13
+   "value": 3562.14
   },
   {
    "rank": 16,
    "title": "此处通往繁星",
-   "value": 3558.89
+   "value": 3558.9
   },
   {
    "rank": 17,
    "title": "入青云",
-   "value": 3549.41
+   "value": 3549.4
   },
   {
    "rank": 18,
    "title": "偷偷藏不住",
-   "value": 3548.66
+   "value": 3548.72
   },
   {
    "rank": 19,
    "title": "以法之名",
-   "value": 3543.99
+   "value": 3544.01
   },
   {
    "rank": 20,
@@ -118,7 +118,7 @@
   {
    "rank": 1,
    "title": "嫁金钗",
-   "value": 5189.53
+   "value": 5189.54
   },
   {
    "rank": 2,
@@ -163,7 +163,7 @@
   {
    "rank": 10,
    "title": "谷雨",
-   "value": 3211.57
+   "value": 3211.87
   },
   {
    "rank": 11,
@@ -848,9 +848,17 @@
    "weekValue": 3617.99,
    "yearRank": null,
    "yearValue": null
+  },
+  {
+   "date": "2026-11-17",
+   "hm": "04:30",
+   "weekRank": 3,
+   "weekValue": 3617.99,
+   "yearRank": null,
+   "yearValue": null
   }
  ],
  "fetchedAt": "2026-11-16T15:30:34.052Z",
- "lastRun": "2026-11-16T20:00:30.903Z",
+ "lastRun": "2026-11-16T20:30:26.140Z",
  "count": 20
 }
