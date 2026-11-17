@@ -5,10 +5,10 @@
  "asof": "2026-11-18",
  "latest": {
   "date": "2026-11-18",
-  "hm": "06:00",
-  "iso": "2026-11-18 06:00 +08",
+  "hm": "06:30",
+  "iso": "2026-11-18 06:30 +08",
   "weekRank": 3,
-  "weekValue": 3640.63,
+  "weekValue": 3640.8,
   "yearRank": null,
   "yearValue": null
  },
@@ -16,17 +16,17 @@
   {
    "rank": 1,
    "title": "谷雨",
-   "value": 4101.35
+   "value": 4101.59
   },
   {
    "rank": 2,
    "title": "嫁金钗",
-   "value": 3990.74
+   "value": 3990.47
   },
   {
    "rank": 3,
    "title": "十万狂花入梦来",
-   "value": 3640.63
+   "value": 3640.8
   },
   {
    "rank": 4,
@@ -36,17 +36,17 @@
   {
    "rank": 5,
    "title": "鉴定",
-   "value": 3581.86
+   "value": 3581.87
   },
   {
    "rank": 6,
    "title": "冬城猎凶",
-   "value": 3576.88
+   "value": 3576.89
   },
   {
    "rank": 7,
    "title": "九门",
-   "value": 3575.8
+   "value": 3575.79
   },
   {
    "rank": 8,
@@ -61,17 +61,17 @@
   {
    "rank": 10,
    "title": "一瓯春",
-   "value": 3565.96
+   "value": 3565.97
   },
   {
    "rank": 11,
    "title": "当我飞奔向你",
-   "value": 3565.02
+   "value": 3565.03
   },
   {
    "rank": 12,
    "title": "月鳞绮纪",
-   "value": 3564.58
+   "value": 3564.59
   },
   {
    "rank": 13,
@@ -91,7 +91,7 @@
   {
    "rank": 16,
    "title": "此处通往繁星",
-   "value": 3554.62
+   "value": 3554.63
   },
   {
    "rank": 17,
@@ -101,7 +101,7 @@
   {
    "rank": 18,
    "title": "偷偷藏不住",
-   "value": 3546.07
+   "value": 3546.1
   },
   {
    "rank": 19,
@@ -111,7 +111,7 @@
   {
    "rank": 20,
    "title": "以法之名",
-   "value": 3543.49
+   "value": 3543.5
   }
  ],
  "topYear": [
@@ -143,7 +143,7 @@
   {
    "rank": 6,
    "title": "月鳞绮纪",
-   "value": 4110.07
+   "value": 4110.08
   },
   {
    "rank": 7,
@@ -158,7 +158,7 @@
   {
    "rank": 9,
    "title": "谷雨",
-   "value": 3272.6
+   "value": 3272.79
   },
   {
    "rank": 10,
@@ -1288,9 +1288,17 @@
    "weekValue": 3640.63,
    "yearRank": null,
    "yearValue": null
+  },
+  {
+   "date": "2026-11-18",
+   "hm": "06:30",
+   "weekRank": 3,
+   "weekValue": 3640.8,
+   "yearRank": null,
+   "yearValue": null
   }
  ],
- "fetchedAt": "2026-11-17T22:00:26.824Z",
- "lastRun": "2026-11-17T22:00:26.824Z",
+ "fetchedAt": "2026-11-17T22:30:25.800Z",
+ "lastRun": "2026-11-17T22:30:25.800Z",
  "count": 20
 }
