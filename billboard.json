@@ -5,10 +5,10 @@
  "asof": "2026-11-18",
  "latest": {
   "date": "2026-11-18",
-  "hm": "05:30",
-  "iso": "2026-11-18 05:30 +08",
+  "hm": "06:00",
+  "iso": "2026-11-18 06:00 +08",
   "weekRank": 3,
-  "weekValue": 3640.42,
+  "weekValue": 3640.63,
   "yearRank": null,
   "yearValue": null
  },
@@ -16,22 +16,22 @@
   {
    "rank": 1,
    "title": "谷雨",
-   "value": 4101.06
+   "value": 4101.35
   },
   {
    "rank": 2,
    "title": "嫁金钗",
-   "value": 3991.03
+   "value": 3990.74
   },
   {
    "rank": 3,
    "title": "十万狂花入梦来",
-   "value": 3640.42
+   "value": 3640.63
   },
   {
    "rank": 4,
    "title": "早春晴朗",
-   "value": 3591.42
+   "value": 3591.43
   },
   {
    "rank": 5,
@@ -41,17 +41,17 @@
   {
    "rank": 6,
    "title": "冬城猎凶",
-   "value": 3576.85
+   "value": 3576.88
   },
   {
    "rank": 7,
    "title": "九门",
-   "value": 3575.81
+   "value": 3575.8
   },
   {
    "rank": 8,
    "title": "无可替代",
-   "value": 3574.79
+   "value": 3574.78
   },
   {
    "rank": 9,
@@ -81,12 +81,12 @@
   {
    "rank": 14,
    "title": "翘楚",
-   "value": 3563.41
+   "value": 3563.43
   },
   {
    "rank": 15,
    "title": "悬案",
-   "value": 3557.55
+   "value": 3557.56
   },
   {
    "rank": 16,
@@ -101,7 +101,7 @@
   {
    "rank": 18,
    "title": "偷偷藏不住",
-   "value": 3546.02
+   "value": 3546.07
   },
   {
    "rank": 19,
@@ -111,7 +111,7 @@
   {
    "rank": 20,
    "title": "以法之名",
-   "value": 3543.51
+   "value": 3543.49
   }
  ],
  "topYear": [
@@ -158,7 +158,7 @@
   {
    "rank": 9,
    "title": "谷雨",
-   "value": 3272.4
+   "value": 3272.6
   },
   {
    "rank": 10,
@@ -183,7 +183,7 @@
   {
    "rank": 14,
    "title": "无可替代",
-   "value": 2998.98
+   "value": 2998.99
   },
   {
    "rank": 15,
@@ -1280,9 +1280,17 @@
    "weekValue": 3640.42,
    "yearRank": null,
    "yearValue": null
+  },
+  {
+   "date": "2026-11-18",
+   "hm": "06:00",
+   "weekRank": 3,
+   "weekValue": 3640.63,
+   "yearRank": null,
+   "yearValue": null
   }
  ],
- "fetchedAt": "2026-11-17T21:30:27.680Z",
- "lastRun": "2026-11-17T21:30:27.680Z",
+ "fetchedAt": "2026-11-17T22:00:26.824Z",
+ "lastRun": "2026-11-17T22:00:26.824Z",
  "count": 20
 }
