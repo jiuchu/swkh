@@ -2,8 +2,9 @@
 #
 # 前置（一次性，都在 GitHub 网页上设）：
 #   1. Settings → Actions → General → Workflow permissions → Read and write
-#   2. 本文件放 .github/workflows/ 下；fetch_billboard.mjs / billboard.json 放仓库根
-#      （billboard.json 可以先不传，脚本第一次跑自己建）
+#   2. 本文件放 .github/workflows/ 下；fetch_billboard.mjs / billboard.json /
+#      fetch_yunhe.mjs / yunhe.json 放仓库根
+#      （billboard.json 和 yunhe.json 可以先不传，脚本第一次跑自己建）
 #
 # 这条比百度指数那条简单得多：取数是匿名签名，没有 cookie、没有 secret、没有浏览器，
 # 一个 step 十几秒跑完。所以「装 Playwright」那一步整个没有。
@@ -128,8 +129,63 @@ jobs:
           echo "::error::四次都没挤进 main，这一轮不推（红叉留到真出事的时候才看）"
           exit 1
 
-  # 这份文件在《嫁金钗》那个仓库里还挂着第二个 job「云合评级」。这里整段删掉了：
-  # 本剧云合暂时没建档（11-15 定的口径是「等有了再加」），没有采集对象就别留一个空转的闹钟。
+  # 云合评级 —— 这个 job 在 11-15 建这条工作流时整段删掉了，理由是「本剧云合还没建档，
+  # 没有采集对象就别留一个空转的闹钟」。11-18 云合收录了本剧（热播榜第 9 行，
+  # nameID 8755663，30 集已更 7 集），所以按《嫁金钗》那侧的原样加回来。
+  # 建档 ≠ 出档：此刻 getLastLevel.do 回的还是 []，也就是评级还没出。
+  # 但正因为这样才要现在开闹钟 —— 接口只回最近 1~2 天、没有更深的历史口，
+  # 从今晚到真出档之间那些天只能一天天攒，攒不到的就永远补不回来。
+  # 放进来而不是新开一条工作流：节拍要和畅销榜那条一样是"全天每半小时"（评级几点出档
+  # 没人知道，只能全天盯），而这条工作流的闹钟本来就是全天那一档；新开一条就要动
+  # Worker 的派发名单，那是要改线上 Worker 的。
+  # 取数同样匿名：一个 POST、没有 cookie、没有 secret、没有浏览器。
+  # needs: refresh 串行 —— 两个 job 都要往 main 推，同一轮里并发就是撞车（10-20 那个红叉的成因）。
+  # if: always() —— 优酷那格挂了不该连着把评级也带停。
+  yunhe:
+    needs: refresh
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      YUNHE_OUT: yunhe.json
+      YUNHE_NAMEID: '8755663'
+      YUNHE_NAME: 十万狂花入梦来
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: 抓取
+        run: node fetch_yunhe.mjs
+
+      - name: 提交结果
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          [ -f "$YUNHE_OUT" ] || { echo "::notice::没有产出文件，跳过提交（抓取失败或探测模式）"; exit 0; }
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$YUNHE_OUT"
+          # 脚本自己已经挡掉了"既不跨日也没变档"那一拍，不会写出一个只有时间戳动了的文件；
+          # 这里这道判断是第二层：真没字节变化就不提交，别留一堆空 commit。
+          git diff --cached --quiet && { echo "这一拍没有新档位、也没跨日，不提交"; exit 0; }
+          git commit -m "云合评级 $(TZ=Asia/Shanghai date '+%F %H:%M')"
+          # 评级史全在这个 json 里，接口只回最近 1~2 天，覆盖掉就永远补不回来。
+          n=0
+          while [ "$n" -lt 4 ]; do
+            n=$((n+1))
+            if git pull --rebase origin "$GITHUB_REF_NAME" && git push; then
+              echo "第 $n 次尝试推上去了"; exit 0
+            fi
+            git rebase --abort 2>/dev/null || true
+            sleep $((RANDOM % 6 + 3))
+          done
+          echo "::error::四次都没挤进 main，这一轮不推"
+          exit 1
 
   # ============================================================
   # 优酷官方「追剧日历」，一天四次够了
@@ -187,7 +243,8 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add "$CAL_OUT"
           git commit -m "追剧日历 $(TZ=Asia/Shanghai date '+%F %H:%M')"
-          # 这个仓库现在有四个 job 都在推 main，撞车窗口比单条时更宽，
+          # 这个仓库现在有三份工作流、六个 job 都在推 main（这条的 refresh + yunhe + calendar，
+          # baidu-index 的 refresh + qimai，vv-hourly 的 refresh），撞车窗口比单条时更宽，
           # 所以同样带随机退避试四次。这条一天只真 commit 四次，丢了下一拍（>5 小时后）重来。
           n=0
           while [ "$n" -lt 4 ]; do
