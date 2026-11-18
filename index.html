@@ -541,7 +541,7 @@ const CONFIG = {
      Cloudflare 免费额度 10 万请求/天是整个账号共享的，两个面板加所有轮询都算在里面。
      本剧只有中午 12:00 那一档放量（不上星 ⇒ 没有晚上电视带动的第二段陡升），
      所以秒级窗口只开 12–15 点，其余时段 20 秒。dengta 是日榜（10 分钟足够）。 */
-  refresh: { dengta: 600e3, live: 4e3, idle: 20e3, ssr: 10 * 60e3, heat: 600e3, baidu: 300e3, bb: 300e3, vvh: 300e3, qm: 1800e3, douban: 1800e3, cal: 1800e3 },
+  refresh: { dengta: 600e3, live: 4e3, idle: 20e3, ssr: 10 * 60e3, heat: 600e3, baidu: 300e3, bb: 300e3, vvh: 300e3, qm: 1800e3, yh: 1800e3, douban: 1800e3, cal: 1800e3 },
   liveWindow: [12, 15],             // 优酷 12:00 放量前后两小时才值得按秒级敲灯塔
   /* 灯塔 SSR 的 playTime 与优酷真实放量：本剧首播即 12:00（playRule 原文「11月15日12:00上线」），
      首日和之后每天同一个钟点，所以 ykFirstTime 留 null = 跟着 ykPlayTime 走。
@@ -1163,6 +1163,11 @@ const vvCard = raw => { const v = +raw;
 const tidyCjk = s => (s || '').replace(/([一-龥])[ \u3000]+(?=[一-龥])/g, '$1');
 function pad2(n) { return String(n).padStart(2, '0'); }
 
+/* 云合档位从高到低的序：用来算「升一档 / 降一档」那个箭头。
+   表里没有的字母（上游哪天加了新档）就返回 null —— 宁可不画箭头，也不猜它比 A 高还是低。 */
+const YH_ORDER = ['S+', 'S', 'A+', 'A', 'B+', 'B', 'C+', 'C', 'D'];
+const yhRank = lv => { const i = YH_ORDER.indexOf(String(lv || '').toUpperCase()); return i < 0 ? null : i; };
+
 const CARDS = [
   { k: 'youkuHot',  name: '优酷实时热度',   c: 'var(--youku)', ico: 'M12 2a10 10 0 100 20 10 10 0 000-20zm0 4a6 6 0 110 12 6 6 0 010-12z' },
   { k: 'todayVv',   name: '今日实时播放量', c: 'var(--gold)',  ico: 'M3 17l5-6 4 4 5-7 4 5V3H3v14z' },
@@ -1175,6 +1180,7 @@ const CARDS = [
   { k: 'baiduIdx',  name: '百度指数·最新',  c: '#ffbe6a',      ico: 'M15.5 14h-.79l-.28-.27A6.47 6.47 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z' },
   { k: 'bbWeek',    name: '七日拉新榜',     c: '#7ee0c0',      ico: 'M5 3h14v4a7 7 0 01-14 0V3zm2 12h10v3H7v-3z' },
   { k: 'bbYear',    name: '年度拉新榜',     c: 'var(--gold)',  ico: 'M12 2l2.6 6.3H21l-5.2 4.1 1.9 6.6L12 15.3 6.3 19l1.9-6.6L3 8.3h6.4z' },
+  { k: 'yhLevel',   name: '云合评级',       c: '#b6a8ff',      ico: 'M12 2l8 3v6.2c0 4.9-3.4 8.6-8 10.8-4.6-2.2-8-5.9-8-10.8V5l8-3zm-1 12.6l4.2-4.4-1.4-1.4L11 12.4 9.2 10.6l-1.4 1.4L11 14.6z' },
   { k: 'douban',    name: '豆瓣评分',       c: '#5fd4a3',      ico: 'M4 4h16v4H4V4zm0 6h16v10H4V10z' }
 ];
 
@@ -1225,6 +1231,22 @@ function cardVals() {
     douban:   { v: S.douban ? (S.douban.count >= 5 && S.douban.score ? S.douban.score.toFixed(1) : (S.douban.noRate || '暂无评分')) : null,
                 sub: S.douban ? '短评 ' + fmt(S.douban.cmt) + ' · 长评 ' + fmt(S.douban.review)
                              : (CONFIG.doubanId ? '豆瓣读取中' : '豆瓣条目号还没接上') },
+    /* 卡片位上只放那个字母。上游未登录时同一部剧连调三次，level 三次全同、
+       minValue/maxValue/position 三次全不一样，所以那三个数既没进档案、也不上图。 */
+    yhLevel:  (() => {
+      const D = YH.days;
+      if (!D.length) return { v: '未出',
+        sub: YH.at ? '本剧还没出档 · 检查于 ' + YH.at.slice(5, 16) : '评级档案建立中' };
+      const last = D[D.length - 1], prev = D.length > 1 ? D[D.length - 2] : null;
+      const r1 = yhRank(last.level), r2 = prev ? yhRank(prev.level) : null;
+      const dr = (r1 != null && r2 != null) ? r2 - r1 : null;   /* 序小=档高，所以是 r2-r1 */
+      const out = { v: last.level };
+      if (dr) { out.d = dr; out.du = ' 档'; out.dl = '对 ' + prev.date.slice(5) + ' 那档'; }
+      out.sub = last.date.slice(5) + ' 那天的评级' +
+        (!prev ? ' · 档案里第一天' : dr === 0 ? ' · 与前一日同档' : dr === null ? ' · 与前一日不同档' : '') +
+        (YH.empty ? ' · 最新一天还没出' : '') + ' · 检查于 ' + YH.at.slice(5, 16);
+      return out;
+    })(),
     baiduIdx: (() => {
       const rw = BAIDU_INDEX.rows;
       if (!rw.length) return { v: null, sub: BAIDU_INDEX.note || '暂无数据' };
@@ -2012,6 +2034,24 @@ function renderQimai() {
 }
 
 /* ============================================================
+   云合评级（每天一档 · 只取那个字母）
+   ============================================================ */
+const YH = { days: [], at: '', empty: null, note: '' };
+/* 同源静态 yunhe.json，和下载量那格同一个道理：缺文件是「档案还在建立」的正常状态，
+   自己吞异常、不进 src 表、不点页顶那条链路报错条。
+   上游一次只回最近 1~2 天，历史是采集端一天天攒出来的，所以这里的 days 会比接口给的长。 */
+async function loadYunhe() {
+  try {
+    const r = await fetch('./yunhe.json?t=' + Date.now(), { cache: 'no-store' });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const j = await r.json();
+    YH.days = (Array.isArray(j.days) ? j.days : []).filter(x => x && x.date && x.level);
+    YH.at = String(j.at || ''); YH.empty = j.empty === true; YH.note = '';
+  } catch (e) { YH.note = '暂无数据'; YH.days = []; YH.at = ''; }
+  renderKPI();
+}
+
+/* ============================================================
    调度
    ============================================================ */
 const revealJobs = [];
@@ -2040,6 +2080,7 @@ async function refreshAll() {
     safe('畅销榜', loadBillboard),
     safe('正片分时', loadVvHourly),
     safe('下载量', loadQimai),
+    safe('云合评级', loadYunhe),
     safe('追剧日历', loadCalendar)
   ]);
   stamp();
@@ -2115,7 +2156,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') dm.classList
 (async function boot() {
   decorate(); tickCountdown(); setInterval(tickCountdown, 1000);
   renderKPI(); renderBaiduChart(); renderHonor();
-  loadBaiduIndex(); loadBillboard(); loadVvHourly(); loadQimai(); loadCalendar();
+  loadBaiduIndex(); loadBillboard(); loadVvHourly(); loadQimai(); loadYunhe(); loadCalendar();
   await refreshAll();
   liveLoop();
   every(CONFIG.refresh.dengta, () => safe('灯塔', loadDengta).then(stamp), true);
@@ -2137,6 +2178,10 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') dm.classList
   every(CONFIG.refresh.vvh,    () => safe('正片分时', loadVvHourly), true);
   /* 下载量那份一周才动一次（要人工贴新链接），30 分钟看一回足够，别和半小时那几格混节拍。 */
   every(CONFIG.refresh.qm,     () => safe('下载量', loadQimai), true);
+  /* 云合评级也是同源静态 json：上游 T+1 出档、几点出没人知道，所以页面这边 30 分钟
+     看一回云端那份档案就够 —— 真正全天盯的是 Actions 那侧的半小时闹钟。
+     缺文件不挂 src 报错：本剧还没出档时档案里本来就没有 days。 */
+  every(CONFIG.refresh.yh,     () => safe('云合评级', loadYunhe), true);
   /* 追剧日历一天最多动一两回（优酷改排期才算变化），30 分钟看一次同源文件足够。
      云端那边 5 分钟才采一次，页面再敲得勤也不会更早看到新排期。 */
   every(CONFIG.refresh.cal,    () => safe('追剧日历', loadCalendar), true);
