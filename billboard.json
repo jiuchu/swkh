@@ -5,8 +5,8 @@
  "asof": "2026-11-19",
  "latest": {
   "date": "2026-11-19",
-  "hm": "06:30",
-  "iso": "2026-11-19 06:30 +08",
+  "hm": "07:00",
+  "iso": "2026-11-19 07:00 +08",
   "weekRank": 3,
   "weekValue": 3660.74,
   "yearRank": null,
@@ -16,12 +16,12 @@
   {
    "rank": 1,
    "title": "谷雨",
-   "value": 4086.78
+   "value": 4087.06
   },
   {
    "rank": 2,
    "title": "嫁金钗",
-   "value": 3919.57
+   "value": 3919.98
   },
   {
    "rank": 3,
@@ -31,17 +31,17 @@
   {
    "rank": 4,
    "title": "早春晴朗",
-   "value": 3582.86
+   "value": 3582.9
   },
   {
    "rank": 5,
    "title": "无可替代",
-   "value": 3579.09
+   "value": 3579.07
   },
   {
    "rank": 6,
    "title": "九门",
-   "value": 3578.36
+   "value": 3578.34
   },
   {
    "rank": 7,
@@ -51,22 +51,22 @@
   {
    "rank": 8,
    "title": "冬城猎凶",
-   "value": 3574.52
+   "value": 3574.53
   },
   {
    "rank": 9,
    "title": "难哄",
-   "value": 3568.98
+   "value": 3568.99
   },
   {
    "rank": 10,
    "title": "当我飞奔向你",
-   "value": 3564.99
+   "value": 3565
   },
   {
    "rank": 11,
    "title": "月鳞绮纪",
-   "value": 3564.73
+   "value": 3564.74
   },
   {
    "rank": 12,
@@ -76,7 +76,7 @@
   {
    "rank": 13,
    "title": "一瓯春",
-   "value": 3563.09
+   "value": 3563.11
   },
   {
    "rank": 14,
@@ -86,22 +86,22 @@
   {
    "rank": 15,
    "title": "无声的回响",
-   "value": 3559.95
+   "value": 3560.02
   },
   {
    "rank": 16,
    "title": "悬案",
-   "value": 3553.87
+   "value": 3553.89
   },
   {
    "rank": 17,
    "title": "偷偷藏不住",
-   "value": 3547.89
+   "value": 3547.94
   },
   {
    "rank": 18,
    "title": "此处通往繁星",
-   "value": 3547.49
+   "value": 3547.58
   },
   {
    "rank": 19,
@@ -111,7 +111,7 @@
   {
    "rank": 20,
    "title": "以法之名",
-   "value": 3539.84
+   "value": 3539.85
   }
  ],
  "topYear": [
@@ -153,12 +153,12 @@
   {
    "rank": 8,
    "title": "雨霖铃",
-   "value": 3420.61
+   "value": 3420.62
   },
   {
    "rank": 9,
    "title": "谷雨",
-   "value": 3328.05
+   "value": 3328.1
   },
   {
    "rank": 10,
@@ -173,7 +173,7 @@
   {
    "rank": 12,
    "title": "悬案",
-   "value": 3053.66
+   "value": 3053.67
   },
   {
    "rank": 13,
@@ -1704,9 +1704,17 @@
    "weekValue": 3660.74,
    "yearRank": null,
    "yearValue": null
+  },
+  {
+   "date": "2026-11-19",
+   "hm": "07:00",
+   "weekRank": 3,
+   "weekValue": 3660.74,
+   "yearRank": null,
+   "yearValue": null
   }
  ],
  "fetchedAt": "2026-11-18T15:30:28.182Z",
- "lastRun": "2026-11-18T22:30:26.737Z",
+ "lastRun": "2026-11-18T23:00:36.649Z",
  "count": 20
 }
