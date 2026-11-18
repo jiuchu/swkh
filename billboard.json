@@ -5,8 +5,8 @@
  "asof": "2026-11-19",
  "latest": {
   "date": "2026-11-19",
-  "hm": "06:00",
-  "iso": "2026-11-19 06:00 +08",
+  "hm": "06:30",
+  "iso": "2026-11-19 06:30 +08",
   "weekRank": 3,
   "weekValue": 3660.74,
   "yearRank": null,
@@ -16,12 +16,12 @@
   {
    "rank": 1,
    "title": "谷雨",
-   "value": 4086.6
+   "value": 4086.78
   },
   {
    "rank": 2,
    "title": "嫁金钗",
-   "value": 3919.19
+   "value": 3919.57
   },
   {
    "rank": 3,
@@ -31,7 +31,7 @@
   {
    "rank": 4,
    "title": "早春晴朗",
-   "value": 3582.83
+   "value": 3582.86
   },
   {
    "rank": 5,
@@ -41,17 +41,17 @@
   {
    "rank": 6,
    "title": "九门",
-   "value": 3578.38
+   "value": 3578.36
   },
   {
    "rank": 7,
    "title": "鉴定",
-   "value": 3577.68
+   "value": 3577.66
   },
   {
    "rank": 8,
    "title": "冬城猎凶",
-   "value": 3574.5
+   "value": 3574.52
   },
   {
    "rank": 9,
@@ -66,12 +66,12 @@
   {
    "rank": 11,
    "title": "月鳞绮纪",
-   "value": 3564.72
+   "value": 3564.73
   },
   {
    "rank": 12,
    "title": "藏海传",
-   "value": 3563.39
+   "value": 3563.4
   },
   {
    "rank": 13,
@@ -81,12 +81,12 @@
   {
    "rank": 14,
    "title": "翘楚",
-   "value": 3561.73
+   "value": 3561.75
   },
   {
    "rank": 15,
    "title": "无声的回响",
-   "value": 3559.94
+   "value": 3559.95
   },
   {
    "rank": 16,
@@ -96,12 +96,12 @@
   {
    "rank": 17,
    "title": "偷偷藏不住",
-   "value": 3547.87
+   "value": 3547.89
   },
   {
    "rank": 18,
    "title": "此处通往繁星",
-   "value": 3547.48
+   "value": 3547.49
   },
   {
    "rank": 19,
@@ -143,7 +143,7 @@
   {
    "rank": 6,
    "title": "月鳞绮纪",
-   "value": 4110.96
+   "value": 4110.97
   },
   {
    "rank": 7,
@@ -158,7 +158,7 @@
   {
    "rank": 9,
    "title": "谷雨",
-   "value": 3328.03
+   "value": 3328.05
   },
   {
    "rank": 10,
@@ -1696,9 +1696,17 @@
    "weekValue": 3660.74,
    "yearRank": null,
    "yearValue": null
+  },
+  {
+   "date": "2026-11-19",
+   "hm": "06:30",
+   "weekRank": 3,
+   "weekValue": 3660.74,
+   "yearRank": null,
+   "yearValue": null
   }
  ],
  "fetchedAt": "2026-11-18T15:30:28.182Z",
- "lastRun": "2026-11-18T22:00:39.647Z",
+ "lastRun": "2026-11-18T22:30:26.737Z",
  "count": 20
 }
