@@ -5,8 +5,8 @@
  "asof": "2026-11-20",
  "latest": {
   "date": "2026-11-20",
-  "hm": "06:06",
-  "iso": "2026-11-20 06:06 +08",
+  "hm": "06:30",
+  "iso": "2026-11-20 06:30 +08",
   "weekRank": 3,
   "weekValue": 3679.61,
   "yearRank": null,
@@ -16,12 +16,12 @@
   {
    "rank": 1,
    "title": "谷雨",
-   "value": 4072.1
+   "value": 4072.19
   },
   {
    "rank": 2,
    "title": "嫁金钗",
-   "value": 3848.3
+   "value": 3848.35
   },
   {
    "rank": 3,
@@ -31,7 +31,7 @@
   {
    "rank": 4,
    "title": "早春晴朗",
-   "value": 3588.15
+   "value": 3588.14
   },
   {
    "rank": 5,
@@ -46,7 +46,7 @@
   {
    "rank": 7,
    "title": "鉴定",
-   "value": 3579.9
+   "value": 3579.91
   },
   {
    "rank": 8,
@@ -61,7 +61,7 @@
   {
    "rank": 10,
    "title": "无声的回响",
-   "value": 3568.15
+   "value": 3568.16
   },
   {
    "rank": 11,
@@ -71,7 +71,7 @@
   {
    "rank": 12,
    "title": "当我飞奔向你",
-   "value": 3563.46
+   "value": 3563.47
   },
   {
    "rank": 13,
@@ -91,7 +91,7 @@
   {
    "rank": 16,
    "title": "悬案",
-   "value": 3552.17
+   "value": 3552.19
   },
   {
    "rank": 17,
@@ -101,16 +101,16 @@
   {
    "rank": 18,
    "title": "入青云",
-   "value": 3540.16
+   "value": 3540.17
   },
   {
    "rank": 19,
-   "title": "前途无量",
-   "value": 3538.38
+   "title": "千香",
+   "value": 3538.4
   },
   {
    "rank": 20,
-   "title": "千香",
+   "title": "前途无量",
    "value": 3538.38
   }
  ],
@@ -158,7 +158,7 @@
   {
    "rank": 9,
    "title": "谷雨",
-   "value": 3378.93
+   "value": 3379
   },
   {
    "rank": 10,
@@ -2112,9 +2112,17 @@
    "weekValue": 3679.61,
    "yearRank": null,
    "yearValue": null
+  },
+  {
+   "date": "2026-11-20",
+   "hm": "06:30",
+   "weekRank": 3,
+   "weekValue": 3679.61,
+   "yearRank": null,
+   "yearValue": null
   }
  ],
  "fetchedAt": "2026-11-19T15:00:29.628Z",
- "lastRun": "2026-11-19T22:06:19.609Z",
+ "lastRun": "2026-11-19T22:30:27.426Z",
  "count": 20
 }
