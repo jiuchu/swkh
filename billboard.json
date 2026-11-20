@@ -5,8 +5,8 @@
  "asof": "2026-11-21",
  "latest": {
   "date": "2026-11-21",
-  "hm": "07:00",
-  "iso": "2026-11-21 07:00 +08",
+  "hm": "07:30",
+  "iso": "2026-11-21 07:30 +08",
   "weekRank": 3,
   "weekValue": 3699.84,
   "yearRank": null,
@@ -16,12 +16,12 @@
   {
    "rank": 1,
    "title": "谷雨",
-   "value": 4053.86
+   "value": 4053.79
   },
   {
    "rank": 2,
    "title": "嫁金钗",
-   "value": 3801.37
+   "value": 3801.45
   },
   {
    "rank": 3,
@@ -36,22 +36,22 @@
   {
    "rank": 5,
    "title": "早春晴朗",
-   "value": 3579.79
+   "value": 3579.8
   },
   {
    "rank": 6,
    "title": "九门",
-   "value": 3579.52
+   "value": 3579.54
   },
   {
    "rank": 7,
    "title": "无可替代",
-   "value": 3577.3
+   "value": 3577.31
   },
   {
    "rank": 8,
    "title": "鉴定",
-   "value": 3574.67
+   "value": 3574.66
   },
   {
    "rank": 9,
@@ -61,42 +61,42 @@
   {
    "rank": 10,
    "title": "难哄",
-   "value": 3568.02
+   "value": 3568.03
   },
   {
    "rank": 11,
    "title": "月鳞绮纪",
-   "value": 3561.3
+   "value": 3561.32
   },
   {
    "rank": 12,
    "title": "当我飞奔向你",
-   "value": 3561.15
+   "value": 3561.17
   },
   {
    "rank": 13,
    "title": "藏海传",
-   "value": 3560.31
+   "value": 3560.33
   },
   {
    "rank": 14,
    "title": "一瓯春",
-   "value": 3556.05
+   "value": 3556.04
   },
   {
    "rank": 15,
    "title": "翘楚",
-   "value": 3555.75
+   "value": 3555.78
   },
   {
    "rank": 16,
    "title": "悬案",
-   "value": 3547.17
+   "value": 3547.18
   },
   {
    "rank": 17,
    "title": "偷偷藏不住",
-   "value": 3543.77
+   "value": 3543.82
   },
   {
    "rank": 18,
@@ -158,7 +158,7 @@
   {
    "rank": 9,
    "title": "谷雨",
-   "value": 3418.73
+   "value": 3418.87
   },
   {
    "rank": 10,
@@ -2536,9 +2536,17 @@
    "weekValue": 3699.84,
    "yearRank": null,
    "yearValue": null
+  },
+  {
+   "date": "2026-11-21",
+   "hm": "07:30",
+   "weekRank": 3,
+   "weekValue": 3699.84,
+   "yearRank": null,
+   "yearValue": null
   }
  ],
  "fetchedAt": "2026-11-20T16:00:34.836Z",
- "lastRun": "2026-11-20T23:00:29.147Z",
+ "lastRun": "2026-11-20T23:30:24.957Z",
  "count": 20
 }
