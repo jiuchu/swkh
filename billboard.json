@@ -5,8 +5,8 @@
  "asof": "2026-11-21",
  "latest": {
   "date": "2026-11-21",
-  "hm": "05:30",
-  "iso": "2026-11-21 05:30 +08",
+  "hm": "06:00",
+  "iso": "2026-11-21 06:00 +08",
   "weekRank": 3,
   "weekValue": 3699.84,
   "yearRank": null,
@@ -21,7 +21,7 @@
   {
    "rank": 2,
    "title": "嫁金钗",
-   "value": 3801.08
+   "value": 3801.17
   },
   {
    "rank": 3,
@@ -36,22 +36,22 @@
   {
    "rank": 5,
    "title": "早春晴朗",
-   "value": 3579.77
+   "value": 3579.78
   },
   {
    "rank": 6,
    "title": "九门",
-   "value": 3579.45
+   "value": 3579.46
   },
   {
    "rank": 7,
    "title": "无可替代",
-   "value": 3577.26
+   "value": 3577.28
   },
   {
    "rank": 8,
    "title": "鉴定",
-   "value": 3574.69
+   "value": 3574.68
   },
   {
    "rank": 9,
@@ -66,7 +66,7 @@
   {
    "rank": 11,
    "title": "月鳞绮纪",
-   "value": 3561.26
+   "value": 3561.27
   },
   {
    "rank": 12,
@@ -86,7 +86,7 @@
   {
    "rank": 15,
    "title": "翘楚",
-   "value": 3555.73
+   "value": 3555.76
   },
   {
    "rank": 16,
@@ -96,7 +96,7 @@
   {
    "rank": 17,
    "title": "偷偷藏不住",
-   "value": 3543.73
+   "value": 3543.74
   },
   {
    "rank": 18,
@@ -110,8 +110,8 @@
   },
   {
    "rank": 20,
-   "title": "入青云",
-   "value": 3534.76
+   "title": "家族荣耀",
+   "value": 3534.98
   }
  ],
  "topYear": [
@@ -158,7 +158,7 @@
   {
    "rank": 9,
    "title": "谷雨",
-   "value": 3418.45
+   "value": 3418.54
   },
   {
    "rank": 10,
@@ -183,7 +183,7 @@
   {
    "rank": 14,
    "title": "无可替代",
-   "value": 3002.87
+   "value": 3002.88
   },
   {
    "rank": 15,
@@ -2512,9 +2512,17 @@
    "weekValue": 3699.84,
    "yearRank": null,
    "yearValue": null
+  },
+  {
+   "date": "2026-11-21",
+   "hm": "06:00",
+   "weekRank": 3,
+   "weekValue": 3699.84,
+   "yearRank": null,
+   "yearValue": null
   }
  ],
  "fetchedAt": "2026-11-20T16:00:34.836Z",
- "lastRun": "2026-11-20T21:30:27.300Z",
+ "lastRun": "2026-11-20T22:00:26.907Z",
  "count": 20
 }
