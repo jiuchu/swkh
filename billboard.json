@@ -5,8 +5,8 @@
  "asof": "2026-11-20",
  "latest": {
   "date": "2026-11-20",
-  "hm": "19:27",
-  "iso": "2026-11-20 19:27 +08",
+  "hm": "19:30",
+  "iso": "2026-11-20 19:30 +08",
   "weekRank": 3,
   "weekValue": 3692.95,
   "yearRank": null,
@@ -2336,9 +2336,17 @@
    "weekValue": 3692.95,
    "yearRank": null,
    "yearValue": null
+  },
+  {
+   "date": "2026-11-20",
+   "hm": "19:30",
+   "weekRank": 3,
+   "weekValue": 3692.95,
+   "yearRank": null,
+   "yearValue": null
   }
  ],
  "fetchedAt": "2026-11-20T11:27:15.085Z",
- "lastRun": "2026-11-20T11:27:15.085Z",
+ "lastRun": "2026-11-20T11:30:25.696Z",
  "count": 20
 }
