@@ -5,8 +5,8 @@
  "asof": "2026-11-21",
  "latest": {
   "date": "2026-11-21",
-  "hm": "03:00",
-  "iso": "2026-11-21 03:00 +08",
+  "hm": "03:14",
+  "iso": "2026-11-21 03:14 +08",
   "weekRank": 3,
   "weekValue": 3699.84,
   "yearRank": null,
@@ -16,12 +16,12 @@
   {
    "rank": 1,
    "title": "谷雨",
-   "value": 4053.46
+   "value": 4053.55
   },
   {
    "rank": 2,
    "title": "嫁金钗",
-   "value": 3800.03
+   "value": 3800.23
   },
   {
    "rank": 3,
@@ -41,7 +41,7 @@
   {
    "rank": 6,
    "title": "九门",
-   "value": 3579.33
+   "value": 3579.35
   },
   {
    "rank": 7,
@@ -56,7 +56,7 @@
   {
    "rank": 9,
    "title": "冬城猎凶",
-   "value": 3571.59
+   "value": 3571.61
   },
   {
    "rank": 10,
@@ -91,7 +91,7 @@
   {
    "rank": 16,
    "title": "悬案",
-   "value": 3547.07
+   "value": 3547.08
   },
   {
    "rank": 17,
@@ -110,8 +110,8 @@
   },
   {
    "rank": 20,
-   "title": "入青云",
-   "value": 3534.66
+   "title": "家族荣耀",
+   "value": 3534.68
   }
  ],
  "topYear": [
@@ -128,7 +128,7 @@
   {
    "rank": 3,
    "title": "早春晴朗",
-   "value": 5150.34
+   "value": 5150.35
   },
   {
    "rank": 4,
@@ -158,7 +158,7 @@
   {
    "rank": 9,
    "title": "谷雨",
-   "value": 3417.78
+   "value": 3417.86
   },
   {
    "rank": 10,
@@ -2464,9 +2464,17 @@
    "weekValue": 3699.84,
    "yearRank": null,
    "yearValue": null
+  },
+  {
+   "date": "2026-11-21",
+   "hm": "03:14",
+   "weekRank": 3,
+   "weekValue": 3699.84,
+   "yearRank": null,
+   "yearValue": null
   }
  ],
  "fetchedAt": "2026-11-20T16:00:34.836Z",
- "lastRun": "2026-11-20T19:00:26.677Z",
+ "lastRun": "2026-11-20T19:14:47.480Z",
  "count": 20
 }
