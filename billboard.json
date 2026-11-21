@@ -5,10 +5,10 @@
  "asof": "2026-11-22",
  "latest": {
   "date": "2026-11-22",
-  "hm": "04:30",
-  "iso": "2026-11-22 04:30 +08",
+  "hm": "05:00",
+  "iso": "2026-11-22 05:00 +08",
   "weekRank": 3,
-  "weekValue": 3658.2,
+  "weekValue": 3658.41,
   "yearRank": null,
   "yearValue": null
  },
@@ -16,17 +16,17 @@
   {
    "rank": 1,
    "title": "谷雨",
-   "value": 4037.6
+   "value": 4037.79
   },
   {
    "rank": 2,
    "title": "嫁金钗",
-   "value": 3759.82
+   "value": 3759.85
   },
   {
    "rank": 3,
    "title": "十万狂花入梦来",
-   "value": 3658.2
+   "value": 3658.41
   },
   {
    "rank": 4,
@@ -36,27 +36,27 @@
   {
    "rank": 5,
    "title": "早春晴朗",
-   "value": 3586.24
+   "value": 3586.21
   },
   {
    "rank": 6,
    "title": "鉴定",
-   "value": 3579.29
+   "value": 3579.28
   },
   {
    "rank": 7,
    "title": "九门",
-   "value": 3575.6
+   "value": 3575.62
   },
   {
    "rank": 8,
    "title": "无可替代",
-   "value": 3573.2
+   "value": 3573.24
   },
   {
    "rank": 9,
    "title": "冬城猎凶",
-   "value": 3570.9
+   "value": 3570.91
   },
   {
    "rank": 10,
@@ -71,27 +71,27 @@
   {
    "rank": 12,
    "title": "当我飞奔向你",
-   "value": 3559.95
+   "value": 3559.97
   },
   {
    "rank": 13,
    "title": "月鳞绮纪",
-   "value": 3559.88
+   "value": 3559.9
   },
   {
    "rank": 14,
    "title": "一瓯春",
-   "value": 3552.02
+   "value": 3552.03
   },
   {
    "rank": 15,
    "title": "翘楚",
-   "value": 3551.57
+   "value": 3551.59
   },
   {
    "rank": 16,
    "title": "悬案",
-   "value": 3543.6
+   "value": 3543.63
   },
   {
    "rank": 17,
@@ -101,12 +101,12 @@
   {
    "rank": 18,
    "title": "长安二十四计",
-   "value": 3539.47
+   "value": 3539.48
   },
   {
    "rank": 19,
    "title": "法医秦明之读心者",
-   "value": 3539.29
+   "value": 3538.42
   },
   {
    "rank": 20,
@@ -118,7 +118,7 @@
   {
    "rank": 1,
    "title": "嫁金钗",
-   "value": 5196.62
+   "value": 5196.64
   },
   {
    "rank": 2,
@@ -153,7 +153,7 @@
   {
    "rank": 8,
    "title": "谷雨",
-   "value": 3454.01
+   "value": 3454.09
   },
   {
    "rank": 9,
@@ -173,7 +173,7 @@
   {
    "rank": 12,
    "title": "悬案",
-   "value": 3055.14
+   "value": 3055.15
   },
   {
    "rank": 13,
@@ -183,7 +183,7 @@
   {
    "rank": 14,
    "title": "无可替代",
-   "value": 3003.94
+   "value": 3003.95
   },
   {
    "rank": 15,
@@ -2896,9 +2896,17 @@
    "weekValue": 3658.2,
    "yearRank": null,
    "yearValue": null
+  },
+  {
+   "date": "2026-11-22",
+   "hm": "05:00",
+   "weekRank": 3,
+   "weekValue": 3658.41,
+   "yearRank": null,
+   "yearValue": null
   }
  ],
- "fetchedAt": "2026-11-21T20:30:26.448Z",
- "lastRun": "2026-11-21T20:30:26.448Z",
+ "fetchedAt": "2026-11-21T21:00:25.709Z",
+ "lastRun": "2026-11-21T21:00:25.709Z",
  "count": 20
 }
