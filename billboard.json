@@ -5,10 +5,10 @@
  "asof": "2026-11-21",
  "latest": {
   "date": "2026-11-21",
-  "hm": "23:00",
-  "iso": "2026-11-21 23:00 +08",
+  "hm": "23:30",
+  "iso": "2026-11-21 23:30 +08",
   "weekRank": 3,
-  "weekValue": 3715.73,
+  "weekValue": 3718.96,
   "yearRank": null,
   "yearValue": null
  },
@@ -16,109 +16,109 @@
   {
    "rank": 1,
    "title": "谷雨",
-   "value": 4067.04
+   "value": 4066.34
   },
   {
    "rank": 2,
    "title": "嫁金钗",
-   "value": 3836.73
+   "value": 3833.51
   },
   {
    "rank": 3,
    "title": "十万狂花入梦来",
-   "value": 3715.73
+   "value": 3718.96
   },
   {
    "rank": 4,
    "title": "无声的回响",
-   "value": 3588.41
+   "value": 3588.71
   },
   {
    "rank": 5,
    "title": "早春晴朗",
-   "value": 3585.21
+   "value": 3584.54
   },
   {
    "rank": 6,
    "title": "九门",
-   "value": 3580.89
+   "value": 3580.67
   },
   {
    "rank": 7,
    "title": "无可替代",
-   "value": 3580.41
+   "value": 3580.45
   },
   {
    "rank": 8,
    "title": "鉴定",
-   "value": 3576.56
+   "value": 3576.85
   },
   {
    "rank": 9,
    "title": "冬城猎凶",
-   "value": 3575.31
+   "value": 3575.53
   },
   {
    "rank": 10,
    "title": "难哄",
-   "value": 3569.35
+   "value": 3569.41
   },
   {
    "rank": 11,
    "title": "当我飞奔向你",
-   "value": 3565.67
+   "value": 3565.73
   },
   {
    "rank": 12,
-   "title": "月鳞绮纪",
-   "value": 3565.17
+   "title": "藏海传",
+   "value": 3565.3
   },
   {
    "rank": 13,
-   "title": "藏海传",
-   "value": 3565.16
+   "title": "月鳞绮纪",
+   "value": 3565.24
   },
   {
    "rank": 14,
    "title": "一瓯春",
-   "value": 3560.78
+   "value": 3560.92
   },
   {
    "rank": 15,
    "title": "翘楚",
-   "value": 3560.52
+   "value": 3560.61
   },
   {
    "rank": 16,
    "title": "悬案",
-   "value": 3554.42
+   "value": 3554.57
   },
   {
    "rank": 17,
    "title": "偷偷藏不住",
-   "value": 3551.4
+   "value": 3551.78
   },
   {
    "rank": 18,
    "title": "长安二十四计",
-   "value": 3544.03
+   "value": 3544.77
   },
   {
    "rank": 19,
-   "title": "执法者们",
-   "value": 3542.65
+   "title": "入青云",
+   "value": 3542.83
   },
   {
    "rank": 20,
-   "title": "入青云",
-   "value": 3542.52
+   "title": "灼灼韶华",
+   "value": 3540.49
   }
  ],
  "topYear": [
   {
    "rank": 1,
    "title": "嫁金钗",
-   "value": 5195.85
+   "value": 5195.97
   },
   {
    "rank": 2,
@@ -128,37 +128,37 @@
   {
    "rank": 3,
    "title": "早春晴朗",
-   "value": 5150.66
+   "value": 5150.67
   },
   {
    "rank": 4,
    "title": "唐宫奇案之青雾风鸣",
-   "value": 4357.97
+   "value": 4358
   },
   {
    "rank": 5,
    "title": "长安二十四计",
-   "value": 4140.12
+   "value": 4140.14
   },
   {
    "rank": 6,
    "title": "月鳞绮纪",
-   "value": 4113.38
+   "value": 4113.39
   },
   {
    "rank": 7,
    "title": "翘楚",
-   "value": 3662.25
+   "value": 3662.26
   },
   {
    "rank": 8,
    "title": "谷雨",
-   "value": 3446.67
+   "value": 3448.68
   },
   {
    "rank": 9,
    "title": "雨霖铃",
-   "value": 3421.18
+   "value": 3421.19
   },
   {
    "rank": 10,
@@ -168,12 +168,12 @@
   {
    "rank": 11,
    "title": "黑夜告白",
-   "value": 3080.07
+   "value": 3080.08
   },
   {
    "rank": 12,
    "title": "悬案",
-   "value": 3055.06
+   "value": 3055.08
   },
   {
    "rank": 13,
@@ -183,12 +183,12 @@
   {
    "rank": 14,
    "title": "无可替代",
-   "value": 3003.79
+   "value": 3003.83
   },
   {
    "rank": 15,
    "title": "千香",
-   "value": 2965.29
+   "value": 2965.31
   },
   {
    "rank": 16,
@@ -198,7 +198,7 @@
   {
    "rank": 17,
    "title": "正义女神",
-   "value": 2898.14
+   "value": 2898.15
   },
   {
    "rank": 18,
@@ -208,7 +208,7 @@
   {
    "rank": 19,
    "title": "入青云",
-   "value": 2838.19
+   "value": 2838.21
   },
   {
    "rank": 20,
@@ -2800,9 +2800,17 @@
    "weekValue": 3715.73,
    "yearRank": null,
    "yearValue": null
+  },
+  {
+   "date": "2026-11-21",
+   "hm": "23:30",
+   "weekRank": 3,
+   "weekValue": 3718.96,
+   "yearRank": null,
+   "yearValue": null
   }
  ],
- "fetchedAt": "2026-11-21T15:00:26.826Z",
- "lastRun": "2026-11-21T15:00:26.826Z",
+ "fetchedAt": "2026-11-21T15:30:27.910Z",
+ "lastRun": "2026-11-21T15:30:27.910Z",
  "count": 20
 }
