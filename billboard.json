@@ -5,10 +5,10 @@
  "asof": "2026-11-22",
  "latest": {
   "date": "2026-11-22",
-  "hm": "05:51",
-  "iso": "2026-11-22 05:51 +08",
+  "hm": "06:00",
+  "iso": "2026-11-22 06:00 +08",
   "weekRank": 3,
-  "weekValue": 3658.59,
+  "weekValue": 3658.64,
   "yearRank": null,
   "yearValue": null
  },
@@ -16,7 +16,7 @@
   {
    "rank": 1,
    "title": "谷雨",
-   "value": 4037.97
+   "value": 4038.03
   },
   {
    "rank": 2,
@@ -26,7 +26,7 @@
   {
    "rank": 3,
    "title": "十万狂花入梦来",
-   "value": 3658.59
+   "value": 3658.64
   },
   {
    "rank": 4,
@@ -41,7 +41,7 @@
   {
    "rank": 6,
    "title": "鉴定",
-   "value": 3579.27
+   "value": 3579.26
   },
   {
    "rank": 7,
@@ -51,12 +51,12 @@
   {
    "rank": 8,
    "title": "无可替代",
-   "value": 3573.25
+   "value": 3573.27
   },
   {
    "rank": 9,
    "title": "冬城猎凶",
-   "value": 3570.91
+   "value": 3570.92
   },
   {
    "rank": 10,
@@ -71,7 +71,7 @@
   {
    "rank": 12,
    "title": "当我飞奔向你",
-   "value": 3559.98
+   "value": 3559.99
   },
   {
    "rank": 13,
@@ -96,7 +96,7 @@
   {
    "rank": 17,
    "title": "偷偷藏不住",
-   "value": 3542.39
+   "value": 3542.4
   },
   {
    "rank": 18,
@@ -153,7 +153,7 @@
   {
    "rank": 8,
    "title": "谷雨",
-   "value": 3454.16
+   "value": 3454.19
   },
   {
    "rank": 9,
@@ -2920,9 +2920,17 @@
    "weekValue": 3658.59,
    "yearRank": null,
    "yearValue": null
+  },
+  {
+   "date": "2026-11-22",
+   "hm": "06:00",
+   "weekRank": 3,
+   "weekValue": 3658.64,
+   "yearRank": null,
+   "yearValue": null
   }
  ],
- "fetchedAt": "2026-11-21T21:51:05.540Z",
- "lastRun": "2026-11-21T21:51:05.540Z",
+ "fetchedAt": "2026-11-21T22:00:28.166Z",
+ "lastRun": "2026-11-21T22:00:28.166Z",
  "count": 20
 }
