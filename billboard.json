@@ -5,10 +5,10 @@
  "asof": "2026-11-23",
  "latest": {
   "date": "2026-11-23",
-  "hm": "07:00",
-  "iso": "2026-11-23 07:00 +08",
+  "hm": "07:30",
+  "iso": "2026-11-23 07:30 +08",
   "weekRank": 3,
-  "weekValue": 3636.93,
+  "weekValue": 3636.98,
   "yearRank": null,
   "yearValue": null
  },
@@ -16,17 +16,17 @@
   {
    "rank": 1,
    "title": "谷雨",
-   "value": 4027.19
+   "value": 4027.39
   },
   {
    "rank": 2,
    "title": "嫁金钗",
-   "value": 3726.63
+   "value": 3727.13
   },
   {
    "rank": 3,
    "title": "十万狂花入梦来",
-   "value": 3636.93
+   "value": 3636.98
   },
   {
    "rank": 4,
@@ -36,7 +36,7 @@
   {
    "rank": 5,
    "title": "早春晴朗",
-   "value": 3583.96
+   "value": 3584.06
   },
   {
    "rank": 6,
@@ -51,7 +51,7 @@
   {
    "rank": 8,
    "title": "无可替代",
-   "value": 3571.45
+   "value": 3571.46
   },
   {
    "rank": 9,
@@ -61,52 +61,52 @@
   {
    "rank": 10,
    "title": "难哄",
-   "value": 3567.11
+   "value": 3567.12
   },
   {
    "rank": 11,
    "title": "当我飞奔向你",
-   "value": 3560.73
+   "value": 3560.74
   },
   {
    "rank": 12,
    "title": "藏海传",
-   "value": 3560.51
+   "value": 3560.54
   },
   {
    "rank": 13,
    "title": "月鳞绮纪",
-   "value": 3558.97
+   "value": 3558.98
   },
   {
    "rank": 14,
    "title": "一瓯春",
-   "value": 3549.32
+   "value": 3549.4
   },
   {
    "rank": 15,
    "title": "翘楚",
-   "value": 3549.15
+   "value": 3549.16
   },
   {
    "rank": 16,
    "title": "长安二十四计",
-   "value": 3548.51
+   "value": 3548.52
   },
   {
    "rank": 17,
    "title": "偷偷藏不住",
-   "value": 3541.76
+   "value": 3541.88
   },
   {
    "rank": 18,
    "title": "悬案",
-   "value": 3539.34
+   "value": 3539.45
   },
   {
    "rank": 19,
    "title": "乡村爱情16",
-   "value": 3537.93
+   "value": 3537.26
   },
   {
    "rank": 20,
@@ -148,12 +148,12 @@
   {
    "rank": 7,
    "title": "翘楚",
-   "value": 3662.92
+   "value": 3662.93
   },
   {
    "rank": 8,
    "title": "谷雨",
-   "value": 3488.53
+   "value": 3488.56
   },
   {
    "rank": 9,
@@ -3352,9 +3352,17 @@
    "weekValue": 3636.93,
    "yearRank": null,
    "yearValue": null
+  },
+  {
+   "date": "2026-11-23",
+   "hm": "07:30",
+   "weekRank": 3,
+   "weekValue": 3636.98,
+   "yearRank": null,
+   "yearValue": null
   }
  ],
- "fetchedAt": "2026-11-22T23:00:25.141Z",
- "lastRun": "2026-11-22T23:00:25.141Z",
+ "fetchedAt": "2026-11-22T23:30:26.634Z",
+ "lastRun": "2026-11-22T23:30:26.634Z",
  "count": 20
 }
