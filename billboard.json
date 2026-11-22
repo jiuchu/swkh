@@ -5,10 +5,10 @@
  "asof": "2026-11-22",
  "latest": {
   "date": "2026-11-22",
-  "hm": "18:30",
-  "iso": "2026-11-22 18:30 +08",
+  "hm": "19:00",
+  "iso": "2026-11-22 19:00 +08",
   "weekRank": 3,
-  "weekValue": 3660.28,
+  "weekValue": 3661.13,
   "yearRank": null,
   "yearValue": null
  },
@@ -16,149 +16,149 @@
   {
    "rank": 1,
    "title": "谷雨",
-   "value": 4045.4
+   "value": 4044.52
   },
   {
    "rank": 2,
    "title": "嫁金钗",
-   "value": 3770.9
+   "value": 3769.19
   },
   {
    "rank": 3,
    "title": "十万狂花入梦来",
-   "value": 3660.28
+   "value": 3661.13
   },
   {
    "rank": 4,
    "title": "无声的回响",
-   "value": 3591.44
+   "value": 3592.12
   },
   {
    "rank": 5,
    "title": "九门",
-   "value": 3580.61
+   "value": 3580.91
   },
   {
    "rank": 6,
    "title": "早春晴朗",
-   "value": 3579.88
+   "value": 3580.07
   },
   {
    "rank": 7,
-   "title": "鉴定",
-   "value": 3575.8
+   "title": "无可替代",
+   "value": 3575.71
   },
   {
    "rank": 8,
-   "title": "无可替代",
-   "value": 3575.5
+   "title": "鉴定",
+   "value": 3575.59
   },
   {
    "rank": 9,
    "title": "冬城猎凶",
-   "value": 3572.49
+   "value": 3572.69
   },
   {
    "rank": 10,
    "title": "难哄",
-   "value": 3568.56
+   "value": 3568.6
   },
   {
    "rank": 11,
    "title": "藏海传",
-   "value": 3563.36
+   "value": 3563.53
   },
   {
    "rank": 12,
    "title": "当我飞奔向你",
-   "value": 3563.13
+   "value": 3563.3
   },
   {
    "rank": 13,
    "title": "月鳞绮纪",
-   "value": 3562.82
+   "value": 3562.91
   },
   {
    "rank": 14,
    "title": "一瓯春",
-   "value": 3555.94
+   "value": 3556.08
   },
   {
    "rank": 15,
    "title": "翘楚",
-   "value": 3555.23
+   "value": 3555.53
   },
   {
    "rank": 16,
    "title": "悬案",
-   "value": 3548.21
+   "value": 3548.66
   },
   {
    "rank": 17,
    "title": "长安二十四计",
-   "value": 3547.05
+   "value": 3547.38
   },
   {
    "rank": 18,
    "title": "偷偷藏不住",
-   "value": 3546.9
+   "value": 3547.1
   },
   {
    "rank": 19,
-   "title": "前途无量",
-   "value": 3540.07
+   "title": "入青云",
+   "value": 3537.4
   },
   {
    "rank": 20,
-   "title": "入青云",
-   "value": 3536.89
+   "title": "蓝盔特战队",
+   "value": 3535.76
   }
  ],
  "topYear": [
   {
    "rank": 1,
    "title": "嫁金钗",
-   "value": 5199.72
+   "value": 5199.96
   },
   {
    "rank": 2,
    "title": "九门",
-   "value": 5165.59
+   "value": 5165.6
   },
   {
    "rank": 3,
    "title": "早春晴朗",
-   "value": 5150.92
+   "value": 5150.93
   },
   {
    "rank": 4,
    "title": "唐宫奇案之青雾风鸣",
-   "value": 4358.18
+   "value": 4358.2
   },
   {
    "rank": 5,
    "title": "长安二十四计",
-   "value": 4140.45
+   "value": 4140.47
   },
   {
    "rank": 6,
    "title": "月鳞绮纪",
-   "value": 4114.03
+   "value": 4114.04
   },
   {
    "rank": 7,
    "title": "翘楚",
-   "value": 3662.6
+   "value": 3662.63
   },
   {
    "rank": 8,
    "title": "谷雨",
-   "value": 3463.18
+   "value": 3465.2
   },
   {
    "rank": 9,
    "title": "雨霖铃",
-   "value": 3421.32
+   "value": 3421.33
   },
   {
    "rank": 10,
@@ -173,7 +173,7 @@
   {
    "rank": 12,
    "title": "悬案",
-   "value": 3055.38
+   "value": 3055.41
   },
   {
    "rank": 13,
@@ -183,22 +183,22 @@
   {
    "rank": 14,
    "title": "无可替代",
-   "value": 3004.44
+   "value": 3004.48
   },
   {
    "rank": 15,
    "title": "千香",
-   "value": 2965.58
+   "value": 2965.6
   },
   {
    "rank": 16,
    "title": "我的山与海",
-   "value": 2943.48
+   "value": 2943.49
   },
   {
    "rank": 17,
    "title": "正义女神",
-   "value": 2898.24
+   "value": 2898.25
   },
   {
    "rank": 18,
@@ -208,7 +208,7 @@
   {
    "rank": 19,
    "title": "入青云",
-   "value": 2831.16
+   "value": 2831.18
   },
   {
    "rank": 20,
@@ -3144,9 +3144,17 @@
    "weekValue": 3660.28,
    "yearRank": null,
    "yearValue": null
+  },
+  {
+   "date": "2026-11-22",
+   "hm": "19:00",
+   "weekRank": 3,
+   "weekValue": 3661.13,
+   "yearRank": null,
+   "yearValue": null
   }
  ],
- "fetchedAt": "2026-11-22T10:30:26.859Z",
- "lastRun": "2026-11-22T10:30:26.859Z",
+ "fetchedAt": "2026-11-22T11:00:25.786Z",
+ "lastRun": "2026-11-22T11:00:25.786Z",
  "count": 20
 }
