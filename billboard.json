@@ -5,8 +5,8 @@
  "asof": "2026-11-22",
  "latest": {
   "date": "2026-11-22",
-  "hm": "10:00",
-  "iso": "2026-11-22 10:00 +08",
+  "hm": "10:06",
+  "iso": "2026-11-22 10:06 +08",
   "weekRank": 3,
   "weekValue": 3660.75,
   "yearRank": null,
@@ -46,7 +46,7 @@
   {
    "rank": 7,
    "title": "九门",
-   "value": 3576.1
+   "value": 3576.15
   },
   {
    "rank": 8,
@@ -66,7 +66,7 @@
   {
    "rank": 11,
    "title": "藏海传",
-   "value": 3560.62
+   "value": 3560.71
   },
   {
    "rank": 12,
@@ -2992,9 +2992,17 @@
    "weekValue": 3660.75,
    "yearRank": null,
    "yearValue": null
+  },
+  {
+   "date": "2026-11-22",
+   "hm": "10:06",
+   "weekRank": 3,
+   "weekValue": 3660.75,
+   "yearRank": null,
+   "yearValue": null
   }
  ],
  "fetchedAt": "2026-11-22T02:00:26.555Z",
- "lastRun": "2026-11-22T02:00:26.555Z",
+ "lastRun": "2026-11-22T02:06:25.880Z",
  "count": 20
 }
