@@ -5,10 +5,10 @@
  "asof": "2026-11-24",
  "latest": {
   "date": "2026-11-24",
-  "hm": "06:30",
-  "iso": "2026-11-24 06:30 +08",
+  "hm": "07:00",
+  "iso": "2026-11-24 07:00 +08",
   "weekRank": 3,
-  "weekValue": 3632.71,
+  "weekValue": 3632.59,
   "yearRank": null,
   "yearValue": null
  },
@@ -16,17 +16,17 @@
   {
    "rank": 1,
    "title": "谷雨",
-   "value": 4016.71
+   "value": 4016.73
   },
   {
    "rank": 2,
    "title": "嫁金钗",
-   "value": 3705.69
+   "value": 3705.99
   },
   {
    "rank": 3,
    "title": "十万狂花入梦来",
-   "value": 3632.71
+   "value": 3632.59
   },
   {
    "rank": 4,
@@ -36,12 +36,12 @@
   {
    "rank": 5,
    "title": "早春晴朗",
-   "value": 3579.5
+   "value": 3579.57
   },
   {
    "rank": 6,
    "title": "鉴定",
-   "value": 3579.39
+   "value": 3579.42
   },
   {
    "rank": 7,
@@ -51,22 +51,22 @@
   {
    "rank": 8,
    "title": "无可替代",
-   "value": 3570.39
+   "value": 3570.4
   },
   {
    "rank": 9,
    "title": "冬城猎凶",
-   "value": 3570.22
+   "value": 3570.23
   },
   {
    "rank": 10,
    "title": "难哄",
-   "value": 3566.51
+   "value": 3566.53
   },
   {
    "rank": 11,
    "title": "藏海传",
-   "value": 3559.71
+   "value": 3559.74
   },
   {
    "rank": 12,
@@ -76,27 +76,27 @@
   {
    "rank": 13,
    "title": "月鳞绮纪",
-   "value": 3556.56
+   "value": 3556.57
   },
   {
    "rank": 14,
    "title": "长安二十四计",
-   "value": 3552.16
+   "value": 3552.2
   },
   {
    "rank": 15,
    "title": "翘楚",
-   "value": 3546.74
+   "value": 3546.75
   },
   {
    "rank": 16,
    "title": "一瓯春",
-   "value": 3545.47
+   "value": 3545.48
   },
   {
    "rank": 17,
    "title": "偷偷藏不住",
-   "value": 3540.5
+   "value": 3540.56
   },
   {
    "rank": 18,
@@ -106,7 +106,7 @@
   {
    "rank": 19,
    "title": "乡村爱情17",
-   "value": 3535.66
+   "value": 3535.33
   },
   {
    "rank": 20,
@@ -143,7 +143,7 @@
   {
    "rank": 6,
    "title": "月鳞绮纪",
-   "value": 4115.24
+   "value": 4115.25
   },
   {
    "rank": 7,
@@ -153,7 +153,7 @@
   {
    "rank": 8,
    "title": "谷雨",
-   "value": 3521.58
+   "value": 3521.59
   },
   {
    "rank": 9,
@@ -183,7 +183,7 @@
   {
    "rank": 14,
    "title": "无可替代",
-   "value": 3005.96
+   "value": 3005.97
   },
   {
    "rank": 15,
@@ -3752,9 +3752,17 @@
    "weekValue": 3632.71,
    "yearRank": null,
    "yearValue": null
+  },
+  {
+   "date": "2026-11-24",
+   "hm": "07:00",
+   "weekRank": 3,
+   "weekValue": 3632.59,
+   "yearRank": null,
+   "yearValue": null
   }
  ],
- "fetchedAt": "2026-11-23T22:30:26.786Z",
- "lastRun": "2026-11-23T22:30:26.786Z",
+ "fetchedAt": "2026-11-23T23:00:26.313Z",
+ "lastRun": "2026-11-23T23:00:26.313Z",
  "count": 20
 }
