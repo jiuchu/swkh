@@ -5,10 +5,10 @@
  "asof": "2026-11-25",
  "latest": {
   "date": "2026-11-25",
-  "hm": "06:30",
-  "iso": "2026-11-25 06:30 +08",
+  "hm": "06:43",
+  "iso": "2026-11-25 06:43 +08",
   "weekRank": 3,
-  "weekValue": 3627.89,
+  "weekValue": 3627.95,
   "yearRank": null,
   "yearValue": null
  },
@@ -16,17 +16,17 @@
   {
    "rank": 1,
    "title": "谷雨",
-   "value": 4006.73
+   "value": 4006.7
   },
   {
    "rank": 2,
    "title": "嫁金钗",
-   "value": 3691.9
+   "value": 3691.87
   },
   {
    "rank": 3,
    "title": "十万狂花入梦来",
-   "value": 3627.89
+   "value": 3627.95
   },
   {
    "rank": 4,
@@ -41,37 +41,37 @@
   {
    "rank": 6,
    "title": "九门",
-   "value": 3576.63
+   "value": 3576.61
   },
   {
    "rank": 7,
    "title": "鉴定",
-   "value": 3575.43
+   "value": 3575.42
   },
   {
    "rank": 8,
    "title": "无可替代",
-   "value": 3569.82
+   "value": 3569.83
   },
   {
    "rank": 9,
    "title": "冬城猎凶",
-   "value": 3569.66
+   "value": 3569.67
   },
   {
    "rank": 10,
    "title": "难哄",
-   "value": 3566.4
+   "value": 3566.41
   },
   {
    "rank": 11,
    "title": "藏海传",
-   "value": 3558.87
+   "value": 3558.89
   },
   {
    "rank": 12,
    "title": "当我飞奔向你",
-   "value": 3558.16
+   "value": 3558.2
   },
   {
    "rank": 13,
@@ -81,12 +81,12 @@
   {
    "rank": 14,
    "title": "不为人知的故事",
-   "value": 3554.98
+   "value": 3555.01
   },
   {
    "rank": 15,
    "title": "月鳞绮纪",
-   "value": 3554.31
+   "value": 3554.33
   },
   {
    "rank": 16,
@@ -143,7 +143,7 @@
   {
    "rank": 6,
    "title": "月鳞绮纪",
-   "value": 4116.01
+   "value": 4116.02
   },
   {
    "rank": 7,
@@ -4152,9 +4152,17 @@
    "weekValue": 3627.89,
    "yearRank": null,
    "yearValue": null
+  },
+  {
+   "date": "2026-11-25",
+   "hm": "06:43",
+   "weekRank": 3,
+   "weekValue": 3627.95,
+   "yearRank": null,
+   "yearValue": null
   }
  ],
- "fetchedAt": "2026-11-24T22:30:26.770Z",
- "lastRun": "2026-11-24T22:30:26.770Z",
+ "fetchedAt": "2026-11-24T22:43:46.889Z",
+ "lastRun": "2026-11-24T22:43:46.889Z",
  "count": 20
 }
