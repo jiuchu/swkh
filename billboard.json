@@ -5,10 +5,10 @@
  "asof": "2026-11-25",
  "latest": {
   "date": "2026-11-25",
-  "hm": "02:30",
-  "iso": "2026-11-25 02:30 +08",
+  "hm": "03:00",
+  "iso": "2026-11-25 03:00 +08",
   "weekRank": 3,
-  "weekValue": 3626.86,
+  "weekValue": 3627.03,
   "yearRank": null,
   "yearValue": null
  },
@@ -16,17 +16,17 @@
   {
    "rank": 1,
    "title": "谷雨",
-   "value": 4007.21
+   "value": 4007.14
   },
   {
    "rank": 2,
    "title": "嫁金钗",
-   "value": 3692.7
+   "value": 3692.58
   },
   {
    "rank": 3,
    "title": "十万狂花入梦来",
-   "value": 3626.86
+   "value": 3627.03
   },
   {
    "rank": 4,
@@ -36,17 +36,17 @@
   {
    "rank": 5,
    "title": "早春晴朗",
-   "value": 3577.97
+   "value": 3577.98
   },
   {
    "rank": 6,
    "title": "九门",
-   "value": 3576.75
+   "value": 3576.7
   },
   {
    "rank": 7,
    "title": "鉴定",
-   "value": 3575.37
+   "value": 3575.38
   },
   {
    "rank": 8,
@@ -61,22 +61,22 @@
   {
    "rank": 10,
    "title": "难哄",
-   "value": 3566.29
+   "value": 3566.31
   },
   {
    "rank": 11,
    "title": "藏海传",
-   "value": 3558.79
+   "value": 3558.83
   },
   {
    "rank": 12,
    "title": "当我飞奔向你",
-   "value": 3558.11
+   "value": 3558.12
   },
   {
    "rank": 13,
    "title": "长安二十四计",
-   "value": 3554.89
+   "value": 3554.92
   },
   {
    "rank": 14,
@@ -86,17 +86,17 @@
   {
    "rank": 15,
    "title": "月鳞绮纪",
-   "value": 3554.12
+   "value": 3554.16
   },
   {
    "rank": 16,
    "title": "一瓯春",
-   "value": 3545.12
+   "value": 3545.13
   },
   {
    "rank": 17,
    "title": "翘楚",
-   "value": 3541.94
+   "value": 3541.93
   },
   {
    "rank": 18,
@@ -118,7 +118,7 @@
   {
    "rank": 1,
    "title": "嫁金钗",
-   "value": 5206.72
+   "value": 5206.75
   },
   {
    "rank": 2,
@@ -153,7 +153,7 @@
   {
    "rank": 8,
    "title": "谷雨",
-   "value": 3554.09
+   "value": 3554.11
   },
   {
    "rank": 9,
@@ -4088,9 +4088,17 @@
    "weekValue": 3626.86,
    "yearRank": null,
    "yearValue": null
+  },
+  {
+   "date": "2026-11-25",
+   "hm": "03:00",
+   "weekRank": 3,
+   "weekValue": 3627.03,
+   "yearRank": null,
+   "yearValue": null
   }
  ],
- "fetchedAt": "2026-11-24T18:30:40.217Z",
- "lastRun": "2026-11-24T18:30:40.217Z",
+ "fetchedAt": "2026-11-24T19:00:27.477Z",
+ "lastRun": "2026-11-24T19:00:27.477Z",
  "count": 20
 }
