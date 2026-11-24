@@ -5,10 +5,10 @@
  "asof": "2026-11-25",
  "latest": {
   "date": "2026-11-25",
-  "hm": "01:30",
-  "iso": "2026-11-25 01:30 +08",
+  "hm": "02:00",
+  "iso": "2026-11-25 02:00 +08",
   "weekRank": 3,
-  "weekValue": 3626.42,
+  "weekValue": 3626.67,
   "yearRank": null,
   "yearValue": null
  },
@@ -16,17 +16,17 @@
   {
    "rank": 1,
    "title": "谷雨",
-   "value": 4007.33
+   "value": 4007.29
   },
   {
    "rank": 2,
    "title": "嫁金钗",
-   "value": 3692.93
+   "value": 3692.81
   },
   {
    "rank": 3,
    "title": "十万狂花入梦来",
-   "value": 3626.42
+   "value": 3626.67
   },
   {
    "rank": 4,
@@ -36,32 +36,32 @@
   {
    "rank": 5,
    "title": "早春晴朗",
-   "value": 3577.9
+   "value": 3577.94
   },
   {
    "rank": 6,
    "title": "九门",
-   "value": 3576.82
+   "value": 3576.79
   },
   {
    "rank": 7,
    "title": "鉴定",
-   "value": 3575.35
+   "value": 3575.37
   },
   {
    "rank": 8,
    "title": "无可替代",
-   "value": 3569.79
+   "value": 3569.81
   },
   {
    "rank": 9,
    "title": "冬城猎凶",
-   "value": 3569.63
+   "value": 3569.64
   },
   {
    "rank": 10,
    "title": "难哄",
-   "value": 3566.25
+   "value": 3566.28
   },
   {
    "rank": 11,
@@ -71,42 +71,42 @@
   {
    "rank": 12,
    "title": "当我飞奔向你",
-   "value": 3558.02
+   "value": 3558.04
   },
   {
    "rank": 13,
    "title": "长安二十四计",
-   "value": 3554.86
+   "value": 3554.89
   },
   {
    "rank": 14,
    "title": "不为人知的故事",
-   "value": 3554.46
+   "value": 3554.56
   },
   {
    "rank": 15,
    "title": "月鳞绮纪",
-   "value": 3554.04
+   "value": 3554.09
   },
   {
    "rank": 16,
    "title": "一瓯春",
-   "value": 3545.04
+   "value": 3545.1
   },
   {
    "rank": 17,
    "title": "翘楚",
-   "value": 3541.94
+   "value": 3541.93
   },
   {
    "rank": 18,
    "title": "乡村爱情16",
-   "value": 3541.52
+   "value": 3541.06
   },
   {
    "rank": 19,
    "title": "白夜破晓",
-   "value": 3535.15
+   "value": 3535.13
   },
   {
    "rank": 20,
@@ -118,7 +118,7 @@
   {
    "rank": 1,
    "title": "嫁金钗",
-   "value": 5206.68
+   "value": 5206.72
   },
   {
    "rank": 2,
@@ -128,7 +128,7 @@
   {
    "rank": 3,
    "title": "早春晴朗",
-   "value": 5151.66
+   "value": 5151.67
   },
   {
    "rank": 4,
@@ -153,7 +153,7 @@
   {
    "rank": 8,
    "title": "谷雨",
-   "value": 3554.03
+   "value": 3554.07
   },
   {
    "rank": 9,
@@ -173,7 +173,7 @@
   {
    "rank": 12,
    "title": "悬案",
-   "value": 3056.46
+   "value": 3056.47
   },
   {
    "rank": 13,
@@ -183,7 +183,7 @@
   {
    "rank": 14,
    "title": "无可替代",
-   "value": 3006.78
+   "value": 3006.79
   },
   {
    "rank": 15,
@@ -198,7 +198,7 @@
   {
    "rank": 17,
    "title": "正义女神",
-   "value": 2898.55
+   "value": 2898.56
   },
   {
    "rank": 18,
@@ -4072,9 +4072,17 @@
    "weekValue": 3626.42,
    "yearRank": null,
    "yearValue": null
+  },
+  {
+   "date": "2026-11-25",
+   "hm": "02:00",
+   "weekRank": 3,
+   "weekValue": 3626.67,
+   "yearRank": null,
+   "yearValue": null
   }
  ],
- "fetchedAt": "2026-11-24T17:30:27.158Z",
- "lastRun": "2026-11-24T17:30:27.158Z",
+ "fetchedAt": "2026-11-24T18:00:30.741Z",
+ "lastRun": "2026-11-24T18:00:30.741Z",
  "count": 20
 }
