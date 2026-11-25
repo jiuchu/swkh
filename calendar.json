@@ -142,7 +142,7 @@
    "svipTo": 21,
    "vipFrom": 20,
    "vipTo": 20,
-   "current": true,
+   "current": false,
    "iso": "2026-11-25"
   },
   {
@@ -154,7 +154,7 @@
    "svipTo": 22,
    "vipFrom": 21,
    "vipTo": 21,
-   "current": false,
+   "current": true,
    "iso": "2026-11-26"
   },
   {
@@ -182,5 +182,5 @@
    "iso": "2026-11-28"
   }
  ],
- "lastRun": "2026-11-25T11:30:25.298Z"
+ "lastRun": "2026-11-25T17:00:24.674Z"
 }
