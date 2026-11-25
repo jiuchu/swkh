@@ -5,10 +5,10 @@
  "asof": "2026-11-26",
  "latest": {
   "date": "2026-11-26",
-  "hm": "05:00",
-  "iso": "2026-11-26 05:00 +08",
+  "hm": "05:30",
+  "iso": "2026-11-26 05:30 +08",
   "weekRank": 3,
-  "weekValue": 3628,
+  "weekValue": 3627.93,
   "yearRank": null,
   "yearValue": null
  },
@@ -16,17 +16,17 @@
   {
    "rank": 1,
    "title": "谷雨",
-   "value": 4000.19
+   "value": 4000.15
   },
   {
    "rank": 2,
    "title": "嫁金钗",
-   "value": 3673.84
+   "value": 3673.77
   },
   {
    "rank": 3,
    "title": "十万狂花入梦来",
-   "value": 3628
+   "value": 3627.93
   },
   {
    "rank": 4,
@@ -41,12 +41,12 @@
   {
    "rank": 6,
    "title": "九门",
-   "value": 3577.03
+   "value": 3577
   },
   {
    "rank": 7,
    "title": "鉴定",
-   "value": 3571.89
+   "value": 3571.9
   },
   {
    "rank": 8,
@@ -61,12 +61,12 @@
   {
    "rank": 10,
    "title": "不为人知的故事",
-   "value": 3568.8
+   "value": 3568.81
   },
   {
    "rank": 11,
    "title": "难哄",
-   "value": 3566.55
+   "value": 3566.56
   },
   {
    "rank": 12,
@@ -76,22 +76,22 @@
   {
    "rank": 13,
    "title": "当我飞奔向你",
-   "value": 3556.83
+   "value": 3556.84
   },
   {
    "rank": 14,
    "title": "长安二十四计",
-   "value": 3555.72
+   "value": 3555.74
   },
   {
    "rank": 15,
    "title": "月鳞绮纪",
-   "value": 3552.76
+   "value": 3552.74
   },
   {
    "rank": 16,
    "title": "一瓯春",
-   "value": 3544.59
+   "value": 3544.65
   },
   {
    "rank": 17,
@@ -106,12 +106,12 @@
   {
    "rank": 19,
    "title": "白夜破晓",
-   "value": 3535.43
+   "value": 3535.45
   },
   {
    "rank": 20,
    "title": "乡村爱情17",
-   "value": 3535.32
+   "value": 3535.12
   }
  ],
  "topYear": [
@@ -148,12 +148,12 @@
   {
    "rank": 7,
    "title": "翘楚",
-   "value": 3664.5
+   "value": 3664.51
   },
   {
    "rank": 8,
    "title": "谷雨",
-   "value": 3585.81
+   "value": 3585.83
   },
   {
    "rank": 9,
@@ -4528,9 +4528,17 @@
    "weekValue": 3628,
    "yearRank": null,
    "yearValue": null
+  },
+  {
+   "date": "2026-11-26",
+   "hm": "05:30",
+   "weekRank": 3,
+   "weekValue": 3627.93,
+   "yearRank": null,
+   "yearValue": null
   }
  ],
- "fetchedAt": "2026-11-25T21:00:28.353Z",
- "lastRun": "2026-11-25T21:00:28.353Z",
+ "fetchedAt": "2026-11-25T21:30:26.379Z",
+ "lastRun": "2026-11-25T21:30:26.379Z",
  "count": 20
 }
