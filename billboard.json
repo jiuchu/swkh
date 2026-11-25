@@ -5,10 +5,10 @@
  "asof": "2026-11-26",
  "latest": {
   "date": "2026-11-26",
-  "hm": "05:30",
-  "iso": "2026-11-26 05:30 +08",
+  "hm": "06:00",
+  "iso": "2026-11-26 06:00 +08",
   "weekRank": 3,
-  "weekValue": 3627.93,
+  "weekValue": 3627.86,
   "yearRank": null,
   "yearValue": null
  },
@@ -16,17 +16,17 @@
   {
    "rank": 1,
    "title": "谷雨",
-   "value": 4000.15
+   "value": 4000.12
   },
   {
    "rank": 2,
    "title": "嫁金钗",
-   "value": 3673.77
+   "value": 3673.7
   },
   {
    "rank": 3,
    "title": "十万狂花入梦来",
-   "value": 3627.93
+   "value": 3627.86
   },
   {
    "rank": 4,
@@ -36,17 +36,17 @@
   {
    "rank": 5,
    "title": "早春晴朗",
-   "value": 3578.05
+   "value": 3578.06
   },
   {
    "rank": 6,
    "title": "九门",
-   "value": 3577
+   "value": 3576.99
   },
   {
    "rank": 7,
    "title": "鉴定",
-   "value": 3571.9
+   "value": 3571.91
   },
   {
    "rank": 8,
@@ -66,37 +66,37 @@
   {
    "rank": 11,
    "title": "难哄",
-   "value": 3566.56
+   "value": 3566.57
   },
   {
    "rank": 12,
    "title": "藏海传",
-   "value": 3558.22
+   "value": 3558.24
   },
   {
    "rank": 13,
    "title": "当我飞奔向你",
-   "value": 3556.84
+   "value": 3556.85
   },
   {
    "rank": 14,
    "title": "长安二十四计",
-   "value": 3555.74
+   "value": 3555.75
   },
   {
    "rank": 15,
    "title": "月鳞绮纪",
-   "value": 3552.74
+   "value": 3552.77
   },
   {
    "rank": 16,
    "title": "一瓯春",
-   "value": 3544.65
+   "value": 3544.64
   },
   {
    "rank": 17,
    "title": "翘楚",
-   "value": 3539.39
+   "value": 3539.36
   },
   {
    "rank": 18,
@@ -106,7 +106,7 @@
   {
    "rank": 19,
    "title": "白夜破晓",
-   "value": 3535.45
+   "value": 3535.51
   },
   {
    "rank": 20,
@@ -153,7 +153,7 @@
   {
    "rank": 8,
    "title": "谷雨",
-   "value": 3585.83
+   "value": 3585.85
   },
   {
    "rank": 9,
@@ -4536,9 +4536,17 @@
    "weekValue": 3627.93,
    "yearRank": null,
    "yearValue": null
+  },
+  {
+   "date": "2026-11-26",
+   "hm": "06:00",
+   "weekRank": 3,
+   "weekValue": 3627.86,
+   "yearRank": null,
+   "yearValue": null
   }
  ],
- "fetchedAt": "2026-11-25T21:30:26.379Z",
- "lastRun": "2026-11-25T21:30:26.379Z",
+ "fetchedAt": "2026-11-25T22:00:27.141Z",
+ "lastRun": "2026-11-25T22:00:27.141Z",
  "count": 20
 }
