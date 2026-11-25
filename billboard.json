@@ -5,10 +5,10 @@
  "asof": "2026-11-26",
  "latest": {
   "date": "2026-11-26",
-  "hm": "02:30",
-  "iso": "2026-11-26 02:30 +08",
+  "hm": "03:00",
+  "iso": "2026-11-26 03:00 +08",
   "weekRank": 3,
-  "weekValue": 3628.76,
+  "weekValue": 3628.53,
   "yearRank": null,
   "yearValue": null
  },
@@ -16,17 +16,17 @@
   {
    "rank": 1,
    "title": "谷雨",
-   "value": 4000.52
+   "value": 4000.43
   },
   {
    "rank": 2,
    "title": "嫁金钗",
-   "value": 3674.5
+   "value": 3674.32
   },
   {
    "rank": 3,
    "title": "十万狂花入梦来",
-   "value": 3628.76
+   "value": 3628.53
   },
   {
    "rank": 4,
@@ -36,12 +36,12 @@
   {
    "rank": 5,
    "title": "早春晴朗",
-   "value": 3577.95
+   "value": 3577.98
   },
   {
    "rank": 6,
    "title": "九门",
-   "value": 3577.1
+   "value": 3577.08
   },
   {
    "rank": 7,
@@ -61,42 +61,42 @@
   {
    "rank": 10,
    "title": "不为人知的故事",
-   "value": 3568.75
+   "value": 3568.77
   },
   {
    "rank": 11,
    "title": "难哄",
-   "value": 3566.5
+   "value": 3566.51
   },
   {
    "rank": 12,
    "title": "藏海传",
-   "value": 3558.13
+   "value": 3558.18
   },
   {
    "rank": 13,
    "title": "当我飞奔向你",
-   "value": 3556.72
+   "value": 3556.76
   },
   {
    "rank": 14,
    "title": "长安二十四计",
-   "value": 3555.75
+   "value": 3555.76
   },
   {
    "rank": 15,
    "title": "月鳞绮纪",
-   "value": 3552.55
+   "value": 3552.56
   },
   {
    "rank": 16,
    "title": "一瓯春",
-   "value": 3544.47
+   "value": 3544.53
   },
   {
    "rank": 17,
    "title": "翘楚",
-   "value": 3539.26
+   "value": 3539.27
   },
   {
    "rank": 18,
@@ -153,7 +153,7 @@
   {
    "rank": 8,
    "title": "谷雨",
-   "value": 3585.58
+   "value": 3585.65
   },
   {
    "rank": 9,
@@ -4488,9 +4488,17 @@
    "weekValue": 3628.76,
    "yearRank": null,
    "yearValue": null
+  },
+  {
+   "date": "2026-11-26",
+   "hm": "03:00",
+   "weekRank": 3,
+   "weekValue": 3628.53,
+   "yearRank": null,
+   "yearValue": null
   }
  ],
- "fetchedAt": "2026-11-25T18:30:28.606Z",
- "lastRun": "2026-11-25T18:30:28.606Z",
+ "fetchedAt": "2026-11-25T19:00:28.828Z",
+ "lastRun": "2026-11-25T19:00:28.828Z",
  "count": 20
 }
