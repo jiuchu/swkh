@@ -2,11 +2,11 @@
  "ok": true,
  "show": "十万狂花入梦来",
  "board": "7日畅销榜",
- "asof": "2026-11-25",
+ "asof": "2026-11-26",
  "latest": {
-  "date": "2026-11-25",
-  "hm": "23:59",
-  "iso": "2026-11-25 23:59 +08",
+  "date": "2026-11-26",
+  "hm": "00:00",
+  "iso": "2026-11-26 00:00 +08",
   "weekRank": 3,
   "weekValue": 3646.62,
   "yearRank": null,
@@ -4440,9 +4440,17 @@
    "weekValue": 3646.62,
    "yearRank": null,
    "yearValue": null
+  },
+  {
+   "date": "2026-11-26",
+   "hm": "00:00",
+   "weekRank": 3,
+   "weekValue": 3646.62,
+   "yearRank": null,
+   "yearValue": null
   }
  ],
  "fetchedAt": "2026-11-25T15:59:36.767Z",
- "lastRun": "2026-11-25T15:59:36.767Z",
+ "lastRun": "2026-11-25T16:00:29.271Z",
  "count": 20
 }
