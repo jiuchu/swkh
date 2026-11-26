@@ -1,4 +1,4 @@
-// 优酷 7日畅销榜采集 —— 匿名 h5 签名，不需要 cookie、不需要浏览器、不需要 secret。
+// 优酷畅销榜与官方电视剧热度榜采集 —— 匿名 h5 签名，不需要 cookie、浏览器或 secret。
 //
 // 产出 billboard.json：samples[] 是自己一天一天攒出来的（优酷只给当前值，没有历史接口），
 // 所以这个文件必须"读旧-追加-写新"，不能整份覆盖。
@@ -17,10 +17,11 @@ const APPKEY = '23570660';
 const UA = 'Mozilla/5.0 (Linux; Android 12; SM-S9080) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Mobile Safari/537.36';
 
 const SHOW = process.env.BILLBOARD_SHOW || '十万狂花入梦来';
+const SHOWID = process.env.BILLBOARD_SHOWID || 'adcf514e1f7b412a91e3';
 const OUT = process.env.BILLBOARD_OUT || 'billboard.json';
 const KEEP = Number(process.env.BILLBOARD_KEEP || 1000);
-const BOARDS = { week: 10423, year: 10422 };
-const TABNAME = { 10423: '7日畅销榜', 10422: '年度畅销榜' };
+const BOARDS = { week: 10423, year: 10422, heat: 6906 };
+const TABNAME = { 10423: '7日畅销榜', 10422: '年度畅销榜', 6906: '热度榜' };
 
 function buildData(bid) {
   const biz = JSON.stringify({ billboardId: bid, requestType: 'tabSwitch', tabName: TABNAME[bid], clarity: 4 });
@@ -87,6 +88,27 @@ function parseBoard(o, want) {
   return out;
 }
 
+function parseHeat(o) {
+  const rows = [], seen = new Set();
+  (function walk(x) {
+    if (Array.isArray(x)) return x.forEach(walk);
+    if (!x || typeof x !== 'object') return;
+    if (x.rankInvolved === true) {
+      const id = x.favor?.id || x.action?.value || '';
+      if (id && !seen.has(id)) {
+        const value = Number(x.popularity?.count);
+        if (x.title && Number.isFinite(value)) {
+          seen.add(id);
+          rows.push({ rank: rows.length + 1, title: x.title, showId: id, value });
+        }
+      }
+      return;
+    }
+    Object.values(x).forEach(walk);
+  })(o);
+  return rows;
+}
+
 function cnParts(d = new Date()) {
   const p = new Intl.DateTimeFormat('zh-CN', {
     timeZone: 'Asia/Shanghai', year: 'numeric', month: '2-digit', day: '2-digit',
@@ -105,7 +127,8 @@ try { prev = JSON.parse(fs.readFileSync(OUT, 'utf8')) || {}; } catch { /* 首次
 
 const week = parseBoard(await callBoard(BOARDS.week), '畅销度');
 const year = parseBoard(await callBoard(BOARDS.year), '畅销度');
-if (!week.length) {
+const heatRows = parseHeat(await callBoard(BOARDS.heat));
+if (!week.length || !heatRows.length) {
   console.error('榜单解析出 0 条 —— 上游结构变了或这轮没给数据，不写文件');
   process.exit(2);
 }
@@ -113,9 +136,12 @@ if (!week.length) {
 const now = new Date();
 const { date, hm, iso } = cnParts(now);
 const w = locate(week, SHOW), y = locate(year, SHOW);
+const heatIndex = heatRows.findIndex(r => r.showId === SHOWID);
+const heat = heatIndex < 0 ? { rank: null, value: null }
+  : { rank: heatIndex + 1, value: heatRows[heatIndex].value };
 
 if (process.env.BILLBOARD_PROBE) {
-  console.log(`PROBE OK · ${date} ${hm} 北京时间 · 7日榜 ${week.length} 条 · ${SHOW} 第${w.rank ?? '?'}名 ${w.value ?? '?'}万 · 年度榜第${y.rank ?? '?'}名`);
+  console.log(`PROBE OK · ${date} ${hm} 北京时间 · 7日榜 ${week.length} 条 · ${SHOW} 第${w.rank ?? '?'}名 ${w.value ?? '?'}万 · 年度榜第${y.rank ?? '?'}名 · 官方电视剧热度榜第${heat.rank ?? '?'}名`);
   process.exit(0);
 }
 
@@ -139,6 +165,10 @@ const body = {
   // 年度榜整份也落下来。过去只写我们自己那一格（yearRank/yearValue），
   // 画横条就需要别人的长度。
   topYear: year.slice(0, 20).map((r, i) => ({ rank: i + 1, title: r.title, value: r.value })),
+  youkuHeat: {
+    board: '电视剧热度榜', showId: SHOWID, rank: heat.rank, value: heat.value,
+    rows: heatRows.slice(0, 20), lastRun: now.toISOString(),
+  },
   samples,
   fetchedAt: moved || !prev.fetchedAt ? now.toISOString() : prev.fetchedAt,
   lastRun: now.toISOString(),
@@ -150,4 +180,4 @@ if (before && before.weekValue != null && w.value != null && w.value < before.we
 }
 
 fs.writeFileSync(OUT, JSON.stringify(body, null, 1));
-console.log(`${date} ${hm} 北京时间 · ${SHOW} 7日榜第${w.rank ?? '?'}名 ${w.value ?? '?'}万 · 年度榜第${y.rank ?? '?'}名 · 累计 ${samples.length} 个采样点`);
+console.log(`${date} ${hm} 北京时间 · ${SHOW} 7日榜第${w.rank ?? '?'}名 ${w.value ?? '?'}万 · 年度榜第${y.rank ?? '?'}名 · 官方电视剧热度榜第${heat.rank ?? '?'}名 ${heat.value ?? '?'} · 累计 ${samples.length} 个采样点`);

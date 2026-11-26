@@ -398,10 +398,10 @@ footer a:active{transform:translateY(0)}
     </div>
 
     <div class="panel">
-      <div class="p-head"><div class="p-title"><i></i>优酷剧集热度榜</div>
-        <div class="p-note" id="rankNote">灯塔 · 优酷热度排名</div></div>
+      <div class="p-head"><div class="p-title"><i></i>优酷电视剧热度榜</div>
+        <div class="p-note" id="rankNote">优酷官方 · 每半小时采样</div></div>
       <div class="chart-box"><canvas id="rankChart"></canvas>
-        <div class="empty" id="rankEmpty">等待榜单数据…</div></div>
+        <div class="empty" id="rankEmpty">等待官方榜单数据…</div></div>
     </div>
 
     <div class="panel wide">
@@ -459,7 +459,7 @@ footer a:active{transform:translateY(0)}
   <div class="grid2">
     <div class="panel">
       <div class="p-head"><div class="p-title"><i></i>里程碑与排名</div>
-        <div class="p-note" id="honorNote">自动判定 + 灯塔榜单</div></div>
+        <div class="p-note" id="honorNote">自动判定 + 优酷官方榜单</div></div>
       <div class="honor" id="honor"><div class="p-note">加载中…</div></div>
     </div>
     <div class="panel">
@@ -519,6 +519,7 @@ footer a:active{transform:translateY(0)}
 const CONFIG = {
   title: '十万狂花入梦来',
   mediaId: 1533748,                 // 灯塔专业版 mediaId
+  showId: 'adcf514e1f7b412a91e3',    // 优酷官方追剧日历与电视剧热度榜共用
   typeCode: '2',                    // ⚠ 灯塔把本剧归在「网剧」档（mediaTypeId 2），传 '1' 那一期榜里没有它
   doubanId: '36977822',   // 豆瓣条目号（11-15 他给的链接）。这个条目此刻 rating.count=0，卡片会写「暂无评分」，那不是链路坏了
   premiereDate: '2026-11-15',       // 首播日，七麦那张「首播前基准」按这条切
@@ -627,6 +628,7 @@ function findKey(node, key, depth = 0) {
    ============================================================ */
 const S = {
   meta: null, hotDaily: [], ssrHot: null, rankRows: [], rankRow: null,
+  ykHeat: null, ykHeatAt: '',
   jfx: {}, heat: {}, douban: null, ykRule: '',
   play: null, ssrPlay: null, vvRows: [], dengtaLive: false, liveAt: 0, liveErr: ''
 };
@@ -959,9 +961,9 @@ function loadDouban() {
 }
 
 /* ============================================================
-   优酷更新与解锁 —— 官方规则原文 + 各档会员能看到第几集
-   这一路只有两个真源：灯塔的 playRule 原文（更新节奏）和热度上游 access 里那三个数
-   （免费/VIP 各解锁到第几集，它自己去优酷页面上数的）。取不到就写取不到，不猜。
+   优酷更新与解锁 —— 官方更新规则 + 官方追剧日历 + 各档会员能看到第几集
+   排期优先读优酷追剧日历；日历未到时才按灯塔的 playRule 原文推算。
+   解锁进度来自热度上游 access 里那三个数（免费/VIP 各解锁到第几集）。
    ============================================================ */
 function renderUnlock() {
   const box = document.getElementById('kyBody'), rows = document.getElementById('kyRows');
@@ -986,11 +988,15 @@ function renderUnlock() {
     out.push(row('下一档', s.slice(5, 10).replace('-', '.') + ' ' + s.slice(11, 16) +
       ' 更至第 ' + yk.next.cum + ' 集'));
   }
-  const cal = ykCalendar(ykPlayAt() ? ykPlayAt().hh : NaN, ykPlayAt() ? ykPlayAt().mm : 0);
+  const cal = yk.cal;
   if (cal.length) {
     const z = cal[cal.length - 1];
     const day = new Date(z.at + 8 * 3600e3).toISOString().slice(0, 10).replace(/-/g, '.');
-    out.push(row(z.cum >= yk.total ? '按规则收官' : '官方规则排至', day + ' · 累计 ' + z.cum + ' 集'));
+    const label = CAL.has ? '官方日历排至' : '官方规则排至';
+    const detail = CAL.has && z.vip != null
+      ? ' · SVIP 第 ' + z.cum + ' 集、VIP 第 ' + z.vip + ' 集'
+      : ' · 累计 ' + z.cum + ' 集';
+    out.push(row(label, day + detail));
   }
   if (acc.lifecycle && acc.lifecycle.label) out.push(row('平台生命周期', esc(acc.lifecycle.label) +
     (acc.lifecycle.since ? ' · 自 ' + new Date(Date.parse(acc.lifecycle.since) + 8 * 3600e3)
@@ -1011,7 +1017,7 @@ function renderUnlock() {
    追剧日历 —— 优酷自己那张「追剧日历」表里的排期，落到 calendar.json。
    取不到（首拍前 / 上游改了结构）就退回按官方更新规则推算的那份，并在页面上写明是推算。
    ============================================================ */
-const CAL = { has: false, rows: [], total: 0, at: '', note: '', subtitle: '', completed: false };
+const CAL = { has: false, rows: [], total: 0, episodeLast: null, releaseTime: '', packageType: [], at: '', note: '', subtitle: '', completed: false };
 
 async function loadCalendar() {
   try {
@@ -1021,6 +1027,8 @@ async function loadCalendar() {
     if (!Array.isArray(j.rows) || !j.rows.length) throw new Error('empty');
     Object.assign(CAL, {
       has: true, rows: j.rows, total: j.episodeTotal || 0,
+      episodeLast: j.episodeLast ?? null, releaseTime: j.releaseTime || '',
+      packageType: Array.isArray(j.packageType) ? j.packageType : [],
       subtitle: j.subtitle || '', note: j.note || '', completed: !!j.completed,
       at: j.lastRun ? new Date(Date.parse(j.lastRun) + 8 * 3600e3).toISOString().slice(5, 16).replace('T', ' ').replace('-', '.') : '',
     });
@@ -1031,11 +1039,26 @@ async function loadCalendar() {
     CAL.has = false;
   }
   renderCalendar();
+  renderMarch();
+  renderUnlock();
 }
 
 /* 北京时间那一天的 ISO 日期，官方每一格都自带 iso，推算那格要现算 */
 const calToday = () => new Date(Date.now() + 8 * 3600e3).toISOString().slice(0, 10);
 const CAL_DOW = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+
+function officialCal() {
+  if (!CAL.has) return [];
+  const release = CAL.releaseTime.match(/(\d{1,2}):(\d{2})/);
+  const play = ykPlayAt();
+  const hh = release ? +release[1] : (play ? play.hh : 12);
+  const mm = release ? +release[2] : (play ? play.mm : 0);
+  return CAL.rows.filter(r => /^\d{4}-\d{2}-\d{2}$/.test(r.iso || '') && Number.isFinite(r.svipTo))
+    .map(r => ({
+      at: Date.parse(r.iso + 'T' + pad2(hh) + ':' + pad2(mm) + ':00+08:00'),
+      cum: r.svipTo, vip: r.vipTo, iso: r.iso,
+    }));
+}
 
 function renderCalendar() {
   const strip = document.getElementById('calStrip'), tbl = document.getElementById('calTable'),
@@ -1075,11 +1098,14 @@ function renderCalendar() {
   /* ---- 集数条 ---- */
   const today = calToday();
   /* 官方每一格只写「这天放第几集到第几集」，「现在看到第几集」要自己落到今天那一格上。
-     过零点之后上游那个 current 标记可能还停在昨天，所以先按日期找，找不到才认标记。 */
-  const cur = CAL.rows.filter(r => r.iso <= today).pop() ||
-              CAL.rows.filter(r => r.current).pop() || null;
+     更新时点按官方 releaseTime 的 12:00 算；过零点之后上游的 current 标记也可能还停在昨天。 */
+  const now = Date.now();
+  const events = officialCal();
+  const currentEvent = events.filter(x => x.at <= now).pop();
+  const cur = currentEvent ? CAL.rows.find(r => r.iso === currentEvent.iso) || null : null;
   const svipTo = cur ? cur.svipTo : null, vipTo = cur ? cur.vipTo : null;
-  const next = CAL.rows.find(r => r.iso > today);
+  const nextEvent = events.find(x => x.at > now);
+  const next = nextEvent ? CAL.rows.find(r => r.iso === nextEvent.iso) || null : null;
   const boxes = [];
   for (let i = 1; i <= (CAL.total || svipTo || 30); i++) {
     let cls = '', lab = '待更';
@@ -1093,7 +1119,7 @@ function renderCalendar() {
   /* ---- 排期表 ---- */
   tbl.innerHTML = '<table class="cal-tbl"><thead><tr><th>日期</th><th>星期</th><th>SVIP</th><th>VIP</th></tr></thead><tbody>' +
     CAL.rows.map(r => {
-      const isNow = r === cur;
+      const isNow = r.iso === today;
       return '<tr' + (isNow ? ' class="now"' : '') + '>' +
         '<td>' + esc(r.day) + (isNow ? '<span class="cal-tag">今天</span>' : '') + '</td>' +
         '<td class="dow">' + esc(r.week) + '</td>' +
@@ -1101,22 +1127,13 @@ function renderCalendar() {
         '<td class="vip">' + esc(r.vip) + '</td></tr>';
     }).join('') + '</tbody></table>';
 
-  /* ---- 对账：拿推算的 SVIP 累计比官方今天那一格的 SVIP 到第几集 ---- */
-  const p = ykPlayAt(), f = ykFirstAt();
-  const proj = ykCalendar(p ? p.hh : NaN, p ? p.mm : 0, f ? f.hh : NaN, f ? f.mm : 0);
-  const mine = proj.find(x => new Date(x.at + 8 * 3600e3).toISOString().slice(0, 10) === today);
-  let warn = '';
-  if (mine && cur && Number.isFinite(svipTo) && mine.cum !== svipTo) {
-    warn = '<div class="cal-warn">规则推出来的和平台上不一样：按更新规则今天该到第 ' + mine.cum +
-      ' 集，优酷日历上写的是第 ' + svipTo + ' 集。这一格以平台日历为准。</div>';
-  }
   const tail = [];
   tail.push('全 ' + CAL.total + ' 集 · 现在 SVIP 看到第 ' + (svipTo ?? '-') +
     ' 集、VIP 看到第 ' + (vipTo ?? '-') + ' 集' +
     (freeMax != null ? '、免费看到第 ' + freeMax + ' 集' : ''));
   tail.push('排期读取 · ' + (CAL.at || '--'));
   if (CAL.note) tail.push(esc(CAL.note));
-  foot.innerHTML = tail.join('<br>') + warn;
+  foot.innerHTML = tail.join('<br>');
   if (note) note.textContent = '优酷排期 · ' + CAL.rows[0].day + '—' + CAL.rows[CAL.rows.length - 1].day +
     ' 共 ' + CAL.rows.length + ' 天';
 }
@@ -1407,27 +1424,34 @@ function ykState(now) {
   const m = S.meta || {};
   const upd = String(m.updateEpisode || '');
   const a = upd.match(/更新至\s*(\d+)\s*\/\s*(\d+)\s*集/) || upd.match(/更新至\s*(\d+)\s*集/);
-  const ended = ykEnded();
   const p = ykPlayAt(), f = ykFirstAt();
-  const cal = ykCalendar(p ? p.hh : NaN, p ? p.mm : 0, f ? f.hh : NaN, f ? f.mm : 0);
+  const cal = CAL.has ? officialCal() : ykCalendar(p ? p.hh : NaN, p ? p.mm : 0, f ? f.hh : NaN, f ? f.mm : 0);
   const done = cal.filter(x => x.at <= now);
-  let total = m.episodeCnt || 30;
-  if (a && a[2]) total = +a[2];
+  let total = CAL.total || m.episodeCnt || 30;
+  if (!CAL.has && a && a[2]) total = +a[2];
+  const ended = ykEnded() || (CAL.has && CAL.completed && (CAL.episodeLast || 0) >= total);
   let n = a ? +a[1] : (ended ? total : null);
-  if (n == null && done.length) n = done[done.length - 1].cum;
-  return { n, total, ended, at: p ? p.text : null,
-           /* 收官之后日历里那些「以后还更」的格子不再作数，倒计时不许再往它们身上指。 */
+  if (!a && CAL.has && done.length) n = done[done.length - 1].cum;
+  return { n, total, ended, cal, official: CAL.has,
+           at: p ? p.text : (CAL.has && CAL.releaseTime ? CAL.releaseTime.slice(11, 16) : null),
            next: ended ? null : (cal.find(x => x.at > now) || null),
            last: done.length ? done[done.length - 1] : null };
 }
 
-/* 下一档那一行只认 playRule 推出来的日历。日历排完而集数没到 total，说的是「平台还没公布」，
-   不是「完结」—— 本剧的规则原文只写到 11 月 21 日（累计 19 集），全剧 30 集，中间必然还有一段。 */
+/* 官方日历有下一档就报下一档；排期末尾还没到总集数，就明确报已排到哪里、之后未公布。 */
 function ykNextLine(yk, dayLabel) {
   if (yk.ended) return '全 ' + yk.total + ' 集已放出';
   if (yk.next) return `${dayLabel(yk.next.at)} ${bjHM(yk.next.at)} 更至第 ${yk.next.cum} 集`;
-  const cal = ykCalendar(ykPlayAt() ? ykPlayAt().hh : NaN, ykPlayAt() ? ykPlayAt().mm : 0);
-  if (cal.length) return `官方规则只排到 ${new Date(cal[cal.length - 1].at + 8 * 3600e3).toISOString().slice(5, 10).replace('-', '.')}（累计 ${cal[cal.length - 1].cum} 集），之后未公布`;
+  if (yk.official && yk.cal.length) {
+    const z = yk.cal[yk.cal.length - 1];
+    const day = new Date(z.at + 8 * 3600e3).toISOString().slice(5, 10).replace('-', '.');
+    if (z.cum >= yk.total) return `官方日历已排至 ${day}（全 ${yk.total} 集）`;
+    return `官方日历已排至 ${day}（SVIP 第 ${z.cum} 集、VIP 第 ${z.vip} 集），之后未公布`;
+  }
+  if (yk.cal.length) {
+    const z = yk.cal[yk.cal.length - 1];
+    return `官方规则只排到 ${new Date(z.at + 8 * 3600e3).toISOString().slice(5, 10).replace('-', '.')}（累计 ${z.cum} 集），之后未公布`;
+  }
   return '更新日历读取中…';
 }
 
@@ -1474,8 +1498,9 @@ function renderHonor() {
   const items = [];
   const allPeak = Math.max(0, ...S.hotDaily.map(x => x.max || 0), S.jfx.max || 0, dayPeak(0) || 0);
   const badge = document.getElementById('rankBadge');
-  if (badge) badge.textContent = S.rankRow
-    ? '优酷热度榜 TOP' + (S.rankRow.mediaRank + 1)
+  const heat = S.ykHeat && Number.isInteger(S.ykHeat.rank) ? S.ykHeat : null;
+  if (badge) badge.textContent = heat
+    ? '优酷电视剧热度榜 TOP' + heat.rank
     : '优酷 · 独播';
   if (allPeak) {
     const marks = [[12000, '优酷热度破 1.2 万'], [10000, '优酷热度破 1 万'], [8000, '优酷热度破 8000'],
@@ -1489,19 +1514,23 @@ function renderHonor() {
                  d: S.jfx.tenKAt ? '已于 ' + S.jfx.tenKAt + ' 达成'
                                  : '当前 ' + fmt(S.jfx.cur) + ' · 还差 ' + fmt(S.jfx.threshold - S.jfx.cur) });
   }
+  if (heat) {
+    const sampled = bjStamp(heat.lastRun || S.ykHeatAt);
+    items.push({ g: '📊', t: '优酷电视剧热度榜第 ' + heat.rank + ' 名',
+                 d: '热度 ' + fmt(heat.value) + (sampled ? ' · 采样于 ' + sampled : '') });
+  }
   if (S.rankRow) {
     const no = S.rankRow.mediaRank + 1;
-    items.push({ g: '📊', t: '优酷剧集热度榜第 ' + no + ' 名',
-                 d: '实时热度 ' + fmt(S.rankRow.cnt) + ' · ' + (S.rankRow.openDayStr || '') });
+    items.push({ g: '📈', t: '灯塔专业版 · 优酷网剧热度第 ' + no + ' 名',
+                 d: '热度 ' + fmt(S.rankRow.cnt) + (S.rankAt ? ' · 更新于 ' + S.rankAt.slice(11, 16) : '') });
   }
   if (S.douban?.dbRank) items.push({ g: '🌟', t: '豆瓣' + (S.douban.rankTitle || '热门电视') + '实时榜第 ' + S.douban.dbRank + ' 名',
                  d: '热度值 ' + fmt(S.douban.hotScore) });
 
-  const r = S.rankRow;
-  const rankHtml = r ? `<div class="rank-card">
-      <div class="rc-name">优酷热度排名<span>· ${esc((S.meta || {}).mediaTypeName || '剧集')}</span></div>
-      <div class="rc-no">TOP<b>${r.mediaRank + 1}</b></div>
-      <div class="rc-tip">灯塔专业版 · ${esc(S.rankAt || '当日榜单')}</div>
+  const rankHtml = heat ? `<div class="rank-card">
+      <div class="rc-name">优酷电视剧热度榜</div>
+      <div class="rc-no">TOP<b>${heat.rank}</b></div>
+      <div class="rc-tip">优酷官方 · ${esc(bjStamp(heat.lastRun || S.ykHeatAt) ? '采样于 ' + bjStamp(heat.lastRun || S.ykHeatAt) : '等待采样')}</div>
     </div>` : '';
 
   const list = items.length ? items.map(i =>
@@ -1557,19 +1586,22 @@ function renderHotChart() {
 
 function renderRankChart() {
   const cv = document.getElementById('rankChart');
-  const rows = S.rankRows.slice(0, 10);
+  const rows = ((S.ykHeat || {}).rows || []).slice(0, 10);
   document.getElementById('rankEmpty').style.display = rows.length ? 'none' : 'grid';
-  if (!rows.length) return;
-  const labels = rows.map(x => x.mediaName);
-  const data = rows.map(x => +x.cnt);
-  const mine = rows.map(x => String(x.mediaId) === String(CONFIG.mediaId));
+  if (!rows.length) {
+    if (rankChart) { rankChart.destroy(); rankChart = null; }
+    return;
+  }
+  const labels = rows.map(x => x.title);
+  const data = rows.map(x => +x.value);
+  const mine = rows.map(x => x.showId === CONFIG.showId);
   const bg = rows.map((x, i) => mine[i] ? C_GOLD : (i === 0 ? 'rgba(46,168,255,.85)' : 'rgba(46,168,255,.34)'));
-  const ds = [{ label: '实时热度', data, backgroundColor: bg, borderRadius: 5, barThickness: 15 }];
+  const ds = [{ label: '热度', data, backgroundColor: bg, borderRadius: 5, barThickness: 15 }];
   const o = {
     indexAxis: 'y', responsive: true, maintainAspectRatio: false,
     plugins: { legend: { display: false },
       tooltip: { backgroundColor: 'rgba(8,10,18,.92)', callbacks: {
-        label: c => '热度 ' + fmt(c.raw) + ' · ' + (rows[c.dataIndex].openDayStr || '') } } },
+        label: c => '热度 ' + fmt(c.raw) } } },
     scales: {
       x: { ticks: { color: C_DIM, font: { size: 10 } }, grid: { color: 'rgba(255,255,255,.06)' } },
       y: { ticks: { color: rows.map((x, i) => mine[i] ? C_GOLD : '#c7cede'), font: { size: 11 } },
@@ -1578,8 +1610,9 @@ function renderRankChart() {
   };
   if (rankChart) { rankChart.data.labels = labels; rankChart.data.datasets = ds; rankChart.options = o; rankChart.update('none'); }
   else rankChart = new Chart(cv, { type: 'bar', data: { labels, datasets: ds }, options: o });
-  document.getElementById('rankNote').innerHTML = '灯塔 · 优酷热度排名' +
-    (S.rankAt ? ' · 更新于 ' + esc(S.rankAt.slice(11, 16)) : '');
+  const sampled = bjStamp((S.ykHeat || {}).lastRun || S.ykHeatAt);
+  document.getElementById('rankNote').textContent = '优酷官方 · 每半小时采样' +
+    (sampled ? ' · 最近 ' + sampled : '');
 }
 
 const toMin = s => { const [a, b] = String(s).split(':'); return (+a) * 60 + (+b); };
@@ -1808,13 +1841,15 @@ async function loadBillboard() {
     if (!j.latest || j.latest.weekValue == null) throw new Error('empty');
     BB.latest = j.latest; BB.top = j.top || []; BB.samples = j.samples || [];
     BB.topYear = j.topYear || []; BB.show = j.show || '';
+    S.ykHeat = j.youkuHeat && Array.isArray(j.youkuHeat.rows) ? j.youkuHeat : null;
+    S.ykHeatAt = S.ykHeat?.lastRun || '';
     BB.at = j.lastRun || j.fetchedAt || ''; BB.note = '';
   } catch (e) {
     BB.note = '暂无数据';
   }
   /* 两张 KPI 卡吃的是同一份 BB，所以这里也要重画 KPI —— 否则首屏 KPI 先出 '--'，
      json 回来了卡片不动，得等下一次 renderKPI 才亮。 */
-  renderBillboard(); renderYearBar(); renderKPI();
+  renderBillboard(); renderYearBar(); renderKPI(); renderHonor(); renderRankChart();
 }
 function bbStamp() {
   const s = bjStamp(BB.at);
@@ -2111,8 +2146,8 @@ function tickCountdown() {
           m = Math.floor(ms % 36e5 / 6e4), s = Math.floor(ms % 6e4 / 1000);
     return `${d ? d + '天' : ''}${pad2(h)}:${pad2(m)}:${pad2(s)}`;
   };
-  /* 日历是照 playRule 原文推的（首更4集 / 11月16日至11月21日每天更新2集 / SVIP提前多看1集），
-     所以倒数到的是 12:00 那一批（2 集），文案写「距优酷更新」不写「距下一集」。 */
+  /* 日历是照优酷官方追剧日历排的；没有官方日历时才按 playRule 推算。
+     所以倒数到的是当天 12:00 那一档，文案写「距优酷更新」不写「距下一集」。 */
   const el = document.getElementById('marchText');
   /* 「更新排期待公布」说的是日历算到头了、剧却还没放完；灯塔已经改口「已完结」的时候不能再印这句 ——
      那一档没有排期可等。 */
