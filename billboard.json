@@ -5,10 +5,10 @@
  "asof": "2026-11-26",
  "latest": {
   "date": "2026-11-26",
-  "hm": "07:30",
-  "iso": "2026-11-26 07:30 +08",
+  "hm": "08:00",
+  "iso": "2026-11-26 08:00 +08",
   "weekRank": 4,
-  "weekValue": 3627.45,
+  "weekValue": 3627.24,
   "yearRank": null,
   "yearValue": null
  },
@@ -16,12 +16,12 @@
   {
    "rank": 1,
    "title": "谷雨",
-   "value": 3999.62
+   "value": 3998.98
   },
   {
    "rank": 2,
    "title": "嫁金钗",
-   "value": 3673.32
+   "value": 3673.14
   },
   {
    "rank": 3,
@@ -31,17 +31,17 @@
   {
    "rank": 4,
    "title": "十万狂花入梦来",
-   "value": 3627.45
+   "value": 3627.24
   },
   {
    "rank": 5,
    "title": "早春晴朗",
-   "value": 3578.16
+   "value": 3578.24
   },
   {
    "rank": 6,
    "title": "九门",
-   "value": 3576.9
+   "value": 3576.88
   },
   {
    "rank": 7,
@@ -51,7 +51,7 @@
   {
    "rank": 8,
    "title": "无可替代",
-   "value": 3569.42
+   "value": 3569.43
   },
   {
    "rank": 9,
@@ -61,7 +61,7 @@
   {
    "rank": 10,
    "title": "不为人知的故事",
-   "value": 3568.87
+   "value": 3568.92
   },
   {
    "rank": 11,
@@ -71,47 +71,47 @@
   {
    "rank": 12,
    "title": "藏海传",
-   "value": 3558.25
+   "value": 3558.27
   },
   {
    "rank": 13,
    "title": "当我飞奔向你",
-   "value": 3556.91
+   "value": 3556.92
   },
   {
    "rank": 14,
    "title": "长安二十四计",
-   "value": 3555.79
+   "value": 3555.8
   },
   {
    "rank": 15,
    "title": "月鳞绮纪",
-   "value": 3552.91
+   "value": 3553.02
   },
   {
    "rank": 16,
    "title": "一瓯春",
-   "value": 3544.66
+   "value": 3544.68
   },
   {
    "rank": 17,
    "title": "翘楚",
-   "value": 3539.4
+   "value": 3539.54
   },
   {
    "rank": 18,
+   "title": "白夜破晓",
+   "value": 3539.27
+  },
+  {
+   "rank": 19,
    "title": "我可能遇到了救星",
    "value": 3535.7
   },
   {
-   "rank": 19,
-   "title": "白夜破晓",
-   "value": 3535.52
-  },
-  {
    "rank": 20,
    "title": "乡村爱情17",
-   "value": 3535.12
+   "value": 3534.65
   }
  ],
  "topYear": [
@@ -143,7 +143,7 @@
   {
    "rank": 6,
    "title": "月鳞绮纪",
-   "value": 4116.83
+   "value": 4116.84
   },
   {
    "rank": 7,
@@ -153,7 +153,7 @@
   {
    "rank": 8,
    "title": "谷雨",
-   "value": 3585.97
+   "value": 3586.05
   },
   {
    "rank": 9,
@@ -173,7 +173,7 @@
   {
    "rank": 12,
    "title": "悬案",
-   "value": 3056.99
+   "value": 3057
   },
   {
    "rank": 13,
@@ -4568,9 +4568,17 @@
    "weekValue": 3627.45,
    "yearRank": null,
    "yearValue": null
+  },
+  {
+   "date": "2026-11-26",
+   "hm": "08:00",
+   "weekRank": 4,
+   "weekValue": 3627.24,
+   "yearRank": null,
+   "yearValue": null
   }
  ],
- "fetchedAt": "2026-11-25T23:30:26.441Z",
- "lastRun": "2026-11-25T23:30:26.441Z",
+ "fetchedAt": "2026-11-26T00:00:24.961Z",
+ "lastRun": "2026-11-26T00:00:24.961Z",
  "count": 20
 }
