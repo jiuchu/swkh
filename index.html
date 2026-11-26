@@ -985,8 +985,8 @@ function renderUnlock() {
   }
   if (yk.next) {
     const s = new Date(yk.next.at + 8 * 3600e3).toISOString();
-    out.push(row('下一档', s.slice(5, 10).replace('-', '.') + ' ' + s.slice(11, 16) +
-      ' 更至第 ' + yk.next.cum + ' 集'));
+    out.push(row('SVIP 下一档', s.slice(5, 10).replace('-', '.') + ' ' + s.slice(11, 16) +
+      ' 更新1集 · 至第 ' + yk.next.cum + ' 集'));
   }
   const cal = yk.cal;
   if (cal.length) {
@@ -1470,8 +1470,12 @@ function marchView(now) {
   else if (yk.next) txt = `${dayLabel(yk.next.at)} ${bjHM(yk.next.at)} 上线 · 0/${total} 集`;
   else txt = '更新进度读取中…';
   const sub = [];
-  if (yk.at) sub.push('优酷每日 <b>' + esc(yk.at) + '</b> 更新');
-  sub.push(esc(ykNextLine(yk, dayLabel)));
+  const rule = String(S.ykRule || '').replace(/^更新至\s*\d+\s*\/\s*\d+\s*集\s*[，,]?\s*/, '');
+  if (!yk.ended && rule) sub.push(esc(rule));
+  else {
+    if (yk.at) sub.push('优酷每日 <b>' + esc(yk.at) + '</b> 更新');
+    sub.push(esc(ykNextLine(yk, dayLabel)));
+  }
   return { n, total, txt, sub: sub.join(' ｜ ') };
 }
 
