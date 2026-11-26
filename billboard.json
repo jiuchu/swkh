@@ -5,8 +5,8 @@
  "asof": "2026-11-26",
  "latest": {
   "date": "2026-11-26",
-  "hm": "16:50",
-  "iso": "2026-11-26 16:50 +08",
+  "hm": "17:00",
+  "iso": "2026-11-26 17:00 +08",
   "weekRank": 3,
   "weekValue": 3633.67,
   "yearRank": null,
@@ -226,7 +226,7 @@
     "rank": 1,
     "title": "谷雨",
     "showId": "aedc393daa324207acea",
-    "value": 7456
+    "value": 7454
    },
    {
     "rank": 2,
@@ -238,7 +238,7 @@
     "rank": 3,
     "title": "无声的回响",
     "showId": "cecdae482cad4e049926",
-    "value": 5969
+    "value": 5966
    },
    {
     "rank": 4,
@@ -250,7 +250,7 @@
     "rank": 5,
     "title": "不为人知的故事",
     "showId": "aaffbeaeb4aa4a5795a0",
-    "value": 5076
+    "value": 5096
    },
    {
     "rank": 6,
@@ -262,13 +262,13 @@
     "rank": 7,
     "title": "知否知否应是绿肥红瘦 TV版",
     "showId": "66efbfbd65efbfbd3919",
-    "value": 3464
+    "value": 3465
    },
    {
     "rank": 8,
     "title": "冬城猎凶",
     "showId": "fbce5730cdd944c08536",
-    "value": 3239
+    "value": 3240
    },
    {
     "rank": 9,
@@ -278,14 +278,14 @@
    },
    {
     "rank": 10,
-    "title": "鉴定",
-    "showId": "eefad1277a25471ca6f2",
-    "value": 2939
+    "title": "无可替代",
+    "showId": "cecc549f56364534bebf",
+    "value": 2937
    },
    {
     "rank": 11,
-    "title": "无可替代",
-    "showId": "cecc549f56364534bebf",
+    "title": "鉴定",
+    "showId": "eefad1277a25471ca6f2",
     "value": 2937
    },
    {
@@ -308,15 +308,15 @@
    },
    {
     "rank": 15,
-    "title": "西游记",
-    "showId": "cbffe9d2962411de83b1",
-    "value": 2547
+    "title": "大明王朝1566",
+    "showId": "cbff9f40962411de83b1",
+    "value": 2548
    },
    {
     "rank": 16,
-    "title": "大明王朝1566",
-    "showId": "cbff9f40962411de83b1",
-    "value": 2542
+    "title": "西游记",
+    "showId": "cbffe9d2962411de83b1",
+    "value": 2547
    },
    {
     "rank": 17,
@@ -343,7 +343,7 @@
     "value": 2351
    }
   ],
-  "lastRun": "2026-11-26T08:50:41.534Z"
+  "lastRun": "2026-11-26T09:00:34.546Z"
  },
  "samples": [
   {
@@ -4857,9 +4857,17 @@
    "weekValue": 3633.67,
    "yearRank": null,
    "yearValue": null
+  },
+  {
+   "date": "2026-11-26",
+   "hm": "17:00",
+   "weekRank": 3,
+   "weekValue": 3633.67,
+   "yearRank": null,
+   "yearValue": null
   }
  ],
  "fetchedAt": "2026-11-26T08:50:41.534Z",
- "lastRun": "2026-11-26T08:50:41.534Z",
+ "lastRun": "2026-11-26T09:00:34.546Z",
  "count": 20
 }
