@@ -5,8 +5,8 @@
  "asof": "2026-11-27",
  "latest": {
   "date": "2026-11-27",
-  "hm": "02:57",
-  "iso": "2026-11-27 02:57 +08",
+  "hm": "03:00",
+  "iso": "2026-11-27 03:00 +08",
   "weekRank": 3,
   "weekValue": 3628.85,
   "yearRank": null,
@@ -226,7 +226,7 @@
     "rank": 1,
     "title": "谷雨",
     "showId": "aedc393daa324207acea",
-    "value": 7303
+    "value": 7302
    },
    {
     "rank": 2,
@@ -316,7 +316,7 @@
     "rank": 16,
     "title": "西游记",
     "showId": "cbffe9d2962411de83b1",
-    "value": 2525
+    "value": 2524
    },
    {
     "rank": 17,
@@ -343,7 +343,7 @@
     "value": 2302
    }
   ],
-  "lastRun": "2026-11-26T18:57:58.498Z"
+  "lastRun": "2026-11-26T19:00:34.556Z"
  },
  "samples": [
   {
@@ -5025,9 +5025,17 @@
    "weekValue": 3628.85,
    "yearRank": null,
    "yearValue": null
+  },
+  {
+   "date": "2026-11-27",
+   "hm": "03:00",
+   "weekRank": 3,
+   "weekValue": 3628.85,
+   "yearRank": null,
+   "yearValue": null
   }
  ],
  "fetchedAt": "2026-11-26T18:57:58.498Z",
- "lastRun": "2026-11-26T18:57:58.498Z",
+ "lastRun": "2026-11-26T19:00:34.556Z",
  "count": 20
 }
