@@ -5,10 +5,10 @@
  "asof": "2026-11-28",
  "latest": {
   "date": "2026-11-28",
-  "hm": "02:30",
-  "iso": "2026-11-28 02:30 +08",
+  "hm": "03:00",
+  "iso": "2026-11-28 03:00 +08",
   "weekRank": 3,
-  "weekValue": 3627.42,
+  "weekValue": 3627.33,
   "yearRank": null,
   "yearValue": null
  },
@@ -16,22 +16,22 @@
   {
    "rank": 1,
    "title": "谷雨",
-   "value": 3895.72
+   "value": 3895.82
   },
   {
    "rank": 2,
    "title": "嫁金钗",
-   "value": 3660.66
+   "value": 3660.58
   },
   {
    "rank": 3,
    "title": "十万狂花入梦来",
-   "value": 3627.42
+   "value": 3627.33
   },
   {
    "rank": 4,
    "title": "无声的回响",
-   "value": 3611.59
+   "value": 3611.54
   },
   {
    "rank": 5,
@@ -41,12 +41,12 @@
   {
    "rank": 6,
    "title": "九门",
-   "value": 3579.99
+   "value": 3579.97
   },
   {
    "rank": 7,
    "title": "早春晴朗",
-   "value": 3578.34
+   "value": 3578.3
   },
   {
    "rank": 8,
@@ -56,7 +56,7 @@
   {
    "rank": 9,
    "title": "鉴定",
-   "value": 3568.8
+   "value": 3568.81
   },
   {
    "rank": 10,
@@ -66,7 +66,7 @@
   {
    "rank": 11,
    "title": "难哄",
-   "value": 3567.08
+   "value": 3567.11
   },
   {
    "rank": 12,
@@ -76,17 +76,17 @@
   {
    "rank": 13,
    "title": "藏海传",
-   "value": 3554.26
+   "value": 3554.32
   },
   {
    "rank": 14,
    "title": "月鳞绮纪",
-   "value": 3549.9
+   "value": 3549.96
   },
   {
    "rank": 15,
    "title": "当我飞奔向你",
-   "value": 3549.62
+   "value": 3549.65
   },
   {
    "rank": 16,
@@ -96,29 +96,29 @@
   {
    "rank": 17,
    "title": "一瓯春",
-   "value": 3540.88
+   "value": 3540.9
   },
   {
    "rank": 18,
-   "title": "异人之下之决战！碧游村",
-   "value": 3540.86
+   "title": "脱轨",
+   "value": 3538.29
   },
   {
    "rank": 19,
-   "title": "脱轨",
-   "value": 3539.81
+   "title": "异人之下之决战！碧游村",
+   "value": 3535.74
   },
   {
    "rank": 20,
    "title": "翘楚",
-   "value": 3535.39
+   "value": 3535.35
   }
  ],
  "topYear": [
   {
    "rank": 1,
    "title": "嫁金钗",
-   "value": 5213.79
+   "value": 5213.8
   },
   {
    "rank": 2,
@@ -153,7 +153,7 @@
   {
    "rank": 8,
    "title": "谷雨",
-   "value": 3621.26
+   "value": 3621.3
   },
   {
    "rank": 9,
@@ -173,7 +173,7 @@
   {
    "rank": 12,
    "title": "悬案",
-   "value": 3057.99
+   "value": 3058
   },
   {
    "rank": 13,
@@ -203,7 +203,7 @@
   {
    "rank": 18,
    "title": "入青云",
-   "value": 2813.24
+   "value": 2813.23
   },
   {
    "rank": 19,
@@ -232,7 +232,7 @@
     "rank": 2,
     "title": "不为人知的故事",
     "showId": "aaffbeaeb4aa4a5795a0",
-    "value": 6669
+    "value": 6671
    },
    {
     "rank": 3,
@@ -244,7 +244,7 @@
     "rank": 4,
     "title": "无声的回响",
     "showId": "cecdae482cad4e049926",
-    "value": 5730
+    "value": 5729
    },
    {
     "rank": 5,
@@ -262,13 +262,13 @@
     "rank": 7,
     "title": "知否知否应是绿肥红瘦 TV版",
     "showId": "66efbfbd65efbfbd3919",
-    "value": 3366
+    "value": 3369
    },
    {
     "rank": 8,
     "title": "冬城猎凶",
     "showId": "fbce5730cdd944c08536",
-    "value": 3241
+    "value": 3245
    },
    {
     "rank": 9,
@@ -292,7 +292,7 @@
     "rank": 12,
     "title": "大明风华 TV版",
     "showId": "3d167d3aefbfbd1f11ef",
-    "value": 2789
+    "value": 2796
    },
    {
     "rank": 13,
@@ -304,13 +304,13 @@
     "rank": 14,
     "title": "鉴定",
     "showId": "eefad1277a25471ca6f2",
-    "value": 2651
+    "value": 2649
    },
    {
     "rank": 15,
     "title": "难哄",
     "showId": "aefa5bc564b44f50ae4d",
-    "value": 2635
+    "value": 2634
    },
    {
     "rank": 16,
@@ -328,7 +328,7 @@
     "rank": 18,
     "title": "入青云",
     "showId": "eebf9d35cee944709b30",
-    "value": 2381
+    "value": 2382
    },
    {
     "rank": 19,
@@ -343,7 +343,7 @@
     "value": 2308
    }
   ],
-  "lastRun": "2026-11-27T18:30:27.002Z"
+  "lastRun": "2026-11-27T19:00:28.036Z"
  },
  "samples": [
   {
@@ -5425,9 +5425,17 @@
    "weekValue": 3627.42,
    "yearRank": null,
    "yearValue": null
+  },
+  {
+   "date": "2026-11-28",
+   "hm": "03:00",
+   "weekRank": 3,
+   "weekValue": 3627.33,
+   "yearRank": null,
+   "yearValue": null
   }
  ],
- "fetchedAt": "2026-11-27T18:30:27.002Z",
- "lastRun": "2026-11-27T18:30:27.002Z",
+ "fetchedAt": "2026-11-27T19:00:28.036Z",
+ "lastRun": "2026-11-27T19:00:28.036Z",
  "count": 20
 }
