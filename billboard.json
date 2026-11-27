@@ -5,10 +5,10 @@
  "asof": "2026-11-28",
  "latest": {
   "date": "2026-11-28",
-  "hm": "05:30",
-  "iso": "2026-11-28 05:30 +08",
+  "hm": "06:00",
+  "iso": "2026-11-28 06:00 +08",
   "weekRank": 3,
-  "weekValue": 3627.05,
+  "weekValue": 3626.99,
   "yearRank": null,
   "yearValue": null
  },
@@ -16,22 +16,22 @@
   {
    "rank": 1,
    "title": "谷雨",
-   "value": 3897.36
+   "value": 3897.77
   },
   {
    "rank": 2,
    "title": "嫁金钗",
-   "value": 3660.16
+   "value": 3660.11
   },
   {
    "rank": 3,
    "title": "十万狂花入梦来",
-   "value": 3627.05
+   "value": 3626.99
   },
   {
    "rank": 4,
    "title": "无声的回响",
-   "value": 3611.46
+   "value": 3611.45
   },
   {
    "rank": 5,
@@ -46,7 +46,7 @@
   {
    "rank": 7,
    "title": "早春晴朗",
-   "value": 3578.2
+   "value": 3578.18
   },
   {
    "rank": 8,
@@ -71,7 +71,7 @@
   {
    "rank": 12,
    "title": "长安二十四计",
-   "value": 3555.94
+   "value": 3555.97
   },
   {
    "rank": 13,
@@ -81,12 +81,12 @@
   {
    "rank": 14,
    "title": "月鳞绮纪",
-   "value": 3550.18
+   "value": 3550.19
   },
   {
    "rank": 15,
    "title": "当我飞奔向你",
-   "value": 3549.85
+   "value": 3549.89
   },
   {
    "rank": 16,
@@ -95,13 +95,13 @@
   },
   {
    "rank": 17,
-   "title": "乡村爱情17",
-   "value": 3541.34
+   "title": "一瓯春",
+   "value": 3541.02
   },
   {
    "rank": 18,
-   "title": "一瓯春",
-   "value": 3540.96
+   "title": "乡村爱情17",
+   "value": 3539.08
   },
   {
    "rank": 19,
@@ -111,14 +111,14 @@
   {
    "rank": 20,
    "title": "二龙湖·“村”暖花开3",
-   "value": 3535.59
+   "value": 3535.57
   }
  ],
  "topYear": [
   {
    "rank": 1,
    "title": "嫁金钗",
-   "value": 5213.84
+   "value": 5213.85
   },
   {
    "rank": 2,
@@ -138,7 +138,7 @@
   {
    "rank": 5,
    "title": "长安二十四计",
-   "value": 4143.55
+   "value": 4143.56
   },
   {
    "rank": 6,
@@ -153,7 +153,7 @@
   {
    "rank": 8,
    "title": "谷雨",
-   "value": 3621.42
+   "value": 3621.44
   },
   {
    "rank": 9,
@@ -220,7 +220,7 @@
   "board": "电视剧热度榜",
   "showId": "adcf514e1f7b412a91e3",
   "rank": 3,
-  "value": 6081,
+  "value": 6082,
   "rows": [
    {
     "rank": 1,
@@ -238,7 +238,7 @@
     "rank": 3,
     "title": "十万狂花入梦来",
     "showId": "adcf514e1f7b412a91e3",
-    "value": 6081
+    "value": 6082
    },
    {
     "rank": 4,
@@ -250,19 +250,19 @@
     "rank": 5,
     "title": "嫁金钗",
     "showId": "bcaa87c7834c46f99e7b",
-    "value": 5393
+    "value": 5392
    },
    {
     "rank": 6,
     "title": "早春晴朗",
     "showId": "ffefaad54c434973b4d6",
-    "value": 4221
+    "value": 4222
    },
    {
     "rank": 7,
     "title": "知否知否应是绿肥红瘦 TV版",
     "showId": "66efbfbd65efbfbd3919",
-    "value": 3371
+    "value": 3370
    },
    {
     "rank": 8,
@@ -286,13 +286,13 @@
     "rank": 11,
     "title": "以法之名",
     "showId": "cbff0b0703e54d659628",
-    "value": 2801
+    "value": 2800
    },
    {
     "rank": 12,
     "title": "大明风华 TV版",
     "showId": "3d167d3aefbfbd1f11ef",
-    "value": 2798
+    "value": 2799
    },
    {
     "rank": 13,
@@ -310,13 +310,13 @@
     "rank": 15,
     "title": "难哄",
     "showId": "aefa5bc564b44f50ae4d",
-    "value": 2626
+    "value": 2622
    },
    {
     "rank": 16,
     "title": "西游记",
     "showId": "cbffe9d2962411de83b1",
-    "value": 2539
+    "value": 2538
    },
    {
     "rank": 17,
@@ -343,7 +343,7 @@
     "value": 2314
    }
   ],
-  "lastRun": "2026-11-27T21:30:29.502Z"
+  "lastRun": "2026-11-27T22:00:34.566Z"
  },
  "samples": [
   {
@@ -5481,9 +5481,17 @@
    "weekValue": 3627.05,
    "yearRank": null,
    "yearValue": null
+  },
+  {
+   "date": "2026-11-28",
+   "hm": "06:00",
+   "weekRank": 3,
+   "weekValue": 3626.99,
+   "yearRank": null,
+   "yearValue": null
   }
  ],
- "fetchedAt": "2026-11-27T21:30:29.502Z",
- "lastRun": "2026-11-27T21:30:29.502Z",
+ "fetchedAt": "2026-11-27T22:00:34.566Z",
+ "lastRun": "2026-11-27T22:00:34.566Z",
  "count": 20
 }
