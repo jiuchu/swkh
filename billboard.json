@@ -5,10 +5,10 @@
  "asof": "2026-11-28",
  "latest": {
   "date": "2026-11-28",
-  "hm": "04:16",
-  "iso": "2026-11-28 04:16 +08",
+  "hm": "04:30",
+  "iso": "2026-11-28 04:30 +08",
   "weekRank": 3,
-  "weekValue": 3627.17,
+  "weekValue": 3627.15,
   "yearRank": null,
   "yearValue": null
  },
@@ -16,17 +16,17 @@
   {
    "rank": 1,
    "title": "谷雨",
-   "value": 3896.49
+   "value": 3896.65
   },
   {
    "rank": 2,
    "title": "嫁金钗",
-   "value": 3660.32
+   "value": 3660.29
   },
   {
    "rank": 3,
    "title": "十万狂花入梦来",
-   "value": 3627.17
+   "value": 3627.15
   },
   {
    "rank": 4,
@@ -41,12 +41,12 @@
   {
    "rank": 6,
    "title": "九门",
-   "value": 3579.94
+   "value": 3579.93
   },
   {
    "rank": 7,
    "title": "早春晴朗",
-   "value": 3578.25
+   "value": 3578.23
   },
   {
    "rank": 8,
@@ -61,7 +61,7 @@
   {
    "rank": 10,
    "title": "冬城猎凶",
-   "value": 3568.79
+   "value": 3568.78
   },
   {
    "rank": 11,
@@ -71,7 +71,7 @@
   {
    "rank": 12,
    "title": "长安二十四计",
-   "value": 3555.84
+   "value": 3555.87
   },
   {
    "rank": 13,
@@ -86,7 +86,7 @@
   {
    "rank": 15,
    "title": "当我飞奔向你",
-   "value": 3549.78
+   "value": 3549.79
   },
   {
    "rank": 16,
@@ -101,7 +101,7 @@
   {
    "rank": 18,
    "title": "一瓯春",
-   "value": 3540.98
+   "value": 3540.96
   },
   {
    "rank": 19,
@@ -153,7 +153,7 @@
   {
    "rank": 8,
    "title": "谷雨",
-   "value": 3621.37
+   "value": 3621.38
   },
   {
    "rank": 9,
@@ -232,7 +232,7 @@
     "rank": 2,
     "title": "不为人知的故事",
     "showId": "aaffbeaeb4aa4a5795a0",
-    "value": 6672
+    "value": 6673
    },
    {
     "rank": 3,
@@ -244,7 +244,7 @@
     "rank": 4,
     "title": "无声的回响",
     "showId": "cecdae482cad4e049926",
-    "value": 5728
+    "value": 5727
    },
    {
     "rank": 5,
@@ -268,7 +268,7 @@
     "rank": 8,
     "title": "冬城猎凶",
     "showId": "fbce5730cdd944c08536",
-    "value": 3249
+    "value": 3250
    },
    {
     "rank": 9,
@@ -322,7 +322,7 @@
     "rank": 17,
     "title": "大明王朝1566",
     "showId": "cbff9f40962411de83b1",
-    "value": 2482
+    "value": 2488
    },
    {
     "rank": 18,
@@ -343,7 +343,7 @@
     "value": 2314
    }
   ],
-  "lastRun": "2026-11-27T20:16:03.244Z"
+  "lastRun": "2026-11-27T20:30:26.510Z"
  },
  "samples": [
   {
@@ -5457,9 +5457,17 @@
    "weekValue": 3627.17,
    "yearRank": null,
    "yearValue": null
+  },
+  {
+   "date": "2026-11-28",
+   "hm": "04:30",
+   "weekRank": 3,
+   "weekValue": 3627.15,
+   "yearRank": null,
+   "yearValue": null
   }
  ],
- "fetchedAt": "2026-11-27T20:16:03.244Z",
- "lastRun": "2026-11-27T20:16:03.244Z",
+ "fetchedAt": "2026-11-27T20:30:26.510Z",
+ "lastRun": "2026-11-27T20:30:26.510Z",
  "count": 20
 }
