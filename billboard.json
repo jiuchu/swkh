@@ -5,8 +5,8 @@
  "asof": "2026-11-27",
  "latest": {
   "date": "2026-11-27",
-  "hm": "19:21",
-  "iso": "2026-11-27 19:21 +08",
+  "hm": "19:30",
+  "iso": "2026-11-27 19:30 +08",
   "weekRank": 3,
   "weekValue": 3637.84,
   "yearRank": null,
@@ -220,31 +220,31 @@
   "board": "电视剧热度榜",
   "showId": "adcf514e1f7b412a91e3",
   "rank": 3,
-  "value": 6097,
+  "value": 6095,
   "rows": [
    {
     "rank": 1,
     "title": "谷雨",
     "showId": "aedc393daa324207acea",
-    "value": 7150
+    "value": 7143
    },
    {
     "rank": 2,
     "title": "不为人知的故事",
     "showId": "aaffbeaeb4aa4a5795a0",
-    "value": 6559
+    "value": 6570
    },
    {
     "rank": 3,
     "title": "十万狂花入梦来",
     "showId": "adcf514e1f7b412a91e3",
-    "value": 6097
+    "value": 6095
    },
    {
     "rank": 4,
     "title": "无声的回响",
     "showId": "cecdae482cad4e049926",
-    "value": 5793
+    "value": 5788
    },
    {
     "rank": 5,
@@ -256,19 +256,19 @@
     "rank": 6,
     "title": "早春晴朗",
     "showId": "ffefaad54c434973b4d6",
-    "value": 4218
+    "value": 4219
    },
    {
     "rank": 7,
     "title": "知否知否应是绿肥红瘦 TV版",
     "showId": "66efbfbd65efbfbd3919",
-    "value": 3401
+    "value": 3400
    },
    {
     "rank": 8,
     "title": "冬城猎凶",
     "showId": "fbce5730cdd944c08536",
-    "value": 3251
+    "value": 3250
    },
    {
     "rank": 9,
@@ -280,7 +280,7 @@
     "rank": 10,
     "title": "无可替代",
     "showId": "cecc549f56364534bebf",
-    "value": 2844
+    "value": 2843
    },
    {
     "rank": 11,
@@ -292,19 +292,19 @@
     "rank": 12,
     "title": "大明风华 TV版",
     "showId": "3d167d3aefbfbd1f11ef",
-    "value": 2751
+    "value": 2753
    },
    {
     "rank": 13,
     "title": "鉴定",
     "showId": "eefad1277a25471ca6f2",
-    "value": 2719
+    "value": 2713
    },
    {
     "rank": 14,
     "title": "悬案",
     "showId": "acbefaed57994c07b881",
-    "value": 2687
+    "value": 2695
    },
    {
     "rank": 15,
@@ -334,16 +334,16 @@
     "rank": 19,
     "title": "翘楚",
     "showId": "ffefdd76a5b344e0a48b",
-    "value": 2336
+    "value": 2329
    },
    {
     "rank": 20,
     "title": "少帅",
     "showId": "2a6634cea23d11e5b692",
-    "value": 2320
+    "value": 2319
    }
   ],
-  "lastRun": "2026-11-27T11:21:41.780Z"
+  "lastRun": "2026-11-27T11:30:27.976Z"
  },
  "samples": [
   {
@@ -5305,9 +5305,17 @@
    "weekValue": 3637.84,
    "yearRank": null,
    "yearValue": null
+  },
+  {
+   "date": "2026-11-27",
+   "hm": "19:30",
+   "weekRank": 3,
+   "weekValue": 3637.84,
+   "yearRank": null,
+   "yearValue": null
   }
  ],
  "fetchedAt": "2026-11-27T11:21:41.780Z",
- "lastRun": "2026-11-27T11:21:41.780Z",
+ "lastRun": "2026-11-27T11:30:27.976Z",
  "count": 20
 }
