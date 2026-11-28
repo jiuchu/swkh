@@ -4,7 +4,7 @@
  "showId": "adcf514e1f7b412a91e3",
  "videoId": "XNjU5MDUwOTcyMA==",
  "subtitle": "不问仙人妖魔情深皆痴狂",
- "episodeLast": 22,
+ "episodeLast": 23,
  "episodeTotal": 30,
  "releaseTime": "2026-11-15 12:00:00",
  "packageType": [
@@ -180,7 +180,127 @@
    "vipTo": 23,
    "current": true,
    "iso": "2026-11-28"
+  },
+  {
+   "day": "11月29日",
+   "week": "周日",
+   "svip": "25集",
+   "vip": "24集",
+   "svipFrom": 25,
+   "svipTo": 25,
+   "vipFrom": 24,
+   "vipTo": 24,
+   "current": false,
+   "iso": "2026-11-29"
+  },
+  {
+   "day": "11月30日",
+   "week": "周一",
+   "svip": "26集",
+   "vip": "25集",
+   "svipFrom": 26,
+   "svipTo": 26,
+   "vipFrom": 25,
+   "vipTo": 25,
+   "current": false,
+   "iso": "2026-11-30"
+  },
+  {
+   "day": "收官礼",
+   "week": "周二",
+   "svip": "27集",
+   "vip": "26集",
+   "svipFrom": 27,
+   "svipTo": 27,
+   "vipFrom": 26,
+   "vipTo": 26,
+   "current": false,
+   "iso": ""
+  },
+  {
+   "day": "12月2日",
+   "week": "周三",
+   "svip": "-",
+   "vip": "-",
+   "svipFrom": null,
+   "svipTo": null,
+   "vipFrom": null,
+   "vipTo": null,
+   "current": false,
+   "iso": "2026-12-02"
+  },
+  {
+   "day": "12月3日",
+   "week": "周四",
+   "svip": "-",
+   "vip": "-",
+   "svipFrom": null,
+   "svipTo": null,
+   "vipFrom": null,
+   "vipTo": null,
+   "current": false,
+   "iso": "2026-12-03"
+  },
+  {
+   "day": "12月4日",
+   "week": "周五",
+   "svip": "-",
+   "vip": "-",
+   "svipFrom": null,
+   "svipTo": null,
+   "vipFrom": null,
+   "vipTo": null,
+   "current": false,
+   "iso": "2026-12-04"
+  },
+  {
+   "day": "12月5日",
+   "week": "周六",
+   "svip": "28集",
+   "vip": "27集",
+   "svipFrom": 28,
+   "svipTo": 28,
+   "vipFrom": 27,
+   "vipTo": 27,
+   "current": false,
+   "iso": "2026-12-05"
+  },
+  {
+   "day": "12月6日",
+   "week": "周日",
+   "svip": "29集",
+   "vip": "28集",
+   "svipFrom": 29,
+   "svipTo": 29,
+   "vipFrom": 28,
+   "vipTo": 28,
+   "current": false,
+   "iso": "2026-12-06"
+  },
+  {
+   "day": "12月7日",
+   "week": "周一",
+   "svip": "30集",
+   "vip": "29集",
+   "svipFrom": 30,
+   "svipTo": 30,
+   "vipFrom": 29,
+   "vipTo": 29,
+   "current": false,
+   "iso": "2026-12-07"
+  },
+  {
+   "day": "12月8日",
+   "week": "周二",
+   "svip": "-",
+   "vip": "30集",
+   "svipFrom": null,
+   "svipTo": null,
+   "vipFrom": 30,
+   "vipTo": 30,
+   "current": false,
+   "iso": "2026-12-08"
   }
  ],
- "lastRun": "2026-11-27T22:30:25.727Z"
+ "lastRun": "2026-11-28T04:00:25.601Z"
 }
