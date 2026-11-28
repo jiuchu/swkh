@@ -5,10 +5,10 @@
  "asof": "2026-11-28",
  "latest": {
   "date": "2026-11-28",
-  "hm": "10:30",
-  "iso": "2026-11-28 10:30 +08",
+  "hm": "10:55",
+  "iso": "2026-11-28 10:55 +08",
   "weekRank": 3,
-  "weekValue": 3624.18,
+  "weekValue": 3623.3,
   "yearRank": null,
   "yearValue": null
  },
@@ -16,109 +16,109 @@
   {
    "rank": 1,
    "title": "谷雨",
-   "value": 3913.05
+   "value": 3911.25
   },
   {
    "rank": 2,
    "title": "嫁金钗",
-   "value": 3655.11
+   "value": 3654.25
   },
   {
    "rank": 3,
    "title": "十万狂花入梦来",
-   "value": 3624.18
+   "value": 3623.3
   },
   {
    "rank": 4,
    "title": "无声的回响",
-   "value": 3612.5
+   "value": 3613.49
   },
   {
    "rank": 5,
    "title": "不为人知的故事",
-   "value": 3607.78
+   "value": 3608.72
   },
   {
    "rank": 6,
    "title": "九门",
-   "value": 3579.47
+   "value": 3579.36
   },
   {
    "rank": 7,
    "title": "早春晴朗",
-   "value": 3577.78
+   "value": 3577.81
   },
   {
    "rank": 8,
    "title": "无可替代",
-   "value": 3568.99
+   "value": 3569.01
   },
   {
    "rank": 9,
-   "title": "冬城猎凶",
-   "value": 3568.92
+   "title": "鉴定",
+   "value": 3568.96
   },
   {
    "rank": 10,
-   "title": "鉴定",
-   "value": 3568.91
+   "title": "冬城猎凶",
+   "value": 3568.96
   },
   {
    "rank": 11,
    "title": "难哄",
-   "value": 3567.44
+   "value": 3567.51
   },
   {
    "rank": 12,
    "title": "长安二十四计",
-   "value": 3556.59
+   "value": 3556.69
   },
   {
    "rank": 13,
    "title": "藏海传",
-   "value": 3554.79
+   "value": 3555.1
   },
   {
    "rank": 14,
    "title": "月鳞绮纪",
-   "value": 3550.91
+   "value": 3551.08
   },
   {
    "rank": 15,
    "title": "当我飞奔向你",
-   "value": 3550.61
+   "value": 3551.05
   },
   {
    "rank": 16,
    "title": "一瓯春",
-   "value": 3541.77
+   "value": 3542.12
   },
   {
    "rank": 17,
    "title": "翘楚",
-   "value": 3536.33
+   "value": 3536.39
   },
   {
    "rank": 18,
-   "title": "异人之下之决战！碧游村",
-   "value": 3536.04
+   "title": "星落凝成糖",
+   "value": 3534.22
   },
   {
    "rank": 19,
-   "title": "星落凝成糖",
-   "value": 3534.02
+   "title": "异人之下之决战！碧游村",
+   "value": 3533.64
   },
   {
    "rank": 20,
    "title": "悬案",
-   "value": 3532.98
+   "value": 3533.19
   }
  ],
  "topYear": [
   {
    "rank": 1,
    "title": "嫁金钗",
-   "value": 5214.09
+   "value": 5214.14
   },
   {
    "rank": 2,
@@ -138,12 +138,12 @@
   {
    "rank": 5,
    "title": "长安二十四计",
-   "value": 4143.6
+   "value": 4143.62
   },
   {
    "rank": 6,
    "title": "月鳞绮纪",
-   "value": 4118.5
+   "value": 4118.51
   },
   {
    "rank": 7,
@@ -153,7 +153,7 @@
   {
    "rank": 8,
    "title": "谷雨",
-   "value": 3622.28
+   "value": 3622.54
   },
   {
    "rank": 9,
@@ -163,7 +163,7 @@
   {
    "rank": 10,
    "title": "乡村爱情18",
-   "value": 3232.9
+   "value": 3232.91
   },
   {
    "rank": 11,
@@ -173,7 +173,7 @@
   {
    "rank": 12,
    "title": "悬案",
-   "value": 3058.03
+   "value": 3058.04
   },
   {
    "rank": 13,
@@ -183,12 +183,12 @@
   {
    "rank": 14,
    "title": "无可替代",
-   "value": 3008.94
+   "value": 3008.95
   },
   {
    "rank": 15,
    "title": "千香",
-   "value": 2967.86
+   "value": 2967.87
   },
   {
    "rank": 16,
@@ -203,7 +203,7 @@
   {
    "rank": 18,
    "title": "入青云",
-   "value": 2813.27
+   "value": 2813.28
   },
   {
    "rank": 19,
@@ -226,13 +226,13 @@
     "rank": 1,
     "title": "谷雨",
     "showId": "aedc393daa324207acea",
-    "value": 7008
+    "value": 7004
    },
    {
     "rank": 2,
     "title": "不为人知的故事",
     "showId": "aaffbeaeb4aa4a5795a0",
-    "value": 6696
+    "value": 6702
    },
    {
     "rank": 3,
@@ -244,13 +244,13 @@
     "rank": 4,
     "title": "无声的回响",
     "showId": "cecdae482cad4e049926",
-    "value": 5702
+    "value": 5700
    },
    {
     "rank": 5,
     "title": "嫁金钗",
     "showId": "bcaa87c7834c46f99e7b",
-    "value": 5386
+    "value": 5388
    },
    {
     "rank": 6,
@@ -268,13 +268,13 @@
     "rank": 8,
     "title": "冬城猎凶",
     "showId": "fbce5730cdd944c08536",
-    "value": 3246
+    "value": 3248
    },
    {
     "rank": 9,
     "title": "九门",
     "showId": "dafb6cc804ca4fedb40b",
-    "value": 2948
+    "value": 2950
    },
    {
     "rank": 10,
@@ -286,7 +286,7 @@
     "rank": 11,
     "title": "大明风华 TV版",
     "showId": "3d167d3aefbfbd1f11ef",
-    "value": 2808
+    "value": 2812
    },
    {
     "rank": 12,
@@ -304,31 +304,31 @@
     "rank": 14,
     "title": "鉴定",
     "showId": "eefad1277a25471ca6f2",
-    "value": 2623
+    "value": 2620
    },
    {
     "rank": 15,
     "title": "难哄",
     "showId": "aefa5bc564b44f50ae4d",
-    "value": 2596
+    "value": 2593
    },
    {
     "rank": 16,
     "title": "西游记",
     "showId": "cbffe9d2962411de83b1",
-    "value": 2540
+    "value": 2544
    },
    {
     "rank": 17,
     "title": "大明王朝1566",
     "showId": "cbff9f40962411de83b1",
-    "value": 2491
+    "value": 2492
    },
    {
     "rank": 18,
     "title": "入青云",
     "showId": "eebf9d35cee944709b30",
-    "value": 2382
+    "value": 2384
    },
    {
     "rank": 19,
@@ -340,10 +340,10 @@
     "rank": 20,
     "title": "翘楚",
     "showId": "ffefdd76a5b344e0a48b",
-    "value": 2311
+    "value": 2312
    }
   ],
-  "lastRun": "2026-11-28T02:30:33.622Z"
+  "lastRun": "2026-11-28T02:55:51.419Z"
  },
  "samples": [
   {
@@ -5561,9 +5561,17 @@
    "weekValue": 3624.18,
    "yearRank": null,
    "yearValue": null
+  },
+  {
+   "date": "2026-11-28",
+   "hm": "10:55",
+   "weekRank": 3,
+   "weekValue": 3623.3,
+   "yearRank": null,
+   "yearValue": null
   }
  ],
- "fetchedAt": "2026-11-28T02:30:33.622Z",
- "lastRun": "2026-11-28T02:30:33.622Z",
+ "fetchedAt": "2026-11-28T02:55:51.419Z",
+ "lastRun": "2026-11-28T02:55:51.419Z",
  "count": 20
 }
