@@ -5,10 +5,10 @@
  "asof": "2026-11-29",
  "latest": {
   "date": "2026-11-29",
-  "hm": "03:00",
-  "iso": "2026-11-29 03:00 +08",
+  "hm": "03:07",
+  "iso": "2026-11-29 03:07 +08",
   "weekRank": 4,
-  "weekValue": 3618.01,
+  "weekValue": 3617.98,
   "yearRank": null,
   "yearValue": null
  },
@@ -16,12 +16,12 @@
   {
    "rank": 1,
    "title": "谷雨",
-   "value": 3848.44
+   "value": 3849.09
   },
   {
    "rank": 2,
    "title": "嫁金钗",
-   "value": 3651.64
+   "value": 3651.76
   },
   {
    "rank": 3,
@@ -31,12 +31,12 @@
   {
    "rank": 4,
    "title": "十万狂花入梦来",
-   "value": 3618.01
+   "value": 3617.98
   },
   {
    "rank": 5,
    "title": "无声的回响",
-   "value": 3616
+   "value": 3616.09
   },
   {
    "rank": 6,
@@ -46,7 +46,7 @@
   {
    "rank": 7,
    "title": "早春晴朗",
-   "value": 3578.25
+   "value": 3578.23
   },
   {
    "rank": 8,
@@ -71,12 +71,12 @@
   {
    "rank": 12,
    "title": "长安二十四计",
-   "value": 3553.85
+   "value": 3553.86
   },
   {
    "rank": 13,
    "title": "藏海传",
-   "value": 3550.83
+   "value": 3550.84
   },
   {
    "rank": 14,
@@ -91,22 +91,22 @@
   {
    "rank": 16,
    "title": "一瓯春",
-   "value": 3540.09
+   "value": 3540.12
   },
   {
    "rank": 17,
-   "title": "大唐狄公案 DVD版",
-   "value": 3535.42
-  },
-  {
-   "rank": 18,
    "title": "传家",
    "value": 3534.68
   },
   {
+   "rank": 18,
+   "title": "大唐狄公案 DVD版",
+   "value": 3534.5
+  },
+  {
    "rank": 19,
    "title": "翘楚",
-   "value": 3533.81
+   "value": 3533.83
   },
   {
    "rank": 20,
@@ -153,7 +153,7 @@
   {
    "rank": 8,
    "title": "谷雨",
-   "value": 3648.54
+   "value": 3648.6
   },
   {
    "rank": 9,
@@ -232,7 +232,7 @@
     "rank": 2,
     "title": "谷雨",
     "showId": "aedc393daa324207acea",
-    "value": 6817
+    "value": 6815
    },
    {
     "rank": 3,
@@ -250,7 +250,7 @@
     "rank": 5,
     "title": "嫁金钗",
     "showId": "bcaa87c7834c46f99e7b",
-    "value": 5391
+    "value": 5392
    },
    {
     "rank": 6,
@@ -322,13 +322,13 @@
     "rank": 17,
     "title": "鉴定",
     "showId": "eefad1277a25471ca6f2",
-    "value": 2463
+    "value": 2462
    },
    {
     "rank": 18,
     "title": "入青云",
     "showId": "eebf9d35cee944709b30",
-    "value": 2430
+    "value": 2431
    },
    {
     "rank": 19,
@@ -343,7 +343,7 @@
     "value": 2328
    }
   ],
-  "lastRun": "2026-11-28T19:00:36.159Z"
+  "lastRun": "2026-11-28T19:07:13.276Z"
  },
  "samples": [
   {
@@ -5841,9 +5841,17 @@
    "weekValue": 3618.01,
    "yearRank": null,
    "yearValue": null
+  },
+  {
+   "date": "2026-11-29",
+   "hm": "03:07",
+   "weekRank": 4,
+   "weekValue": 3617.98,
+   "yearRank": null,
+   "yearValue": null
   }
  ],
- "fetchedAt": "2026-11-28T19:00:36.159Z",
- "lastRun": "2026-11-28T19:00:36.159Z",
+ "fetchedAt": "2026-11-28T19:07:13.276Z",
+ "lastRun": "2026-11-28T19:07:13.276Z",
  "count": 20
 }
