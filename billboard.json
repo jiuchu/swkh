@@ -5,8 +5,8 @@
  "asof": "2026-11-28",
  "latest": {
   "date": "2026-11-28",
-  "hm": "10:55",
-  "iso": "2026-11-28 10:55 +08",
+  "hm": "11:00",
+  "iso": "2026-11-28 11:00 +08",
   "weekRank": 3,
   "weekValue": 3623.3,
   "yearRank": null,
@@ -220,7 +220,7 @@
   "board": "电视剧热度榜",
   "showId": "adcf514e1f7b412a91e3",
   "rank": 3,
-  "value": 6080,
+  "value": 6081,
   "rows": [
    {
     "rank": 1,
@@ -238,7 +238,7 @@
     "rank": 3,
     "title": "十万狂花入梦来",
     "showId": "adcf514e1f7b412a91e3",
-    "value": 6080
+    "value": 6081
    },
    {
     "rank": 4,
@@ -298,7 +298,7 @@
     "rank": 13,
     "title": "悬案",
     "showId": "acbefaed57994c07b881",
-    "value": 2685
+    "value": 2703
    },
    {
     "rank": 14,
@@ -343,7 +343,7 @@
     "value": 2312
    }
   ],
-  "lastRun": "2026-11-28T02:55:51.419Z"
+  "lastRun": "2026-11-28T03:00:32.701Z"
  },
  "samples": [
   {
@@ -5569,9 +5569,17 @@
    "weekValue": 3623.3,
    "yearRank": null,
    "yearValue": null
+  },
+  {
+   "date": "2026-11-28",
+   "hm": "11:00",
+   "weekRank": 3,
+   "weekValue": 3623.3,
+   "yearRank": null,
+   "yearValue": null
   }
  ],
  "fetchedAt": "2026-11-28T02:55:51.419Z",
- "lastRun": "2026-11-28T02:55:51.419Z",
+ "lastRun": "2026-11-28T03:00:32.701Z",
  "count": 20
 }
